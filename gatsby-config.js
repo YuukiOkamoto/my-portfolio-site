@@ -1,14 +1,14 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Starter Blog`,
+    title: `筋肉ﾁｮｯﾄﾃﾞｷﾙ`,
     author: {
-      name: `Kyle Mathews`,
-      summary: `who lives and works in San Francisco building useful things.`,
+      name: `おかもと ゆうき`,
+      summary: `ボディビルやってる筋トレ大好きWebエンジニア`,
     },
-    description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://gatsby-starter-blog-demo.netlify.com/`,
+    description: `筋肉はちょっとできる、ボディービルダーなエンジニアブログ`,
+    siteUrl: `https://kinniku-choto-dekiru.netlify.com/`,
     social: {
-      twitter: `kylemathews`,
+      twitter: `it_fitness_jp`,
     },
   },
   plugins: [
