@@ -44,6 +44,7 @@ module.exports = {
               wrapperStyle: `margin-bottom: 1.0725rem`,
             },
           },
+          `gatsby-remark-embedder`,
           `gatsby-remark-prismjs`,
           `gatsby-remark-emoji`,
           `gatsby-remark-copy-linked-files`,
@@ -52,6 +53,9 @@ module.exports = {
       },
     },
     `gatsby-transformer-sharp`,
+    `gatsby-plugin-instagram-embed`,
+    `gatsby-plugin-pinterest`,
+    `gatsby-plugin-twitter`,
     `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-plugin-google-analytics`,

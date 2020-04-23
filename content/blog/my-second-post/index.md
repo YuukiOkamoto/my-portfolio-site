@@ -15,6 +15,31 @@ a
 
 🤬
 
+<https://codepen.io/team/codepen/pen/PNaGbb>
+
+<https://media.giphy.com/media/zj0BxstyhGufC/giphy.gif>
+
+<https://www.instagram.com/p/B-MpExbhS_U/>
+
+<https://lichess.org/MPJcy1JW>
+
+<https://www.pinterest.com/pin/601019512752273662/>
+
+<https://slides.com/kentcdodds/oss-we-want>
+
+<https://soundcloud.com/clemenswenners/africa>
+
+<https://open.spotify.com/track/5bIZNB6e83zaYYFHOe1YHz>
+
+<https://streamable.com/moo>
+
+<https://www.twitch.tv/summit1g>
+
+<https://twitter.com/it_fitness_jp/status/1242108003739811840>
+
+<https://www.youtube.com/watch?v=dZ2dcC4OnQE&t=640s>
+
+
 :smile:
 
 ```shell
