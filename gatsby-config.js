@@ -1,3 +1,5 @@
+const emoji = require(`remark-emoji`);
+
 module.exports = {
   siteMetadata: {
     title: `筋肉ﾁｮｯﾄﾃﾞｷﾙ`,
@@ -30,6 +32,7 @@ module.exports = {
       resolve: `gatsby-plugin-mdx`,
       options: {
         extensions: [`.mdx`, `.md`],
+        remarkPlugins: [emoji],
         gatsbyRemarkPlugins: [
           'gatsby-remark-code-titles',
           `gatsby-remark-autolink-headers`,
@@ -49,7 +52,6 @@ module.exports = {
           },
           `gatsby-remark-embedder`,
           `gatsby-remark-prismjs`,
-          `gatsby-remark-emoji`,
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
         ],
