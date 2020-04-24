@@ -60,7 +60,12 @@ module.exports = {
     `gatsby-plugin-pinterest`,
     `gatsby-plugin-twitter`,
     `gatsby-plugin-sharp`,
+    `gatsby-plugin-emotion`,
     {
+
+
+
+
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         //trackingId: `ADD YOUR TRACKING ID HERE`,
