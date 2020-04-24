@@ -12,6 +12,7 @@
     "@emotion/styled": "^10.0.27",
     "@mdx-js/mdx": "^1.5.9",
     "@mdx-js/react": "^1.5.9",
+    "@thaddeusjiang/typography-theme-tsubaki": "^0.0.2-rc-1",
     "gatsby": "^2.20.25",
     "gatsby-image": "^2.3.4",
     "gatsby-plugin-emotion": "^4.2.3",
@@ -44,8 +45,7 @@
     "react-typography": "^0.16.19",
     "typeface-merriweather": "0.0.72",
     "typeface-montserrat": "0.0.75",
-    "typography": "^0.16.19",
-    "typography-theme-wordpress-2016": "^0.16.19"
+    "typography": "^0.16.19"
   },
   "devDependencies": {
     "gatsby-remark-code-titles": "^1.1.0",

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'gatsby';
+import { css } from '@emotion/core';
 
 import useSiteMetadata from '../hooks/use-site-config';
 import { rhythm, scale } from '../utils/typography';
