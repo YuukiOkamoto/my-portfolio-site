@@ -6,17 +6,18 @@ import Layout from '../../components/layout';
 import SEO from '../../components/seo';
 import Tags from '../../components/tags';
 import { rhythm, scale } from '../../utils/typography';
+import { MDXRenderer } from 'gatsby-plugin-mdx';
 
 const BlogPostTemplate = ({ data, pageContext, location }) => {
-  const post = data.markdownRemark;
+  const mdx = data.mdx;
   const siteTitle = data.site.siteMetadata.title;
   const { previous, next } = pageContext;
 
   return (
     <Layout location={location} title={siteTitle}>
       <SEO
-        title={post.frontmatter.title}
-        description={post.frontmatter.description || post.excerpt}
+        title={mdx.frontmatter.title}
+        description={mdx.frontmatter.description || mdx.excerpt}
       />
       <article>
         <header>
@@ -26,7 +27,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
               marginBottom: 0,
             }}
           >
-            {post.frontmatter.title}
+            {mdx.frontmatter.title}
           </h1>
           <p
             style={{
@@ -35,11 +36,13 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
               marginBottom: rhythm(1),
             }}
           >
-            {post.frontmatter.date}
+            {mdx.frontmatter.date}
           </p>
-          <Tags post={post} />
+          <Tags post={mdx} />
         </header>
-        <section dangerouslySetInnerHTML={{ __html: post.html }} />
+        <MDXRenderer>
+          {mdx.body}
+        </MDXRenderer>
         <hr
           style={{
             marginBottom: rhythm(1),
@@ -89,10 +92,10 @@ export const pageQuery = graphql`
         title
       }
     }
-    markdownRemark(fields: { slug: { eq: $slug } }) {
+    mdx(fields: { slug: { eq: $slug } }) {
       id
       excerpt(pruneLength: 160)
-      html
+      body
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
