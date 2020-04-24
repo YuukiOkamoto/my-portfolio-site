@@ -4,4 +4,4 @@ import 'typeface-merriweather';
 
 import 'prismjs/themes/prism-tomorrow.css';
 
-import './src/style/prism.css'
+import './src/style/code-title.css'
