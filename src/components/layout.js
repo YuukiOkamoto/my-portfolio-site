@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link } from 'gatsby';
 
 import { rhythm, scale } from '../utils/typography';
 
-import Header from '../components/header';
+import Header from './header';
+import Footer from './footer';
 
 const Layout = ({ location, children }) => (
   <div
@@ -16,11 +16,7 @@ const Layout = ({ location, children }) => (
   >
     <Header location={location} />
     <main>{children}</main>
-    <footer>
-      © {new Date().getFullYear()}, Built with
-      {` `}
-      <a href='https://www.gatsbyjs.org'>Gatsby</a>
-    </footer>
+    <Footer />
   </div>
 );
 
