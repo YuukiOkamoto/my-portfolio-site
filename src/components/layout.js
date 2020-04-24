@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { rhythm, scale } from '../utils/typography';
+import { rhythm } from '../utils/typography';
 
 import Header from './header';
 import Footer from './footer';
