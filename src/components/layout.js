@@ -16,6 +16,9 @@ const Layout = ({ location, children }) => {
       <ResetCSS />
       <div
         css={css`
+          display: flex;
+          flex-direction: column;
+          min-height: 100vh;
           margin-left: auto;
           margin-right: auto;
           max-width: ${rhythm(32)};
@@ -23,7 +26,13 @@ const Layout = ({ location, children }) => {
         `}
       >
         <Header isHome={isHome} />
-        <main>{children}</main>
+        <main
+          css={css`
+            flex: 1;
+          `}
+        >
+          {children}
+        </main>
         <Footer />
       </div>
     </>
