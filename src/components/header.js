@@ -5,13 +5,12 @@ import { css } from '@emotion/core';
 import useSiteMetadata from '../hooks/use-site-config';
 import { rhythm, scale } from '../utils/typography';
 
-const Header = ({ location }) => {
-  const rootPath = `${__PATH_PREFIX__}/`;
+const Header = ({ isHome }) => {
   const { title } = useSiteMetadata();
 
   return (
     <header>
-      {location.pathname === rootPath ? (
+      {isHome ? (
         <h1
           css={css`
             font-size: ${scale(1.5).fontSize};
@@ -30,16 +29,16 @@ const Header = ({ location }) => {
           </Link>
         </h1>
       ) : (
-          <h3
-            css={css`
-              font-family: Montserrat, sans-serif;
-            `}
+        <h3
+          css={css`
+            font-family: Montserrat, sans-serif;
+          `}
         >
-            <Link
-              css={css`
-                box-shadow: none;
-                color: inherit;
-              `}
+          <Link
+            css={css`
+              box-shadow: none;
+              color: inherit;
+            `}
             to={`/`}
           >
             {title}
