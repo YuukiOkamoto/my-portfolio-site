@@ -65,9 +65,6 @@ module.exports = {
     `gatsby-plugin-emotion`,
     {
 
-
-
-
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         //trackingId: `ADD YOUR TRACKING ID HERE`,
