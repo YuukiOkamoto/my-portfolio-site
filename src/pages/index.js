@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, graphql } from 'gatsby';
+import { css } from '@emotion/core';
 
 import Bio from '../components/bio';
 import Layout from '../components/layout';
@@ -8,11 +9,10 @@ import Tags from '../components/tags';
 import { rhythm } from '../utils/typography';
 
 const BlogIndex = ({ data, location }) => {
-  const siteTitle = data.site.siteMetadata.title;
   const posts = data.allMdx.edges;
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <Layout location={location}>
       <SEO title='All posts' />
       <Bio />
       {posts.map(({ node: post }) => {
@@ -21,11 +21,16 @@ const BlogIndex = ({ data, location }) => {
           <article key={post.fields.slug}>
             <header>
               <h3
-                style={{
-                  marginBottom: rhythm(1 / 4),
-                }}
+                css={css`
+                  margin-bottom: ${rhythm(1 / 4)};
+                `}
               >
-                <Link style={{ boxShadow: `none` }} to={post.fields.slug}>
+                <Link
+                  css={css`
+                    box-shadow: none;
+                  `}
+                  to={post.fields.slug}
+                >
                   {title}
                 </Link>
               </h3>
@@ -50,11 +55,6 @@ export default BlogIndex;
 
 export const pageQuery = graphql`
   query {
-    site {
-      siteMetadata {
-        title
-      }
-    }
     allMdx(sort: { fields: [frontmatter___date], order: DESC }) {
       edges {
         node {

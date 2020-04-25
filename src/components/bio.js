@@ -8,6 +8,7 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import Image from "gatsby-image"
+import { css } from '@emotion/core';
 
 import { rhythm } from "../utils/typography"
 
@@ -38,20 +39,20 @@ const Bio = () => {
   const { author, social } = data.site.siteMetadata
   return (
     <div
-      style={{
-        display: `flex`,
-        marginBottom: rhythm(2.5),
-      }}
+      css={css`
+        display: flex;
+        margin-bottom: ${rhythm(2.5)};
+      `}
     >
       <Image
         fixed={data.avatar.childImageSharp.fixed}
         alt={author.name}
-        style={{
-          marginRight: rhythm(1 / 2),
-          marginBottom: 0,
-          minWidth: 50,
-          borderRadius: `100%`,
-        }}
+        css={css`
+          margin-right: ${rhythm(1 / 2)};
+          margin-bottom: 0;
+          min-width: 50px;
+          border-radius: 100%;
+        `}
         imgStyle={{
           borderRadius: `50%`,
         }}
@@ -64,7 +65,7 @@ const Bio = () => {
         </a>
       </p>
     </div>
-  )
+  );
 }
 
 export default Bio
