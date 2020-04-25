@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'gatsby';
+import { css } from '@emotion/core';
 
 import kebabCase from 'lodash/kebabCase';
 
-import { Link } from 'gatsby';
 
 export default ({ post }) => {
   const { tags } = post.frontmatter;
@@ -11,24 +12,24 @@ export default ({ post }) => {
 
   return (
     <ul
-      style={{
-        display: `flex`,
-        flexWrap: `wrap`,
-        listStyle: `none`,
-      }}
+      css={css`
+        display: flex;
+        flex-wrap: wrap;
+        list-style: none;
+      `}
     >
       {tags.map((tag, i) => (
         <li
           key={i}
-          style={{
-            padding: `5px`,
-          }}
+          css={css`
+            padding: 5px;
+          `}
         >
           <Link
             to={`tags/${kebabCase(tag)}`}
-            style={{
-              boxShadow: `none`,
-            }}
+            css={css`
+              box-shadow: none;
+            `}
           >
             {tag}
           </Link>

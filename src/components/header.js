@@ -13,34 +13,33 @@ const Header = ({ location }) => {
     <header>
       {location.pathname === rootPath ? (
         <h1
-          style={{
-            ...scale(1.5),
-            marginBottom: rhythm(1.5),
-            marginTop: 0,
-          }}
+          css={css`
+            font-size: ${scale(1.5).fontSize};
+            line-height: ${scale(1.5).lineHeight};
+            margin-bottom: ${rhythm(1.5)};
+          `}
         >
           <Link
-            style={{
-              boxShadow: `none`,
-              color: `inherit`,
-            }}
+            css={css`
+              box-shadow: none;
+              color: inherit;
+            `}
             to={`/`}
           >
             {title}
           </Link>
         </h1>
       ) : (
-        <h3
-          style={{
-            fontFamily: `Montserrat, sans-serif`,
-            marginTop: 0,
-          }}
+          <h3
+            css={css`
+              font-family: Montserrat, sans-serif;
+            `}
         >
-          <Link
-            style={{
-              boxShadow: `none`,
-              color: `inherit`,
-            }}
+            <Link
+              css={css`
+                box-shadow: none;
+                color: inherit;
+              `}
             to={`/`}
           >
             {title}

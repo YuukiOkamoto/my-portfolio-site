@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, graphql } from 'gatsby';
+import { css } from '@emotion/core';
 
 import Bio from '../components/bio';
 import Layout from '../components/layout';
@@ -20,11 +21,16 @@ const BlogIndex = ({ data, location }) => {
           <article key={post.fields.slug}>
             <header>
               <h3
-                style={{
-                  marginBottom: rhythm(1 / 4),
-                }}
+                css={css`
+                  margin-bottom: ${rhythm(1 / 4)};
+                `}
               >
-                <Link style={{ boxShadow: `none` }} to={post.fields.slug}>
+                <Link
+                  css={css`
+                    box-shadow: none;
+                  `}
+                  to={post.fields.slug}
+                >
                   {title}
                 </Link>
               </h3>
