@@ -27,7 +27,7 @@ const BlogIndex = ({ data, location }) => {
               >
                 <Link
                   css={css`
-                    box-shadow: none;
+                    text-decoration: none;
                   `}
                   to={post.fields.slug}
                 >

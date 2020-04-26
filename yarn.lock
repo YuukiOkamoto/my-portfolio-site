@@ -13967,6 +13967,13 @@ typography-normalize@^0.16.19:
   resolved "https://registry.yarnpkg.com/typography-normalize/-/typography-normalize-0.16.19.tgz#58e0cf12466870c5b27006daa051fe7307780660"
   integrity sha512-vtnSv/uGBZVbd4e/ZhZB9HKBgKKlWQUXw74+ADIHHxzKp27CEf8PSR8TX1zF2qSyQ9/qMdqLwXYz8yRQFq9JLQ==
 
+typography-theme-japanese-tofu@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/typography-theme-japanese-tofu/-/typography-theme-japanese-tofu-0.0.1.tgz#b61ddae960ae3096fdaf46fbbfce67c485431bec"
+  integrity sha512-voFGejqwAo3ijQQ06A0PkFhVMHAlHwoQLyAKe4TEwqQ264eM9Xbj0YjZQX/nNyOH/A+VTSxw4J0KeR2mF4RBdg==
+  dependencies:
+    gray-percentage "^2.0.0"
+
 typography@^0.16.19:
   version "0.16.19"
   resolved "https://registry.yarnpkg.com/typography/-/typography-0.16.19.tgz#092bf30a5a47495c955b54f40d3b55a7a9f28e8a"

@@ -37,6 +37,7 @@
     "gatsby-source-filesystem": "^2.2.4",
     "gatsby-transformer-remark": "^2.7.3",
     "gatsby-transformer-sharp": "^2.4.6",
+    "gray-percentage": "^2.0.0",
     "prismjs": "^1.19.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -45,7 +46,8 @@
     "remark-emoji": "^2.1.0",
     "typeface-merriweather": "0.0.72",
     "typeface-montserrat": "0.0.75",
-    "typography": "^0.16.19"
+    "typography": "^0.16.19",
+    "typography-theme-japanese-tofu": "^0.0.1"
   },
   "devDependencies": {
     "gatsby-remark-code-titles": "^1.1.0",

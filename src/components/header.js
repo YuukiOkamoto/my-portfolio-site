@@ -20,8 +20,7 @@ const Header = ({ isHome }) => {
         >
           <Link
             css={css`
-              box-shadow: none;
-              color: inherit;
+              text-decoration: none;
             `}
             to={`/`}
           >
@@ -29,15 +28,10 @@ const Header = ({ isHome }) => {
           </Link>
         </h1>
       ) : (
-        <h3
-          css={css`
-            font-family: Montserrat, sans-serif;
-          `}
-        >
+        <h3>
           <Link
             css={css`
-              box-shadow: none;
-              color: inherit;
+              text-decoration: none;
             `}
             to={`/`}
           >
