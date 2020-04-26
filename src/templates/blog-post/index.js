@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link, graphql } from 'gatsby';
+import { MDXRenderer } from 'gatsby-plugin-mdx';
+import { MDXProvider } from '@mdx-js/react';
 
 import Bio from '../../components/bio';
 import Layout from '../../components/layout';
 import SEO from '../../components/seo';
 import Tags from '../../components/tags';
+import { Wrapper } from './style';
 import { rhythm, scale } from '../../utils/typography';
-import { MDXRenderer } from 'gatsby-plugin-mdx';
 
 const BlogPostTemplate = ({ data, pageContext, location }) => {
   const mdx = data.mdx;
@@ -40,9 +42,9 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           </p>
           <Tags post={mdx} />
         </header>
-        <MDXRenderer>
-          {mdx.body}
-        </MDXRenderer>
+        <MDXProvider components={{wrapper: Wrapper}}>
+          <MDXRenderer>{mdx.body}</MDXRenderer>
+        </MDXProvider>
         <hr
           style={{
             marginBottom: rhythm(1),
