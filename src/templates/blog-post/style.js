@@ -19,4 +19,8 @@ export const Wrapper = styled.main`
   code {
     padding: 0;
   }
+  a.anchor {
+    position: absolute;
+    left: -0.8em;
+  }
 `;
