@@ -1,6 +1,6 @@
 import Typography from 'typography';
 import theme from 'typography-theme-japanese-tofu';
-import gray from 'gray-percentage';
+import gray from "gray-percentage"
 
 theme.overrideStyles = ({ scale, rhythm }, options, styles) => ({
   html: {
@@ -17,7 +17,8 @@ theme.overrideStyles = ({ scale, rhythm }, options, styles) => ({
     color: 'inherit',
   },
   'a:hover': {
-    color: '#666',
+    color: '#3498DB',
+    transition: '.3s',
   },
   li: {
     marginBottom: '0px',
