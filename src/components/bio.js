@@ -5,12 +5,14 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import React from "react"
-import { useStaticQuery, graphql } from "gatsby"
-import Image from "gatsby-image"
+import React from 'react';
+import { useStaticQuery, graphql } from 'gatsby';
+import Image from 'gatsby-image';
 import { css } from '@emotion/core';
 
-import { rhythm } from "../utils/typography"
+import { FaTwitter, FaGithub } from 'react-icons/fa';
+
+import { rhythm, scale } from '../utils/typography';
 
 const Bio = () => {
   const data = useStaticQuery(graphql`
@@ -28,15 +30,16 @@ const Bio = () => {
             name
             summary
           }
-          social {
+          snsAccounts {
             twitter
+            github
           }
         }
       }
     }
-  `)
+  `);
 
-  const { author, social } = data.site.siteMetadata
+  const { author, snsAccounts } = data.site.siteMetadata;
   return (
     <div
       css={css`
@@ -44,28 +47,94 @@ const Bio = () => {
         margin-bottom: ${rhythm(2.5)};
       `}
     >
-      <Image
-        fixed={data.avatar.childImageSharp.fixed}
-        alt={author.name}
+      <div
         css={css`
-          margin-right: ${rhythm(1 / 2)};
-          margin-bottom: 0;
-          min-width: 50px;
-          border-radius: 100%;
+          display: flex;
+          align-items: center;
         `}
-        imgStyle={{
-          borderRadius: `50%`,
-        }}
-      />
-      <p>
-        Written by <strong>{author.name}</strong> {author.summary}
-        {` `}
-        <a href={`https://twitter.com/${social.twitter}`}>
-          You should follow him on Twitter
-        </a>
-      </p>
+      >
+        <Image
+          fixed={data.avatar.childImageSharp.fixed}
+          alt={author.name}
+          css={css`
+            margin-right: ${rhythm(1 / 2)};
+            margin-bottom: 0;
+            min-height: 80px;
+            min-width: 80px;
+            border-radius: 100%;
+          `}
+          imgStyle={{
+            borderRadius: `50%`,
+          }}
+        />
+      </div>
+      <div
+        css={css`
+          flex: 1;
+          margin-left: 1rem;
+        `}
+      >
+        <div
+          css={css`
+            font-weight: bold;
+            margin-bottom: ${rhythm(0.5)};
+          `}
+        >
+          {author.name}
+        </div>
+        <div
+          css={css`
+            font-size: ${scale(-0.15).fontSize};
+            line-height: ${scale(-0.15).lineHeight};
+          `}
+        >
+          {author.summary}
+        </div>
+        <SnsAccountList snsAccounts={snsAccounts} />
+      </div>
     </div>
   );
-}
+};
 
-export default Bio
+const SnsAccountList = snsAccounts => {
+  const icon = css`
+    margin-right: 10px;
+    &:hover {
+      color: hsl(0, 0%, 50%);
+    }
+  `;
+
+  return (
+    <ul
+      css={css`
+        display: flex;
+        flex-wrap: wrap;
+        list-style: none;
+        margin: 0;
+      `}
+    >
+      <li>
+        <a
+          css={icon}
+          href={`https://twitter.com/${snsAccounts.twitter}`}
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          <FaTwitter />
+        </a>
+      </li>
+      <li>
+        <a
+          css={icon}
+          href={`https://github.com/${snsAccounts.github}`}
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          <FaGithub />
+        </a>
+      </li>
+    </ul>
+  );
+};
+
+export default Bio;

@@ -4,13 +4,14 @@ module.exports = {
   siteMetadata: {
     title: `筋肉ﾁｮｯﾄﾃﾞｷﾙ`,
     author: {
-      name: `おかもと ゆうき`,
-      summary: `ボディビルやってる筋トレ大好きWebエンジニア`,
+      name: `岡本 侑貴@筋肉ﾁｮｯﾄﾃﾞｷﾙ`,
+      summary: `筋肉バカ。筋トレしてコード書いて周りの幸せを願って、毎日幸せに生きてる。2021年東京ボディビル選手権で優勝してつよつよエンジニアになる！！`,
     },
     description: `筋肉はちょっとできる、ボディービルダーなエンジニアブログ`,
     siteUrl: `https://kinniku-choto-dekiru.netlify.com/`,
-    social: {
+    snsAccounts: {
       twitter: `it_fitness_jp`,
+      github: `YuukiOkamoto`
     },
   },
   plugins: [
@@ -64,7 +65,6 @@ module.exports = {
     `gatsby-plugin-sharp`,
     `gatsby-plugin-emotion`,
     {
-
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         //trackingId: `ADD YOUR TRACKING ID HERE`,
