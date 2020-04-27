@@ -11,7 +11,7 @@ module.exports = {
     siteUrl: `https://kinniku-choto-dekiru.netlify.com/`,
     snsAccounts: {
       twitter: `it_fitness_jp`,
-      github: `YuukiOkamoto`
+      github: `YuukiOkamoto`,
     },
   },
   plugins: [
@@ -59,6 +59,7 @@ module.exports = {
       },
     },
     `gatsby-transformer-sharp`,
+    `gatsby-plugin-chakra-ui`,
     `gatsby-plugin-instagram-embed`,
     `gatsby-plugin-pinterest`,
     `gatsby-plugin-twitter`,
