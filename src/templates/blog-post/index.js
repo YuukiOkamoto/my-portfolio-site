@@ -24,7 +24,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
       <article>
         <header
           css={css`
-            margin-top: ${rhythm(1)};
+            margin: ${rhythm(1)} 0;
           `}
         >
           <h1
