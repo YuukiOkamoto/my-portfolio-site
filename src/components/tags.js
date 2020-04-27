@@ -6,18 +6,30 @@ import { FaHashtag } from 'react-icons/fa';
 
 import kebabCase from 'lodash/kebabCase';
 
-const Tags = ({ post }) => {
+const Tags = ({ post, align = 'right' }) => {
   const { tags } = post.frontmatter;
 
   if (!tags) return null;
+
+  const flexAligns = {
+    left: css`
+      justify-content: flex-start;
+    `,
+    center: css`
+      justify-content: center;
+    `,
+    right: css`
+      justify-content: flex-end;
+    `,
+  };
 
   return (
     <Wrapper>
       <ul
         css={css`
+          ${flexAligns[align]};
           display: flex;
           flex-wrap: wrap;
-          justify-content: flex-end;
           list-style: none;
           margin: 0;
           width: 100%;
@@ -55,6 +67,6 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   text-align: right;
-`
+`;
 
 export default Tags;

@@ -34,8 +34,16 @@ const BlogIndex = ({ data, location }) => {
                   {title}
                 </Link>
               </h3>
-              <small>{post.frontmatter.date}</small>
-              <Tags post={post} />
+              <div
+                css={css`
+                  display: flex;
+                  justify-content: space-between;
+                  margin-bottom: ${rhythm(1 / 4)};
+                `}
+              >
+                <span>{post.frontmatter.date}</span>
+                <Tags post={post} />
+              </div>
             </header>
             <section>
               <p

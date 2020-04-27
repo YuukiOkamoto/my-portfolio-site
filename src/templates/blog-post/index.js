@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, graphql } from 'gatsby';
+import { css } from '@emotion/core';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { MDXProvider } from '@mdx-js/react';
 
@@ -7,42 +8,44 @@ import Bio from '../../components/bio';
 import Layout from '../../components/layout';
 import SEO from '../../components/seo';
 import Tags from '../../components/tags';
-import { Wrapper } from './style';
+import { MDXWrapper } from './style';
 import { rhythm, scale } from '../../utils/typography';
 
 const BlogPostTemplate = ({ data, pageContext, location }) => {
   const mdx = data.mdx;
-  const siteTitle = data.site.siteMetadata.title;
   const { previous, next } = pageContext;
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <Layout location={location}>
       <SEO
         title={mdx.frontmatter.title}
         description={mdx.frontmatter.description || mdx.excerpt}
       />
       <article>
-        <header>
+        <header
+          css={css`
+            margin-top: ${rhythm(1)};
+          `}
+        >
           <h1
-            style={{
-              marginTop: rhythm(1),
-              marginBottom: 0,
-            }}
+            css={css`
+              text-align: center;
+            `}
           >
             {mdx.frontmatter.title}
           </h1>
-          <p
-            style={{
-              ...scale(-1 / 5),
-              display: `block`,
-              marginBottom: rhythm(1),
-            }}
+          <div
+            css={css`
+              font-size: ${scale(-1 / 5).fontSize};
+              line-height: ${scale(-1 / 5).lineHeight};
+              text-align: right;
+            `}
           >
             {mdx.frontmatter.date}
-          </p>
-          <Tags post={mdx} />
+          </div>
+          <Tags post={mdx} align='center' />
         </header>
-        <MDXProvider components={{wrapper: Wrapper}}>
+        <MDXProvider components={{ wrapper: MDXWrapper }}>
           <MDXRenderer>{mdx.body}</MDXRenderer>
         </MDXProvider>
         <hr

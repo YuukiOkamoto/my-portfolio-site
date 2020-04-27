@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const Wrapper = styled.main`
+export const MDXWrapper = styled.main`
   .gatsby-code-title {
     margin-bottom: -0.6rem;
     padding: 0.5em 1em;
