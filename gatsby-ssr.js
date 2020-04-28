@@ -1,1 +1,3 @@
-export { wrapRootElement } from './gatsby-browser';
+import WrapRootElement from './src/components/wrapRootElement';
+
+export const wrapPageElement = WrapRootElement;
