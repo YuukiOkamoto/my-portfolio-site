@@ -13,7 +13,6 @@
     "@emotion/styled": "^10.0.27",
     "@mdx-js/mdx": "^1.5.9",
     "@mdx-js/react": "^1.5.9",
-    "@thaddeusjiang/typography-theme-tsubaki": "^0.0.2-rc-1",
     "emotion-theming": "^10.0.27",
     "gatsby": "^2.20.25",
     "gatsby-image": "^2.3.4",
@@ -29,7 +28,6 @@
     "gatsby-plugin-react-helmet": "^3.2.4",
     "gatsby-plugin-sharp": "^2.5.6",
     "gatsby-plugin-twitter": "^2.2.4",
-    "gatsby-plugin-typography": "^2.4.3",
     "gatsby-remark-autolink-headers": "^2.2.3",
     "gatsby-remark-copy-linked-files": "^2.2.3",
     "gatsby-remark-embedder": "^2.0.0",
@@ -46,12 +44,9 @@
     "react-dom": "^16.12.0",
     "react-helmet": "^5.2.1",
     "react-icons": "^3.10.0",
-    "react-typography": "^0.16.19",
     "remark-emoji": "^2.1.0",
     "typeface-merriweather": "0.0.72",
-    "typeface-montserrat": "0.0.75",
-    "typography": "^0.16.19",
-    "typography-theme-japanese-tofu": "^0.0.1"
+    "typeface-montserrat": "0.0.75"
   },
   "devDependencies": {
     "babel-plugin-jsx-target-blank": "^1.0.0",

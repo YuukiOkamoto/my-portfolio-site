@@ -6,7 +6,6 @@ import { FaHashtag } from 'react-icons/fa';
 
 import kebabCase from 'lodash/kebabCase';
 
-import { rhythm } from '../utils/typography';
 
 const Tags = ({ post, align = 'right' }) => {
   const { tags } = post.frontmatter;
@@ -46,7 +45,6 @@ const Tags = ({ post, align = 'right' }) => {
               &:not(:last-child)::after {
                 content: ' ,';
                 position: absolute;
-                top: ${rhythm(.25)}
               }
             `}
           >

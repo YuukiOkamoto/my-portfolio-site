@@ -12,8 +12,6 @@ import { css } from '@emotion/core';
 
 import { FaTwitter, FaGithub } from 'react-icons/fa';
 
-import { rhythm, scale } from '../utils/typography';
-
 const Bio = () => {
   const data = useStaticQuery(graphql`
     query BioQuery {
@@ -44,7 +42,6 @@ const Bio = () => {
     <div
       css={css`
         display: flex;
-        margin-bottom: ${rhythm(2.5)};
       `}
     >
       <div
@@ -57,7 +54,6 @@ const Bio = () => {
           fixed={data.avatar.childImageSharp.fixed}
           alt={author.name}
           css={css`
-            margin-right: ${rhythm(1 / 2)};
             margin-bottom: 0;
             min-height: 80px;
             min-width: 80px;
@@ -77,19 +73,11 @@ const Bio = () => {
         <div
           css={css`
             font-weight: bold;
-            margin-bottom: ${rhythm(0.5)};
           `}
         >
           {author.name}
         </div>
-        <div
-          css={css`
-            font-size: ${scale(-0.15).fontSize};
-            line-height: ${scale(-0.15).lineHeight};
-          `}
-        >
-          {author.summary}
-        </div>
+        <div>{author.summary}</div>
         <SnsAccountList snsAccounts={snsAccounts} />
       </div>
     </div>

@@ -1,23 +1,18 @@
 import React from 'react';
 import { Link } from 'gatsby';
 import { css } from '@emotion/core';
+import { Button, useColorMode } from '@chakra-ui/core';
 
 import useSiteMetadata from '../hooks/use-site-config';
-import { rhythm, scale } from '../utils/typography';
 
 const Header = ({ isHome }) => {
   const { title } = useSiteMetadata();
+  const { colorMode, toggleColorMode } = useColorMode();
 
   return (
     <header>
       {isHome ? (
-        <h1
-          css={css`
-            font-size: ${scale(1.5).fontSize};
-            line-height: ${scale(1.5).lineHeight};
-            margin-bottom: ${rhythm(1.5)};
-          `}
-        >
+        <h1>
           <Link
             css={css`
               text-decoration: none;
@@ -39,6 +34,9 @@ const Header = ({ isHome }) => {
           </Link>
         </h3>
       )}
+      <Button onClick={toggleColorMode}>
+        Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
+      </Button>
     </header>
   );
 };

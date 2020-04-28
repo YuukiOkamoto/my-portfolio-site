@@ -6,7 +6,6 @@ import Bio from '../components/bio';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 import Tags from '../components/tags';
-import { rhythm } from '../utils/typography';
 
 const BlogIndex = ({ data, location }) => {
   const posts = data.allMdx.edges;
@@ -20,11 +19,7 @@ const BlogIndex = ({ data, location }) => {
         return (
           <article key={post.fields.slug}>
             <header>
-              <h3
-                css={css`
-                  margin-bottom: ${rhythm(1 / 4)};
-                `}
-              >
+              <h3>
                 <Link
                   css={css`
                     text-decoration: none;
@@ -38,7 +33,6 @@ const BlogIndex = ({ data, location }) => {
                 css={css`
                   display: flex;
                   justify-content: space-between;
-                  margin-bottom: ${rhythm(1 / 4)};
                 `}
               >
                 <span>{post.frontmatter.date}</span>

@@ -9,7 +9,6 @@ import Layout from '../../components/layout';
 import SEO from '../../components/seo';
 import Tags from '../../components/tags';
 import { MDXWrapper } from './style';
-import { rhythm, scale } from '../../utils/typography';
 
 const BlogPostTemplate = ({ data, pageContext, location }) => {
   const mdx = data.mdx;
@@ -22,22 +21,10 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
         description={mdx.frontmatter.description || mdx.excerpt}
       />
       <article>
-        <header
-          css={css`
-            margin: ${rhythm(1)} 0;
-          `}
-        >
-          <h1
-            css={css`
-              text-align: center;
-            `}
-          >
-            {mdx.frontmatter.title}
-          </h1>
+        <header>
+          <h1>{mdx.frontmatter.title}</h1>
           <div
             css={css`
-              font-size: ${scale(-1 / 5).fontSize};
-              line-height: ${scale(-1 / 5).lineHeight};
               text-align: right;
             `}
           >
@@ -48,11 +35,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
         <MDXProvider components={{ wrapper: MDXWrapper }}>
           <MDXRenderer>{mdx.body}</MDXRenderer>
         </MDXProvider>
-        <hr
-          style={{
-            marginBottom: rhythm(1),
-          }}
-        />
+        <hr />
         <footer>
           <Bio />
         </footer>
