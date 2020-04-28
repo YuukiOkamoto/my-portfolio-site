@@ -3,7 +3,6 @@ import { css } from '@emotion/core';
 
 import { rhythm } from '../utils/typography';
 
-import ResetCSS from './reset-css';
 import Header from './header';
 import Footer from './footer';
 
@@ -13,7 +12,6 @@ const Layout = ({ location, children }) => {
 
   return (
     <>
-      <ResetCSS />
       <div
         css={css`
           display: flex;
