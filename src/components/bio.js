@@ -69,32 +69,31 @@ const Bio = () => {
   );
 };
 
-const SnsAccountList = snsAccounts => (
-    <List display='flex' flexWrap='wrap' m='0'>
-      <ListItem mr='1'>
-        <Link
-          href={`https://twitter.com/${snsAccounts.twitter}`}
-          isExternal
-        >
-          <PseudoBox
-            as={FaTwitter}
-            size='4'
-            color='gray.400'
-            _hover={{ color: 'blue.500' }}
-          />
-        </Link>
-      </ListItem>
-      <ListItem mr='1'>
-        <Link href={`https://github.com/${snsAccounts.github}`} isExternal>
-          <PseudoBox
-            as={FaGithub}
-            size='4'
-            color='gray.400'
-            _hover={{ color: 'gray.500' }}
-          />
-        </Link>
-      </ListItem>
-    </List>
-  );
+const SnsAccountList = ({ snsAccounts }) => (
+  <List display='flex' flexWrap='wrap' m='0'>
+    <ListItem mr='1'>
+      <Link href={`https://twitter.com/${snsAccounts.twitter}`} isExternal>
+        <PseudoBox
+          as={FaTwitter}
+          size='4'
+          color='gray.400'
+          _hover={{ color: 'blue.500' }}
+          _focus={{ bg: 'transparent' }}
+        />
+      </Link>
+    </ListItem>
+    <ListItem mr='1'>
+      <Link href={`https://github.com/${snsAccounts.github}`} isExternal>
+        <PseudoBox
+          as={FaGithub}
+          size='4'
+          color='gray.400'
+          _hover={{ color: 'gray.500' }}
+          _focus={{ bg: 'transparent' }}
+        />
+      </Link>
+    </ListItem>
+  </List>
+);
 
 export default Bio;
