@@ -1,75 +1,38 @@
 import React from 'react';
-import { Link } from 'gatsby';
-import { css } from '@emotion/core';
-import styled from '@emotion/styled';
+import { Link as GatsbyLink } from 'gatsby';
 import { FaHashtag } from 'react-icons/fa';
+import { Box, Flex, Link, List, ListItem, PseudoBox } from '@chakra-ui/core';
 
 import kebabCase from 'lodash/kebabCase';
 
-
-const Tags = ({ post, align = 'right' }) => {
+const Tags = ({ post, fontSize, color }) => {
   const { tags } = post.frontmatter;
 
   if (!tags) return null;
 
-  const flexAligns = {
-    left: css`
-      justify-content: flex-start;
-    `,
-    center: css`
-      justify-content: center;
-    `,
-    right: css`
-      justify-content: flex-end;
-    `,
-  };
-
   return (
-    <Wrapper>
-      <ul
-        css={css`
-          ${flexAligns[align]};
-          display: flex;
-          flex-wrap: wrap;
-          list-style: none;
-          margin: 0;
-          width: 100%;
-        `}
-      >
-        {tags.map((tag, i) => (
-          <li
-            key={i}
-            css={css`
-              padding: 5px;
-              position: relative;
-              &:not(:last-child)::after {
-                content: ' ,';
-                position: absolute;
-              }
-            `}
-          >
-            <Link
-              to={`tags/${kebabCase(tag)}`}
-              css={css`
-                align-items: center;
-                display: flex;
-                text-decoration: none;
-              `}
-            >
-              <FaHashtag />
-              {tag}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </Wrapper>
+    <Flex align='center' fontSize={fontSize} color={color}>
+      <List display='flex' flex-wrap='wrap'>
+        {tags.map((tag, i) => {
+          const isLast = i === tags.length - 1;
+          return (
+            <ListItem key={i}>
+              <Link as={GatsbyLink} to={`tags/${kebabCase(tag)}`}>
+                <PseudoBox
+                  display='flex'
+                  alignItems='center'
+                  _after={!isLast && { content: "' ,'", mr: 1 }}
+                >
+                  <Box as={FaHashtag} size={3} mr='2px' />
+                  {tag}
+                </PseudoBox>
+              </Link>
+            </ListItem>
+          );
+        })}
+      </List>
+    </Flex>
   );
 };
-
-const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  text-align: right;
-`;
 
 export default Tags;

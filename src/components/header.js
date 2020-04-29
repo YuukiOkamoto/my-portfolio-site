@@ -1,6 +1,13 @@
 import React from 'react';
 import { Link as GatsbyLink } from 'gatsby';
-import { useColorMode, Box, Flex, Heading, Link, IconButton } from '@chakra-ui/core';
+import {
+  useColorMode,
+  Box,
+  Flex,
+  Heading,
+  Link,
+  IconButton,
+} from '@chakra-ui/core';
 
 import Container from './container';
 import useSiteMetadata from '../hooks/use-site-config';
@@ -14,7 +21,11 @@ const Header = ({ isHome }) => {
       <Container>
         <Flex as='header' align='center' justify='space-between' wrap='warp'>
           <Heading as='h1' size={headingSize}>
-            <Link as={GatsbyLink} to={`/`}>
+            <Link
+              as={GatsbyLink}
+              to={`/`}
+              _hover={{ textDecoration: 'none' }}
+            >
               {title}
             </Link>
           </Heading>

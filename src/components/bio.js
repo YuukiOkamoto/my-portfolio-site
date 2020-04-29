@@ -3,7 +3,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 import Image from 'gatsby-image';
 import { css } from '@emotion/core';
 import {
-  Avatar,
+  useColorMode,
   Box,
   Flex,
   Link,
@@ -15,7 +15,9 @@ import {
 
 import { FaTwitter, FaGithub } from 'react-icons/fa';
 
-const Bio = () => {
+const Bio = props => {
+  const { colorMode } = useColorMode();
+
   const data = useStaticQuery(graphql`
     query BioQuery {
       avatar: file(absolutePath: { regex: "/profile-pic.jpg/" }) {
@@ -42,7 +44,7 @@ const Bio = () => {
 
   const { author, snsAccounts } = data.site.siteMetadata;
   return (
-    <Flex>
+    <Flex {...props}>
       <Flex align='center'>
         <Image
           fixed={data.avatar.childImageSharp.fixed}
@@ -62,7 +64,12 @@ const Bio = () => {
         <Text fontSize='lg' fontWeight='bold'>
           {author.name}
         </Text>
-        <Text fontSize='sm'>{author.summary}</Text>
+        <Text
+          fontSize='sm'
+          color={{ light: 'gray.800', dark: 'gray.100' }[colorMode]}
+        >
+          {author.summary}
+        </Text>
         <SnsAccountList snsAccounts={snsAccounts} />
       </Box>
     </Flex>
