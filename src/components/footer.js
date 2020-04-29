@@ -1,11 +1,14 @@
-import React from 'react'
+import React from 'react';
+import { Box, Link } from '@chakra-ui/core';
 
 const Footer = () => (
-  <footer>
+  <Box as='footer'>
     © {new Date().getFullYear()}, Built with
     {` `}
-    <a href='https://www.gatsbyjs.org'>Gatsby</a>
-  </footer>
+    <Link href='https://www.gatsbyjs.org' isExternal>
+      Gatsby
+    </Link>
+  </Box>
 );
 
 export default Footer;

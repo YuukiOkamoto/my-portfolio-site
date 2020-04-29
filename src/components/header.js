@@ -1,43 +1,30 @@
 import React from 'react';
-import { Link } from 'gatsby';
-import { css } from '@emotion/core';
-import { Button, useColorMode } from '@chakra-ui/core';
+import { Link as GatsbyLink } from 'gatsby';
+import { useColorMode, Flex, Heading, Link, IconButton } from '@chakra-ui/core';
 
 import useSiteMetadata from '../hooks/use-site-config';
 
 const Header = ({ isHome }) => {
   const { title } = useSiteMetadata();
   const { colorMode, toggleColorMode } = useColorMode();
+  const headingSize = isHome ? '2xl' : 'lg'
 
   return (
-    <header>
-      {isHome ? (
-        <h1>
-          <Link
-            css={css`
-              text-decoration: none;
-            `}
-            to={`/`}
-          >
-            {title}
-          </Link>
-        </h1>
-      ) : (
-        <h3>
-          <Link
-            css={css`
-              text-decoration: none;
-            `}
-            to={`/`}
-          >
-            {title}
-          </Link>
-        </h3>
-      )}
-      <Button onClick={toggleColorMode}>
-        Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
-      </Button>
-    </header>
+    <Flex as='header' align='center' justify='space-between' wrap='warp'>
+      <Heading as='h1' size={headingSize} mb='8'>
+        <Link as={GatsbyLink} to={`/`}>
+          {title}
+        </Link>
+      </Heading>
+      <IconButton
+        aria-label='Toggle theme'
+        icon={colorMode === 'light' ? 'moon' : 'sun'}
+        variant='ghost'
+        isRound
+        onClick={toggleColorMode}
+      />
+    </Flex>
+    // <header>
   );
 };
 
