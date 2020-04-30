@@ -15,20 +15,29 @@ import useSiteMetadata from '../hooks/use-site-config';
 const Header = ({ isHome }) => {
   const { title } = useSiteMetadata();
   const { colorMode, toggleColorMode } = useColorMode();
-  const headingSize = isHome ? '2xl' : 'lg';
+  const SiteTitle = ({ children }) => (
+    <>
+      {isHome ? (
+        <Heading as='h1' size='2xl'>
+          {children}
+        </Heading>
+      ) : (
+        <Heading as='h3' size='lg'>
+          {children}
+        </Heading>
+      )}
+    </>
+  );
+
   return (
     <Box as='header' mb='4'>
       <Container>
         <Flex as='header' align='center' justify='space-between' wrap='warp'>
-          <Heading as='h1' size={headingSize}>
-            <Link
-              as={GatsbyLink}
-              to={`/`}
-              _hover={{ textDecoration: 'none' }}
-            >
+          <SiteTitle>
+            <Link as={GatsbyLink} to={`/`} _hover={{ textDecoration: 'none' }}>
               {title}
             </Link>
-          </Heading>
+          </SiteTitle>
           <IconButton
             aria-label='Toggle theme'
             icon={colorMode === 'light' ? 'moon' : 'sun'}
