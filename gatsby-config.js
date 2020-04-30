@@ -66,6 +66,29 @@ module.exports = {
     `gatsby-plugin-sharp`,
     `gatsby-plugin-emotion`,
     {
+      resolve: `gatsby-plugin-prefetch-google-fonts`,
+      options: {
+        fonts: [
+          {
+            family: `M+PLUS+1p`,
+            variants: [`400`, `700`],
+          },
+          {
+            family: `Roboto+Slab`,
+            variants: [`400`, `700`],
+          },
+          {
+            family: `Noto+Sans+JP`,
+            variants: [`400`, `700`],
+          },
+          {
+            family: `Merriweather`,
+            variants: [`400`, `700`],
+          },
+        ],
+      },
+    },
+    {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         //trackingId: `ADD YOUR TRACKING ID HERE`,
