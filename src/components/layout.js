@@ -1,9 +1,9 @@
 import React from 'react';
 import { Box, Flex } from '@chakra-ui/core';
 
-import Header from './header';
-import Footer from './footer';
-import Container from './container';
+import Header from './Header';
+import Footer from './Footer';
+import Container from './Container';
 
 const Layout = ({ location, children }) => {
   const rootPath = `${__PATH_PREFIX__}/`;

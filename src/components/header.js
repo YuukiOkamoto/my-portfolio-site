@@ -9,7 +9,7 @@ import {
   IconButton,
 } from '@chakra-ui/core';
 
-import Container from './container';
+import Container from './Container';
 import useSiteMetadata from '../hooks/use-site-config';
 
 const Header = ({ isHome }) => {

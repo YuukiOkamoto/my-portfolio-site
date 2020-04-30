@@ -12,10 +12,10 @@ import {
   Text,
 } from '@chakra-ui/core';
 
-import Bio from '../components/bio';
+import Bio from '../components/Bio';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
-import Tags from '../components/tags';
+import Tags from '../components/Tags';
 
 const BlogIndex = ({ data, location }) => {
   const posts = data.allMdx.edges;

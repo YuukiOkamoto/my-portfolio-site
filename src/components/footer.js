@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Link } from '@chakra-ui/core';
 
-import Container from './container';
+import Container from './Container';
 
 const Footer = () => (
   <Box as='footer'>
