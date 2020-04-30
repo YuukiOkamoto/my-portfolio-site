@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link as GatsbyLink } from 'gatsby';
 import { FaHashtag } from 'react-icons/fa';
-import { Box, Flex, Link, List, ListItem, PseudoBox } from '@chakra-ui/core';
+import { Box, Flex, Link, Stack, PseudoBox } from '@chakra-ui/core';
 
 import kebabCase from 'lodash/kebabCase';
 
@@ -12,25 +12,23 @@ const Tags = ({ post, fontSize, color }) => {
 
   return (
     <Flex align='center' fontSize={fontSize} color={color}>
-      <List display='flex' flex-wrap='wrap'>
+      <Stack isInline align='center' spacing={1}>
         {tags.map((tag, i) => {
           const isLast = i === tags.length - 1;
           return (
-            <ListItem key={i}>
-              <Link as={GatsbyLink} to={`tags/${kebabCase(tag)}`}>
-                <PseudoBox
-                  display='flex'
-                  alignItems='center'
-                  _after={!isLast && { content: "' ,'", mr: 1 }}
-                >
-                  <Box as={FaHashtag} size={3} mr='2px' />
-                  {tag}
-                </PseudoBox>
-              </Link>
-            </ListItem>
+            <Link key={i} as={GatsbyLink} to={`tags/${kebabCase(tag)}`}>
+              <PseudoBox
+                display='flex'
+                alignItems='center'
+                _after={!isLast && { content: "' ,'"}}
+              >
+                <Box as={FaHashtag} size={3} mr='2px' />
+                {tag}
+              </PseudoBox>
+            </Link>
           );
         })}
-      </List>
+      </Stack>
     </Flex>
   );
 };

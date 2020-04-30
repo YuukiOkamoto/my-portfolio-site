@@ -7,9 +7,8 @@ import {
   Box,
   Flex,
   Link,
-  List,
-  ListItem,
   PseudoBox,
+  Stack,
   Text,
 } from '@chakra-ui/core';
 
@@ -77,9 +76,8 @@ const Bio = props => {
 };
 
 const SnsAccountList = ({ snsAccounts }) => (
-  <List display='flex' flexWrap='wrap' m='0'>
-    <ListItem mr='1'>
-      <Link href={`https://twitter.com/${snsAccounts.twitter}`} isExternal>
+  <Stack isInline align='center' spacing={1}>
+    <Link href={`https://twitter.com/${snsAccounts.twitter}`} isExternal>
         <PseudoBox
           as={FaTwitter}
           size='4'
@@ -87,10 +85,8 @@ const SnsAccountList = ({ snsAccounts }) => (
           _hover={{ color: 'blue.500' }}
           _focus={{ bg: 'transparent' }}
         />
-      </Link>
-    </ListItem>
-    <ListItem mr='1'>
-      <Link href={`https://github.com/${snsAccounts.github}`} isExternal>
+    </Link>
+    <Link href={`https://github.com/${snsAccounts.github}`} isExternal>
         <PseudoBox
           as={FaGithub}
           size='4'
@@ -99,8 +95,7 @@ const SnsAccountList = ({ snsAccounts }) => (
           _focus={{ bg: 'transparent' }}
         />
       </Link>
-    </ListItem>
-  </List>
+  </Stack>
 );
 
 export default Bio;
