@@ -29,15 +29,15 @@ const ContentArticle = ({ post, previous, next }) => {
           <Text fontSize='sm' color={smallText[colorMode]} textAlign='right'>
             {post.frontmatter.date}
           </Text>
-          <Tags post={post} />
+          <Tags post={post} color='orange.300' />
         </header>
         <MDXProvider components={components}>
           <MDXRenderer>{post.body}</MDXRenderer>
         </MDXProvider>
         <Divider />
-        <footer>
+        <Box as='footer' my='6'>
           <Bio />
-        </footer>
+        </Box>
       </article>
       <nav>
         <Flex wrap='warp' justify='space-between'>

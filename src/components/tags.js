@@ -1,12 +1,24 @@
 import React from 'react';
 import { Link as GatsbyLink } from 'gatsby';
 import { FaHashtag } from 'react-icons/fa';
-import { Box, Flex, Link, Stack, PseudoBox } from '@chakra-ui/core';
+import {
+  useColorMode,
+  Box,
+  Flex,
+  Link,
+  Stack,
+  PseudoBox,
+} from '@chakra-ui/core';
 
 import kebabCase from 'lodash/kebabCase';
 
 const Tags = ({ post, fontSize, color }) => {
+  const { colorMode } = useColorMode();
   const { tags } = post.frontmatter;
+  const comma = {
+    content: '","',
+    color: {light: 'gray.500', dark: 'gray.400'}[colorMode]
+  }
 
   if (!tags) return null;
 
@@ -20,7 +32,7 @@ const Tags = ({ post, fontSize, color }) => {
               <PseudoBox
                 display='flex'
                 alignItems='center'
-                _after={!isLast && { content: "' ,'"}}
+                _after={!isLast && comma}
               >
                 <Box as={FaHashtag} size={3} mr='2px' />
                 {tag}
