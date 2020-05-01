@@ -1,84 +1,20 @@
 import React from 'react';
-import { Link, graphql } from 'gatsby';
-
-import Bio from '../../components/bio';
+import { graphql } from 'gatsby';
 import Layout from '../../components/layout';
 import SEO from '../../components/seo';
-import Tags from '../../components/tags';
-import { rhythm, scale } from '../../utils/typography';
-import { MDXRenderer } from 'gatsby-plugin-mdx';
+import ContentArticle from '../../components/contentArticle'
 
 const BlogPostTemplate = ({ data, pageContext, location }) => {
   const mdx = data.mdx;
-  const siteTitle = data.site.siteMetadata.title;
   const { previous, next } = pageContext;
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <Layout location={location}>
       <SEO
         title={mdx.frontmatter.title}
         description={mdx.frontmatter.description || mdx.excerpt}
       />
-      <article>
-        <header>
-          <h1
-            style={{
-              marginTop: rhythm(1),
-              marginBottom: 0,
-            }}
-          >
-            {mdx.frontmatter.title}
-          </h1>
-          <p
-            style={{
-              ...scale(-1 / 5),
-              display: `block`,
-              marginBottom: rhythm(1),
-            }}
-          >
-            {mdx.frontmatter.date}
-          </p>
-          <Tags post={mdx} />
-        </header>
-        <MDXRenderer>
-          {mdx.body}
-        </MDXRenderer>
-        <hr
-          style={{
-            marginBottom: rhythm(1),
-          }}
-        />
-        <footer>
-          <Bio />
-        </footer>
-      </article>
-
-      <nav>
-        <ul
-          style={{
-            display: `flex`,
-            flexWrap: `wrap`,
-            justifyContent: `space-between`,
-            listStyle: `none`,
-            padding: 0,
-          }}
-        >
-          <li>
-            {previous && (
-              <Link to={previous.fields.slug} rel='prev'>
-                ← {previous.frontmatter.title}
-              </Link>
-            )}
-          </li>
-          <li>
-            {next && (
-              <Link to={next.fields.slug} rel='next'>
-                {next.frontmatter.title} →
-              </Link>
-            )}
-          </li>
-        </ul>
-      </nav>
+      <ContentArticle post={mdx} previous={previous} next={next} />
     </Layout>
   );
 };

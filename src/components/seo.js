@@ -18,14 +18,14 @@ const SEO = ({ description, lang, meta, title }) => {
           siteMetadata {
             title
             description
-            social {
+            snsAccounts {
               twitter
             }
           }
         }
       }
     `
-  )
+  );
 
   const metaDescription = description || site.siteMetadata.description
 
@@ -59,7 +59,7 @@ const SEO = ({ description, lang, meta, title }) => {
         },
         {
           name: `twitter:creator`,
-          content: site.siteMetadata.social.twitter,
+          content: site.siteMetadata.snsAccounts.twitter,
         },
         {
           name: `twitter:title`,
@@ -71,7 +71,7 @@ const SEO = ({ description, lang, meta, title }) => {
         },
       ].concat(meta)}
     />
-  )
+  );
 }
 
 SEO.defaultProps = {

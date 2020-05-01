@@ -1,23 +1,27 @@
-/**
- * Bio component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.org/docs/use-static-query/
- */
-
-import React from "react"
-import { useStaticQuery, graphql } from "gatsby"
-import Image from "gatsby-image"
+import React from 'react';
+import { useStaticQuery, graphql } from 'gatsby';
+import Image from 'gatsby-image';
 import { css } from '@emotion/core';
+import {
+  useColorMode,
+  Box,
+  Flex,
+  Link,
+  PseudoBox,
+  Stack,
+  Text,
+} from '@chakra-ui/core';
 
-import { rhythm } from "../utils/typography"
+import { FaTwitter, FaGithub } from 'react-icons/fa';
 
-const Bio = () => {
+const Bio = props => {
+  const { colorMode } = useColorMode();
+
   const data = useStaticQuery(graphql`
     query BioQuery {
       avatar: file(absolutePath: { regex: "/profile-pic.jpg/" }) {
         childImageSharp {
-          fixed(width: 50, height: 50) {
+          fixed(width: 80, height: 80) {
             ...GatsbyImageSharpFixed
           }
         }
@@ -28,44 +32,70 @@ const Bio = () => {
             name
             summary
           }
-          social {
+          snsAccounts {
             twitter
+            github
           }
         }
       }
     }
-  `)
+  `);
 
-  const { author, social } = data.site.siteMetadata
+  const { author, snsAccounts } = data.site.siteMetadata;
   return (
-    <div
-      css={css`
-        display: flex;
-        margin-bottom: ${rhythm(2.5)};
-      `}
-    >
-      <Image
-        fixed={data.avatar.childImageSharp.fixed}
-        alt={author.name}
-        css={css`
-          margin-right: ${rhythm(1 / 2)};
-          margin-bottom: 0;
-          min-width: 50px;
-          border-radius: 100%;
-        `}
-        imgStyle={{
-          borderRadius: `50%`,
-        }}
-      />
-      <p>
-        Written by <strong>{author.name}</strong> {author.summary}
-        {` `}
-        <a href={`https://twitter.com/${social.twitter}`}>
-          You should follow him on Twitter
-        </a>
-      </p>
-    </div>
+    <Flex {...props}>
+      <Flex align='center'>
+        <Image
+          fixed={data.avatar.childImageSharp.fixed}
+          alt={author.name}
+          css={css`
+            margin-bottom: 0;
+            min-height: 80px;
+            min-width: 80px;
+            border-radius: 100%;
+          `}
+          imgStyle={{
+            borderRadius: `50%`,
+          }}
+        />
+      </Flex>
+      <Box flex='1' ml='4'>
+        <Text fontSize='lg' fontWeight='bold'>
+          {author.name}
+        </Text>
+        <Text
+          fontSize='sm'
+          color={{ light: 'gray.800', dark: 'gray.100' }[colorMode]}
+        >
+          {author.summary}
+        </Text>
+        <SnsAccountList snsAccounts={snsAccounts} />
+      </Box>
+    </Flex>
   );
-}
+};
 
-export default Bio
+const SnsAccountList = ({ snsAccounts }) => (
+  <Stack isInline align='center' spacing={1}>
+    <Link href={`https://twitter.com/${snsAccounts.twitter}`} isExternal>
+        <PseudoBox
+          as={FaTwitter}
+          size='4'
+          color='gray.400'
+          _hover={{ color: 'blue.500' }}
+          _focus={{ bg: 'transparent' }}
+        />
+    </Link>
+    <Link href={`https://github.com/${snsAccounts.github}`} isExternal>
+        <PseudoBox
+          as={FaGithub}
+          size='4'
+          color='gray.400'
+          _hover={{ color: 'gray.500' }}
+          _focus={{ bg: 'transparent' }}
+        />
+      </Link>
+  </Stack>
+);
+
+export default Bio;

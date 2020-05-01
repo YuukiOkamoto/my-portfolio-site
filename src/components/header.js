@@ -1,51 +1,53 @@
 import React from 'react';
-import { Link } from 'gatsby';
-import { css } from '@emotion/core';
+import { Link as GatsbyLink } from 'gatsby';
+import {
+  useColorMode,
+  Box,
+  Flex,
+  Heading,
+  Link,
+  IconButton,
+} from '@chakra-ui/core';
 
+import Container from './Container';
 import useSiteMetadata from '../hooks/use-site-config';
-import { rhythm, scale } from '../utils/typography';
 
 const Header = ({ isHome }) => {
   const { title } = useSiteMetadata();
+  const { colorMode, toggleColorMode } = useColorMode();
+  const SiteTitle = ({ children }) => (
+    <>
+      {isHome ? (
+        <Heading as='h1' size='2xl'>
+          {children}
+        </Heading>
+      ) : (
+        <Heading as='h3' size='lg'>
+          {children}
+        </Heading>
+      )}
+    </>
+  );
 
   return (
-    <header>
-      {isHome ? (
-        <h1
-          css={css`
-            font-size: ${scale(1.5).fontSize};
-            line-height: ${scale(1.5).lineHeight};
-            margin-bottom: ${rhythm(1.5)};
-          `}
-        >
-          <Link
-            css={css`
-              box-shadow: none;
-              color: inherit;
-            `}
-            to={`/`}
-          >
-            {title}
-          </Link>
-        </h1>
-      ) : (
-        <h3
-          css={css`
-            font-family: Montserrat, sans-serif;
-          `}
-        >
-          <Link
-            css={css`
-              box-shadow: none;
-              color: inherit;
-            `}
-            to={`/`}
-          >
-            {title}
-          </Link>
-        </h3>
-      )}
-    </header>
+    <Box as='header' mb='4'>
+      <Container>
+        <Flex as='header' align='center' justify='space-between' wrap='warp'>
+          <SiteTitle>
+            <Link as={GatsbyLink} to={`/`} _hover={{ textDecoration: 'none' }}>
+              {title}
+            </Link>
+          </SiteTitle>
+          <IconButton
+            aria-label='Toggle theme'
+            icon={colorMode === 'light' ? 'moon' : 'sun'}
+            variant='ghost'
+            isRound
+            onClick={toggleColorMode}
+          />
+        </Flex>
+      </Container>
+    </Box>
   );
 };
 

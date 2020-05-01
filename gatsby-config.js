@@ -4,13 +4,14 @@ module.exports = {
   siteMetadata: {
     title: `筋肉ﾁｮｯﾄﾃﾞｷﾙ`,
     author: {
-      name: `おかもと ゆうき`,
-      summary: `ボディビルやってる筋トレ大好きWebエンジニア`,
+      name: `岡本 侑貴@筋肉ﾁｮｯﾄﾃﾞｷﾙ`,
+      summary: `筋肉バカ。筋トレしてコード書いて周りの幸せを願って、毎日幸せに生きてる。2021年東京ボディビル選手権で優勝してつよつよエンジニアになる！！`,
     },
     description: `筋肉はちょっとできる、ボディービルダーなエンジニアブログ`,
     siteUrl: `https://kinniku-choto-dekiru.netlify.com/`,
-    social: {
+    snsAccounts: {
       twitter: `it_fitness_jp`,
+      github: `YuukiOkamoto`,
     },
   },
   plugins: [
@@ -58,13 +59,36 @@ module.exports = {
       },
     },
     `gatsby-transformer-sharp`,
+    `gatsby-plugin-chakra-ui`,
     `gatsby-plugin-instagram-embed`,
     `gatsby-plugin-pinterest`,
     `gatsby-plugin-twitter`,
     `gatsby-plugin-sharp`,
     `gatsby-plugin-emotion`,
     {
-
+      resolve: `gatsby-plugin-prefetch-google-fonts`,
+      options: {
+        fonts: [
+          {
+            family: `M+PLUS+1p`,
+            variants: [`400`, `700`],
+          },
+          {
+            family: `Roboto+Slab`,
+            variants: [`400`, `700`],
+          },
+          {
+            family: `Noto+Sans+JP`,
+            variants: [`400`, `700`],
+          },
+          {
+            family: `Merriweather`,
+            variants: [`400`, `700`],
+          },
+        ],
+      },
+    },
+    {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         //trackingId: `ADD YOUR TRACKING ID HERE`,
@@ -137,11 +161,5 @@ module.exports = {
     },
     `gatsby-plugin-offline`,
     `gatsby-plugin-react-helmet`,
-    {
-      resolve: `gatsby-plugin-typography`,
-      options: {
-        pathToConfigModule: `src/utils/typography`,
-      },
-    },
   ],
 };
