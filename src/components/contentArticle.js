@@ -14,7 +14,7 @@ import {
 
 import Bio from './Bio';
 import Tags from './Tags';
-import MDXComponents from './MDXComponents';
+import components from './MDX';
 
 const ContentArticle = ({ post, previous, next }) => {
   const { colorMode } = useColorMode();
@@ -31,7 +31,7 @@ const ContentArticle = ({ post, previous, next }) => {
           </Text>
           <Tags post={post} />
         </header>
-        <MDXProvider components={MDXComponents}>
+        <MDXProvider components={components}>
           <MDXRenderer>{post.body}</MDXRenderer>
         </MDXProvider>
         <Divider />
