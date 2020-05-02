@@ -34,6 +34,7 @@
     "gatsby-remark-embedder": "^2.0.0",
     "gatsby-remark-images": "^3.2.5",
     "gatsby-remark-prismjs": "^3.4.3",
+    "gatsby-remark-reading-time": "^1.1.0",
     "gatsby-remark-responsive-iframe": "^2.3.3",
     "gatsby-remark-smartypants": "^2.2.3",
     "gatsby-source-filesystem": "^2.2.4",

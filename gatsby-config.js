@@ -58,6 +58,7 @@ module.exports = {
         ],
       },
     },
+    'gatsby-remark-reading-time',
     `gatsby-transformer-sharp`,
     `gatsby-plugin-chakra-ui`,
     `gatsby-plugin-instagram-embed`,
