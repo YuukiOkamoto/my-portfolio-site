@@ -14,7 +14,7 @@ import {
 
 import Bio from '../components/Bio';
 import Layout from '../components/layout';
-import SEO from '../components/Seo';
+import SEO from '../components/SEO';
 import Tags from '../components/Tags';
 
 const BlogIndex = ({ data, location }) => {

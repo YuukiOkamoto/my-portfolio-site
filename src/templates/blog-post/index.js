@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import Layout from '../../components/layout';
-import SEO from '../../components/seo';
+import SEO from '../../components/SEO';
 import ContentArticle from '../../components/contentArticle'
 
 const BlogPostTemplate = ({ data, pageContext, location }) => {
