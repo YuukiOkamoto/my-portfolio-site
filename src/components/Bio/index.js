@@ -13,6 +13,7 @@ import SnsAccountList from './SnsAccountList'
 
 const Bio = props => {
   const { colorMode } = useColorMode();
+  const subText = { light: 'blackAlpha.800', dark: 'whiteAlpha.800' };
 
   const data = useStaticQuery(graphql`
     query BioQuery {
@@ -62,7 +63,7 @@ const Bio = props => {
         </Text>
         <Text
           fontSize='sm'
-          color={{ light: 'gray.800', dark: 'gray.100' }[colorMode]}
+          color={subText[colorMode]}
         >
           {author.summary}
         </Text>

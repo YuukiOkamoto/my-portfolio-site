@@ -1,16 +1,13 @@
 import React from 'react';
 import { css } from '@emotion/core';
-import {
-  useColorMode,
-  Box,
-} from '@chakra-ui/core';
+import { useColorMode, Box } from '@chakra-ui/core';
 
 import theme from '../../theme';
 
 const Quote = props => {
   const { colorMode } = useColorMode();
-  const text = { light: 'gray.500', dark: 'gray.400' };
-  const mark = { light: 'gray.300', dark: 'gray.600' };
+  const text = { light: 'blackAlpha.700', dark: 'whiteAlpha.700' };
+
   return (
     <Box
       as='blockquote'
@@ -30,7 +27,6 @@ const Quote = props => {
           line-height: 1;
           top: 0;
           left: 0;
-          color: ${mark[colorMode]};
         }
         p {
           font-size: ${theme.fontSizes.sm};

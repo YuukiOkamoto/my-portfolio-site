@@ -18,7 +18,7 @@ import components from './MDX';
 
 const ContentArticle = ({ post, previous, next }) => {
   const { colorMode } = useColorMode();
-  const smallText = { light: 'gray.500', dark: 'gray.100' };
+  const smallText = { light: 'blackAlpha.700', dark: 'whiteAlpha.700' };
   return (
     <>
       <article>
