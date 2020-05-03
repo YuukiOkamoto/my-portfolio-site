@@ -3,10 +3,10 @@ import { graphql } from 'gatsby';
 
 import Bio from '../components/Bio';
 import Container from '../components/Container';
-import Hero from '../components/Home/Hero';
+import Hero from '../components/Hero';
 import Layout from '../components/layout';
 import SEO from '../components/SEO';
-import LatestPosts from '../components/Home/LatestPosts';
+import LatestPosts from '../components/LatestPosts';
 
 const BlogIndex = ({ data: { featured, latest }, location }) => {
   const featuredPost = featured.edges[0].node;

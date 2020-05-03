@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/core';
 import { FiChevronsRight } from "react-icons/fi"
 
-import Tags from '../Tags';
+import Tags from './Tags';
 
 const PostCard = ({ post, ...props }) => {
   const { colorMode } = useColorMode();
