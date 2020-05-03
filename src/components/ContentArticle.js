@@ -13,6 +13,7 @@ import {
 } from '@chakra-ui/core';
 
 import Bio from './Bio';
+import Container from './Container'
 import Tags from './Tags';
 import components from './MDX';
 
@@ -20,7 +21,7 @@ const ContentArticle = ({ post, previous, next }) => {
   const { colorMode } = useColorMode();
   const smallText = { light: 'blackAlpha.700', dark: 'whiteAlpha.700' };
   return (
-    <>
+    <Container py='16'>
       <article>
         <header>
           <Heading as='h1' size='2xl'>
@@ -57,7 +58,7 @@ const ContentArticle = ({ post, previous, next }) => {
           </Box>
         </Flex>
       </nav>
-    </>
+    </Container>
   );
 };
 

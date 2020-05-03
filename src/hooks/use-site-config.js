@@ -12,6 +12,10 @@ const useSiteMetadata = () => {
             name
             summary
           }
+          snsAccounts {
+            github
+            twitter
+          }
         }
       }
     }
