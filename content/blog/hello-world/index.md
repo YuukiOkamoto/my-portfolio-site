@@ -1,7 +1,8 @@
 ---
-title: Hello World
+title: "[確認用の記事です]CSS Modulesを使って、コンポーネントスコープのstyle"
 date: "2015-05-01T22:12:03.284Z"
 description: "Hello World"
+featured: true
 tags:
   - hoge
   - fuga
