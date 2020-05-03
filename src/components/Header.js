@@ -104,6 +104,7 @@ const Header = ({ isHome }) => {
         aria-label='Toggle theme'
         colors={themeColors}
         icon={colorMode === 'light' ? 'moon' : 'sun'}
+        onClick={toggleColorMode}
         {...props}
       />
     );
