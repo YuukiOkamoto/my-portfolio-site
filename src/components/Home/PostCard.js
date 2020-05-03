@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link as GatsbyLink } from 'gatsby';
-import { css } from '@emotion/core';
 import {
   useColorMode,
   Box,
@@ -67,13 +66,10 @@ const PostCard = ({ post, ...props }) => {
           <Box
             maxHeight='32'
             overflow='hidden'
-            css={css`
-              mask-image: linear-gradient(
-                to bottom,
-                black 30%,
-                transparent 100%
-              );
-            `}
+            css={{
+              maskImage:
+                'linear-gradient(to bottom, black 30%, transparent 100%)',
+            }}
           >
             <Text color={textColor[colorMode]} wordBreak='break-all'>
               {post.excerpt}
