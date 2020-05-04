@@ -56,7 +56,7 @@ const PostCard = ({ post, ...props }) => {
           {post.frontmatter.date}
           <br />
           {post.fields.readingTime.text}
-          <Tags post={post} fontSize='xs' color='orange.300' />
+          <Tags post={post} fontSize='xs' tagColor='orange' />
         </Text>
         <Box
           gridArea='preview'
