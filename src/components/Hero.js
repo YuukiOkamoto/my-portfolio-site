@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link as GatsbyLink } from 'gatsby';
 import {
-  useColorMode,
   useTheme,
   Box,
   Flex,
@@ -11,8 +10,8 @@ import {
   Link,
   Text,
 } from '@chakra-ui/core';
-
 import { FiStar, FiChevronsRight } from 'react-icons/fi';
+
 
 const GridBackground = ({ children, ...props }) => {
   const { colors } = useTheme();
@@ -40,8 +39,6 @@ const GridBackground = ({ children, ...props }) => {
 };
 
 const Hero = ({ post }) => {
-  const { colorMode } = useColorMode();
-  const bgColor = { light: 'gray.800', dark: 'gray.800' };
   return (
     <Box position='relative'>
       <Link

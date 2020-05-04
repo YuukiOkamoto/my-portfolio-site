@@ -12,6 +12,7 @@ import {
 } from '@chakra-ui/core';
 import { FiChevronsRight } from "react-icons/fi"
 
+import ChevronsLink from './ChevronsLink'
 import Tags from './Tags';
 
 const PostCard = ({ post, ...props }) => {
@@ -76,28 +77,14 @@ const PostCard = ({ post, ...props }) => {
             </Text>
           </Box>
           <Box mt='3'>
-            <Link
-              as={GatsbyLink}
-              to={post.fields.slug}
-              fontFamily='heading'
-              fontWeight='600'
-              _focus={{
-                boxShadow: 'outline',
-              }}
-              _hover={{
-                color: 'orange.300',
-                '& > .icon': {
-                  transform: 'translateX(6px)',
-                },
-              }}
-            >
+            <ChevronsLink as={GatsbyLink} to={post.fields.slug} moveTo='right'>
               Read more
               <Icon
                 transition='transform .2s'
-                className='icon'
+                className='chevrons'
                 as={FiChevronsRight}
               />
-            </Link>
+            </ChevronsLink>
           </Box>
         </Box>
       </Grid>

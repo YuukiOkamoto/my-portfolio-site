@@ -2,11 +2,13 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import Layout from '../../components/layout';
 import SEO from '../../components/SEO';
-import ContentArticle from '../../components/contentArticle'
+import ContentArticle from '../../components/ContentArticle';
+import Container from '../../components/Container';
+import PrevNextArticles from '../../components/PrevNextArticles';
 
 const BlogPostTemplate = ({ data, pageContext, location }) => {
   const mdx = data.mdx;
-  const { previous, next } = pageContext;
+  const { previous: prev, next } = pageContext;
 
   return (
     <Layout location={location}>
@@ -14,7 +16,10 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
         title={mdx.frontmatter.title}
         description={mdx.frontmatter.description || mdx.excerpt}
       />
-      <ContentArticle post={mdx} previous={previous} next={next} />
+      <Container py='16'>
+        <ContentArticle post={mdx} />
+        <PrevNextArticles prev={prev} next={next} mt='10' />
+      </Container>
     </Layout>
   );
 };
