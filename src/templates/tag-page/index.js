@@ -12,9 +12,6 @@ const TagPageTemplate = ({ pageContext, data, location }) => {
   const { colorMode } = useColorMode();
   const { tag } = pageContext;
   const { edges: posts, totalCount } = data.allMdx;
-  const tagHeader = `${totalCount} post${
-    totalCount === 1 ? '' : 's'
-  } tagged with "${tag}"`;
 
   return (
     <Layout location={location}>

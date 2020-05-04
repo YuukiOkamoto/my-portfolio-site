@@ -4,7 +4,6 @@ import {
   useColorMode,
   Box,
   Flex,
-  Grid,
   Icon,
   SimpleGrid,
   Text,
