@@ -1,30 +1,59 @@
 import React from 'react';
+import { graphql } from 'gatsby';
+import Layout from '../../components/layout';
+import SEO from '../../components/SEO';
+import { useColorMode, Box, Heading, Stack, Text } from '@chakra-ui/core';
+import { FaHashtag } from 'react-icons/fa';
 
-import { Link, graphql } from 'gatsby';
+import PostCard from '../../components/PostCard';
+import Container from '../../components/Container';
 
-const TagPageTemplate = ({ pageContext, data }) => {
+const TagPageTemplate = ({ pageContext, data, location }) => {
+  const { colorMode } = useColorMode();
   const { tag } = pageContext;
-  const { edges, totalCount } = data.allMdx;
+  const { edges: posts, totalCount } = data.allMdx;
   const tagHeader = `${totalCount} post${
     totalCount === 1 ? '' : 's'
   } tagged with "${tag}"`;
 
   return (
-    <div>
-      <h1>{tagHeader}</h1>
-      <ul>
-        {edges.map(({ node }) => {
-          const { slug } = node.fields;
-          const { title } = node.frontmatter;
-          return (
-            <li key={slug}>
-              <Link to={slug}>{title}</Link>
-            </li>
-          );
-        })}
-      </ul>
-      <Link to='/tags'>All tags</Link>
-    </div>
+    <Layout location={location}>
+      <SEO
+        title={`${tag}タグ記事一覧`}
+        description={`${tag}タグを含む記事の一覧です。`}
+      />
+      <Container>
+        <Box pt='16' pb='24'>
+          <Box
+            mb='10'
+            textAlign='center'
+            color={
+              { light: 'blackAlpha.700', dark: 'whiteAlpha.700' }[colorMode]
+            }
+          >
+            <Heading as='h1' size='xl' mb='6'>
+              <Stack isInline spacing='3' d='flex' justify='center'>
+                <Box
+                  as={FaHashtag}
+                  fill={
+                    { light: 'blackAlpha.500', dark: 'whiteAlpha.500' }[
+                      colorMode
+                    ]
+                  }
+                />
+                <Text as='span'>{tag}</Text>
+              </Stack>
+            </Heading>
+            <Text fontSize='sm' pl='5'>{totalCount}件の投稿があります</Text>
+          </Box>
+          <Stack spacing='20'>
+            {posts.map(({ node: post }) => (
+              <PostCard key={post.fields.slug} post={post} />
+            ))}
+          </Stack>
+        </Box>
+      </Container>
+    </Layout>
   );
 };
 
@@ -38,11 +67,18 @@ export const pageQuery = graphql`
       totalCount
       edges {
         node {
+          excerpt(pruneLength: 500)
           fields {
             slug
+            readingTime {
+              text
+            }
           }
           frontmatter {
+            date(formatString: "YYYY年MM月DD日")
             title
+            description
+            tags
           }
         }
       }
