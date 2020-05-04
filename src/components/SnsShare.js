@@ -31,7 +31,12 @@ const SnsShare = ({ url, title, ...props }) => {
   );
 
   return (
-    <Stack isInline spacing='2' justify='flex-end' {...props}>
+    <Stack
+      isInline
+      spacing='2'
+      justify={['center', 'center', 'flex-end']}
+      {...props}
+    >
       <SnsIconButton
         icon={FaTwitter}
         href={`http://twitter.com/share?url=${url}&text=${title}`}
