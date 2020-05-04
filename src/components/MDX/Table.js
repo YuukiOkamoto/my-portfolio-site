@@ -7,7 +7,7 @@ const Table = props => (
 
 const THead = props => {
   const { colorMode } = useColorMode();
-  const bg = { light: 'gray.50', dark: 'whiteAlpha.100' };
+  const bg = { light: 'blackAlpha.100', dark: 'whiteAlpha.100' };
   return (
     <Box
       as='th'

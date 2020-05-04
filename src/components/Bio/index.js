@@ -1,7 +1,6 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import Image from 'gatsby-image';
-import { css } from '@emotion/core';
 import {
   useColorMode,
   Box,
@@ -13,6 +12,7 @@ import SnsAccountList from './SnsAccountList'
 
 const Bio = props => {
   const { colorMode } = useColorMode();
+  const subText = { light: 'blackAlpha.800', dark: 'whiteAlpha.800' };
 
   const data = useStaticQuery(graphql`
     query BioQuery {
@@ -45,12 +45,12 @@ const Bio = props => {
         <Image
           fixed={data.avatar.childImageSharp.fixed}
           alt={author.name}
-          css={css`
-            margin-bottom: 0;
-            min-height: 80px;
-            min-width: 80px;
-            border-radius: 100%;
-          `}
+          css={{
+            marginBottom: '0',
+            minHeight: '80px',
+            minWidth: '80px',
+            borderRadius: '100%',
+          }}
           imgStyle={{
             borderRadius: `50%`,
           }}
@@ -62,7 +62,7 @@ const Bio = props => {
         </Text>
         <Text
           fontSize='sm'
-          color={{ light: 'gray.800', dark: 'gray.100' }[colorMode]}
+          color={subText[colorMode]}
         >
           {author.summary}
         </Text>

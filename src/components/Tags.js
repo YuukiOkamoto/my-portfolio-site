@@ -17,8 +17,8 @@ const Tags = ({ post, fontSize, color }) => {
   const { tags } = post.frontmatter;
   const comma = {
     content: '","',
-    color: {light: 'gray.500', dark: 'gray.400'}[colorMode]
-  }
+    color: { light: 'blackAlpha.500', dark: 'whiteAlpha.500' }[colorMode],
+  };
 
   if (!tags) return null;
 
