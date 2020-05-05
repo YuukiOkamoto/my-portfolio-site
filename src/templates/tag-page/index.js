@@ -3,7 +3,7 @@ import { graphql } from 'gatsby';
 import Layout from '../../components/layout';
 import SEO from '../../components/SEO';
 import { useColorMode, Box, Heading, Stack, Text } from '@chakra-ui/core';
-import { FaHashtag } from 'react-icons/fa';
+import { GiMuscleUp } from 'react-icons/gi';
 
 import PostCard from '../../components/PostCard';
 import Container from '../../components/Container';
@@ -31,7 +31,7 @@ const TagPageTemplate = ({ pageContext, data, location }) => {
             <Heading as='h1' size='xl' mb='6'>
               <Stack isInline spacing='3' d='flex' justify='center'>
                 <Box
-                  as={FaHashtag}
+                  as={GiMuscleUp}
                   fill={
                     { light: 'blackAlpha.500', dark: 'whiteAlpha.500' }[
                       colorMode
@@ -41,7 +41,9 @@ const TagPageTemplate = ({ pageContext, data, location }) => {
                 <Text as='span'>{tag}</Text>
               </Stack>
             </Heading>
-            <Text fontSize='sm' pl='5'>{totalCount}件の投稿があります</Text>
+            <Text fontSize='sm' pl='5'>
+              {totalCount}件の投稿があります
+            </Text>
           </Box>
           <Stack spacing='20'>
             {posts.map(({ node: post }) => (
