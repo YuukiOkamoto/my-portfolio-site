@@ -6,6 +6,9 @@ featured: true
 tags:
   - hoge
   - fuga
+  - 基本情報処理技術者試験
+  - Ruby
+  - Rails
 ---
 
 ## RESTの問題点
