@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link as GatsbyLink } from 'gatsby';
-import { GiBiceps } from 'react-icons/gi';
-import { Flex, Stack, Tag, TagIcon, TagLabel } from '@chakra-ui/core';
+import { GiMuscleUp } from 'react-icons/gi';
+import { Flex, Tag, TagIcon, TagLabel } from '@chakra-ui/core';
 
 import kebabCase from 'lodash/kebabCase';
 
@@ -11,20 +11,29 @@ const Tags = ({ post, fontSize, tagColor }) => {
   if (!tags) return null;
 
   return (
-    <Flex align='center' fontSize={fontSize}>
-      <Stack isInline align='center' spacing={1}>
-        {tags.map((tag, i) => (
-          <Tag
-            key={i}
-            as={GatsbyLink}
-            to={`tags/${kebabCase(tag)}`}
-            variantColor={tagColor}
-          >
-            <TagIcon icon={GiBiceps} />
-            <TagLabel>{tag}</TagLabel>
-          </Tag>
-        ))}
-      </Stack>
+    <Flex
+      flexDirection={['row', 'row', 'row-reverse']}
+      align='center'
+      flexWrap='wrap'
+      mt='2'
+      fontSize={fontSize}
+    >
+      {tags.map((tag, i) => (
+        <Tag
+          key={i}
+          as={GatsbyLink}
+          to={`tags/${kebabCase(tag)}`}
+          fontFamily='heading'
+          variant='outline'
+          variantColor={tagColor}
+          ml={[0, 0, 2]}
+          mr={[2, 2, 0]}
+          mb='2'
+        >
+          <TagIcon icon={GiMuscleUp} />
+          <TagLabel>{tag}</TagLabel>
+        </Tag>
+      ))}
     </Flex>
   );
 };
