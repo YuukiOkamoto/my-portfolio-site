@@ -12,7 +12,6 @@ import {
 } from '@chakra-ui/core';
 import { FiStar, FiChevronsRight } from 'react-icons/fi';
 
-
 const GridBackground = ({ children, ...props }) => {
   const { colors } = useTheme();
   const bg = `linear-gradient(${colors.gray[500]}, ${colors.gray[800]})`;
@@ -53,7 +52,7 @@ const Hero = ({ post }) => {
           },
         }}
       >
-        <GridBackground position='absolute' zIndex='hide' />
+        <GridBackground position='absolute'/>
         <Flex
           minHeight={['lg', null, 'xl']}
           maxW='containers.xl'
