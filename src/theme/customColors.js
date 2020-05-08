@@ -3,13 +3,13 @@ const customColors = {
     brand: '#1DA1F2',
   },
   facebook: {
-    brand: '#3A67A2'
+    brand: '#3A67A2',
   },
   hatena: {
-    brand: '#1A9BE1'
+    brand: '#1A9BE1',
   },
   pocket: {
-    brand: '#EC435A'
+    brand: '#EC435A',
   },
 };
 
