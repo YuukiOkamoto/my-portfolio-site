@@ -38,25 +38,25 @@ const SnsShare = ({ url, title, ...props }) => (
       icon={FaTwitter}
       href={`http://twitter.com/share?url=${url}&text=${title}`}
       color='white'
-      bg='#1DA1F2'
+      bg='twitter.brand'
     />
     <SnsIconButton
       icon={FaFacebookF}
       href={`http://www.facebook.com/sharer.php?u=${url}&amp;t=${title}`}
       color='white'
-      bg='#3A67A2'
+      bg='facebook.brand'
     />
     <SnsIconButton
       icon='hatenaBookmark'
       href={`http://b.hatena.ne.jp/add?mode=confirm&url=${url}&title=${title}`}
       color='white'
-      bg='#1A9BE1'
+      bg='hatena.brand'
     />
     <SnsIconButton
       icon={FaGetPocket}
       href={`http://getpocket.com/edit?url=${url}&title=${title}`}
       color='white'
-      bg='#EC435A'
+      bg='pocket.brand'
     />
   </Stack>
 );
