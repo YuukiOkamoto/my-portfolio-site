@@ -10,25 +10,18 @@ import {
   IconButton,
   Stack,
 } from '@chakra-ui/core';
-import { FiTwitter, FiGithub } from 'react-icons/fi';
+import { FiTwitter, FiGithub, FiMoon, FiSun } from 'react-icons/fi';
 
 import Container from './Container';
 import useSiteMetadata from '../hooks/use-site-config';
 
 import siteIcon from '../../content/assets/bodybuilding.png';
+
 let hasRendered = false;
+
 const Header = ({ isHome }) => {
   const { title, snsAccounts } = useSiteMetadata();
   const { colorMode, toggleColorMode } = useColorMode();
-  const iconColors = {
-    color: {
-      hover: { light: 'white', dark: 'black' },
-    },
-    border: {
-      light: 'blackAlpha.600',
-      dark: 'whiteAlpha.600',
-    },
-  };
 
   // Workaround this bug: https://github.com/chakra-ui/chakra-ui/issues/511
   if (!hasRendered) {
@@ -39,119 +32,62 @@ const Header = ({ isHome }) => {
     hasRendered = true;
   }
 
-  const HeaderIconButton = ({ colors, ...props }) => (
+  const HeaderIconButton = ({ bgColor, ...props }) => (
     <IconButton
-      borderColor={colors.border[colorMode]}
+      borderColor={`headerIcon.${colorMode}.border`}
       variant='outline'
       isRound
       _hover={{
-        bg: colors.bg.hover[colorMode],
-        color: colors.color.hover[colorMode],
+        bg: bgColor || `headerIcon.${colorMode}.bg`,
+        color: `headerIcon.${colorMode}.hoverColor`,
+        opacity: 0.8,
       }}
       _focus={{
-        bg: colors.bg.focus[colorMode],
+        bg: bgColor || `headerIcon.${colorMode}.bg`,
         boxShadow: 'outline',
+        color: `headerIcon.${colorMode}.hoverColor`,
+        opacity: 0.6,
       }}
       _active={{
-        bg: colors.bg.active[colorMode],
+        bg: bgColor || `headerIcon.${colorMode}.bg`,
+        color: `headerIcon.${colorMode}.hoverColor`,
+        opacity: 0.4,
       }}
       {...props}
     />
   );
 
-  const TwitterButton = ({ author, ...props }) => {
-    const twitterColors = {
-      ...iconColors,
-      bg: {
-        hover: {
-          light: 'blue.500',
-          dark: 'blue.400',
-        },
-        focus: {
-          light: 'blue.200',
-          dark: 'blue.700',
-        },
-        active: {
-          light: 'blue.700',
-          dark: 'blue.200',
-        },
-      },
-    };
+  const TwitterButton = ({ author, ...props }) => (
+    <HeaderIconButton
+      as={Link}
+      aria-label={`Link to my Twitter ${author}`}
+      bgColor='twitter.brand'
+      icon={FiTwitter}
+      href={`https://twitter.com/${author}`}
+      target='_blank'
+      {...props}
+    />
+  );
 
-    return (
-      <HeaderIconButton
-        as={Link}
-        aria-label={`Link to my Twitter ${author}`}
-        colors={twitterColors}
-        icon={FiTwitter}
-        href={`https://twitter.com/${author}`}
-        target='_blank'
-        {...props}
-      />
-    );
-  };
+  const GitHubButton = ({ author, ...props }) => (
+    <HeaderIconButton
+      as={Link}
+      aria-label={`Link to my GitHub ${author}`}
+      icon={FiGithub}
+      href={`https://github.com/${author}`}
+      target='_blank'
+      {...props}
+    />
+  );
 
-  const GitHubButton = ({ author, ...props }) => {
-    const gitHubColors = {
-      ...iconColors,
-      bg: {
-        hover: {
-          light: 'blackAlpha.600',
-          dark: 'whiteAlpha.600',
-        },
-        focus: {
-          light: 'blackAlpha.400',
-          dark: 'whiteAlpha.400',
-        },
-        active: {
-          light: 'blackAlpha.800',
-          dark: 'whiteAlpha.800',
-        },
-      },
-    };
-
-    return (
-      <HeaderIconButton
-        as={Link}
-        aria-label={`Link to my GitHub ${author}`}
-        colors={gitHubColors}
-        icon={FiGithub}
-        href={`https://github.com/${author}`}
-        target='_blank'
-        {...props}
-      />
-    );
-  };
-
-  const ThemeButton = props => {
-    const themeColors = {
-      ...iconColors,
-      bg: {
-        hover: {
-          light: 'blackAlpha.600',
-          dark: 'whiteAlpha.600',
-        },
-        focus: {
-          light: 'blackAlpha.400',
-          dark: 'whiteAlpha.400',
-        },
-        active: {
-          light: 'blackAlpha.800',
-          dark: 'whiteAlpha.800',
-        },
-      },
-    };
-
-    return (
-      <HeaderIconButton
-        aria-label='Toggle theme'
-        colors={themeColors}
-        icon={colorMode === 'light' ? 'moon' : 'sun'}
-        onClick={toggleColorMode}
-        {...props}
-      />
-    );
-  };
+  const ThemeButton = props => (
+    <HeaderIconButton
+      aria-label='Toggle theme'
+      icon={colorMode === 'light' ? FiMoon : FiSun}
+      onClick={toggleColorMode}
+      {...props}
+    />
+  );
 
   return (
     <Box as='header'>
