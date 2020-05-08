@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link as GatsbyLink } from 'gatsby';
 import {
   useColorMode,
@@ -17,20 +17,15 @@ import useSiteMetadata from '../hooks/use-site-config';
 
 import siteIcon from '../../content/assets/bodybuilding.png';
 
-let hasRendered = false;
-
 const Header = ({ isHome }) => {
   const { title, snsAccounts } = useSiteMetadata();
   const { colorMode, toggleColorMode } = useColorMode();
 
   // Workaround this bug: https://github.com/chakra-ui/chakra-ui/issues/511
-  if (!hasRendered) {
-    setTimeout(() => {
-      toggleColorMode();
-      toggleColorMode();
-    });
-    hasRendered = true;
-  }
+  useEffect(() => {
+    toggleColorMode();
+    toggleColorMode();
+  }, [])
 
   const HeaderIconButton = ({ bgColor, ...props }) => (
     <IconButton
