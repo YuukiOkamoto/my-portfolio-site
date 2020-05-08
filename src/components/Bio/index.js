@@ -2,7 +2,6 @@ import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import Image from 'gatsby-image';
 import {
-  useColorMode,
   Box,
   Flex,
   Text,
@@ -11,9 +10,6 @@ import {
 import SnsAccountList from './SnsAccountList'
 
 const Bio = props => {
-  const { colorMode } = useColorMode();
-  const subText = { light: 'blackAlpha.800', dark: 'whiteAlpha.800' };
-
   const data = useStaticQuery(graphql`
     query BioQuery {
       avatar: file(absolutePath: { regex: "/profile-pic.jpg/" }) {
@@ -62,7 +58,7 @@ const Bio = props => {
         </Text>
         <Text
           fontSize='sm'
-          color={subText[colorMode]}
+          opacity='.8'
         >
           {author.summary}
         </Text>

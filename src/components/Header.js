@@ -20,10 +20,6 @@ let hasRendered = false;
 const Header = ({ isHome }) => {
   const { title, snsAccounts } = useSiteMetadata();
   const { colorMode, toggleColorMode } = useColorMode();
-  const innerColor = {
-    light: 'black',
-    dark: 'white',
-  };
   const iconColors = {
     color: {
       hover: { light: 'white', dark: 'black' },
@@ -158,7 +154,7 @@ const Header = ({ isHome }) => {
   };
 
   return (
-    <Box as='header' color={innerColor[colorMode]}>
+    <Box as='header'>
       <Container px='3' py='2'>
         <Flex as='header' align='center' justify='space-between' wrap='warp'>
           <Link as={GatsbyLink} to={`/`} _hover={{ textDecoration: 'none' }}>
