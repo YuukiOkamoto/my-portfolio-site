@@ -1,18 +1,14 @@
 import React from 'react';
 import { css } from '@emotion/core';
-import { useColorMode, Box } from '@chakra-ui/core';
+import { Box } from '@chakra-ui/core';
 
 import theme from '../../theme';
 
-const Quote = props => {
-  const { colorMode } = useColorMode();
-  const text = { light: 'blackAlpha.700', dark: 'whiteAlpha.700' };
-
-  return (
+const Quote = props => (
     <Box
       as='blockquote'
       boxSizing='content-box'
-      color={text[colorMode]}
+      opacity='.7'
       my={6}
       py={3}
       pl={8}
@@ -40,6 +36,5 @@ const Quote = props => {
       {props.children}
     </Box>
   );
-};
 
 export default Quote;

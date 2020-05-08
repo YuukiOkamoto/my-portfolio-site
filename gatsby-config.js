@@ -72,19 +72,19 @@ module.exports = {
         fonts: [
           {
             family: `M+PLUS+1p`,
-            variants: [`400`, `700`],
+            variants: [`400`, '600', `700`],
           },
           {
             family: `Roboto+Slab`,
-            variants: [`400`, `700`],
+            variants: [`400`, '600', `700`],
           },
           {
             family: `Noto+Sans+JP`,
-            variants: [`400`, `700`],
+            variants: [`400`, '600', `700`],
           },
           {
             family: `Merriweather`,
-            variants: [`400`, `700`],
+            variants: [`400`, '600', `700`],
           },
         ],
       },

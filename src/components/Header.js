@@ -16,17 +16,28 @@ import Container from './Container';
 import useSiteMetadata from '../hooks/use-site-config';
 
 import siteIcon from '../../content/assets/bodybuilding.png';
-
+let hasRendered = false;
 const Header = ({ isHome }) => {
   const { title, snsAccounts } = useSiteMetadata();
   const { colorMode, toggleColorMode } = useColorMode();
-  const innerColor = { light: 'black', dark: 'white' };
   const iconColors = {
     color: {
       hover: { light: 'white', dark: 'black' },
     },
-    border: { light: 'blackAlpha.600', dark: 'whiteAlpha.600' },
+    border: {
+      light: 'blackAlpha.600',
+      dark: 'whiteAlpha.600',
+    },
   };
+
+  // Workaround this bug: https://github.com/chakra-ui/chakra-ui/issues/511
+  if (!hasRendered) {
+    setTimeout(() => {
+      toggleColorMode();
+      toggleColorMode();
+    });
+    hasRendered = true;
+  }
 
   const HeaderIconButton = ({ colors, ...props }) => (
     <IconButton
@@ -37,8 +48,13 @@ const Header = ({ isHome }) => {
         bg: colors.bg.hover[colorMode],
         color: colors.color.hover[colorMode],
       }}
-      _focus={{ bg: colors.bg.focus[colorMode], boxShadow: 'outline' }}
-      _active={{ bg: colors.bg.active[colorMode] }}
+      _focus={{
+        bg: colors.bg.focus[colorMode],
+        boxShadow: 'outline',
+      }}
+      _active={{
+        bg: colors.bg.active[colorMode],
+      }}
       {...props}
     />
   );
@@ -47,9 +63,18 @@ const Header = ({ isHome }) => {
     const twitterColors = {
       ...iconColors,
       bg: {
-        hover: { light: 'blue.500', dark: 'blue.400' },
-        focus: { light: 'blue.200', dark: 'blue.700' },
-        active: { light: 'blue.700', dark: 'blue.200' },
+        hover: {
+          light: 'blue.500',
+          dark: 'blue.400',
+        },
+        focus: {
+          light: 'blue.200',
+          dark: 'blue.700',
+        },
+        active: {
+          light: 'blue.700',
+          dark: 'blue.200',
+        },
       },
     };
 
@@ -70,9 +95,18 @@ const Header = ({ isHome }) => {
     const gitHubColors = {
       ...iconColors,
       bg: {
-        hover: { light: 'blackAlpha.600', dark: 'whiteAlpha.600' },
-        focus: { light: 'blackAlpha.400', dark: 'whiteAlpha.400' },
-        active: { light: 'blackAlpha.800', dark: 'whiteAlpha.800' },
+        hover: {
+          light: 'blackAlpha.600',
+          dark: 'whiteAlpha.600',
+        },
+        focus: {
+          light: 'blackAlpha.400',
+          dark: 'whiteAlpha.400',
+        },
+        active: {
+          light: 'blackAlpha.800',
+          dark: 'whiteAlpha.800',
+        },
       },
     };
 
@@ -93,9 +127,18 @@ const Header = ({ isHome }) => {
     const themeColors = {
       ...iconColors,
       bg: {
-        hover: { light: 'blackAlpha.600', dark: 'whiteAlpha.600' },
-        focus: { light: 'blackAlpha.400', dark: 'whiteAlpha.400' },
-        active: { light: 'blackAlpha.800', dark: 'whiteAlpha.800' },
+        hover: {
+          light: 'blackAlpha.600',
+          dark: 'whiteAlpha.600',
+        },
+        focus: {
+          light: 'blackAlpha.400',
+          dark: 'whiteAlpha.400',
+        },
+        active: {
+          light: 'blackAlpha.800',
+          dark: 'whiteAlpha.800',
+        },
       },
     };
 
@@ -111,11 +154,11 @@ const Header = ({ isHome }) => {
   };
 
   return (
-    <Box as='header' color={innerColor[colorMode]}>
+    <Box as='header'>
       <Container px='3' py='2'>
         <Flex as='header' align='center' justify='space-between' wrap='warp'>
           <Link as={GatsbyLink} to={`/`} _hover={{ textDecoration: 'none' }}>
-            <Stack isInline align='center' spacing='1'>
+            <Stack isInline align='center' spacing='2'>
               <Image size='8' src={siteIcon} />
               <Heading as={isHome ? 'h1' : 'h3'} size='lg'>
                 {title}

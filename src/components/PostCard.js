@@ -17,7 +17,6 @@ import Tags from './Tags';
 
 const PostCard = ({ post, ...props }) => {
   const { colorMode } = useColorMode();
-  const textColor = { light: 'blackAlpha.700', dark: 'whiteAlpha.700' };
   const borderColor = { light: 'blackAlpha.400', dark: 'whiteAlpha.400' };
 
   return (
@@ -46,7 +45,7 @@ const PostCard = ({ post, ...props }) => {
         <Text
           as='div'
           fontSize='sm'
-          color={textColor[colorMode]}
+          opacity='.7'
           fontFamily='heading'
           gridArea='meta'
           justifySelf={['flex-start', 'flex-start', 'flex-end']}
@@ -61,7 +60,7 @@ const PostCard = ({ post, ...props }) => {
         <Box
           gridArea='preview'
           borderLeft={['none', 'none', '1px']}
-          borderColor={[null, borderColor[colorMode]]}
+          borderColor={borderColor[colorMode]}
           pl={[0, 0, '6']}
         >
           <Box
@@ -72,7 +71,7 @@ const PostCard = ({ post, ...props }) => {
                 'linear-gradient(to bottom, black 30%, transparent 100%)',
             }}
           >
-            <Text color={textColor[colorMode]} wordBreak='break-all'>
+            <Text opacity='.7' wordBreak='break-all'>
               {post.excerpt}
             </Text>
           </Box>
