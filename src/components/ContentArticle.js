@@ -17,7 +17,7 @@ const ContentArticle = ({ post }) => {
         <Text fontSize='sm' opacity='.7' textAlign='right'>
           {post.frontmatter.date}
         </Text>
-        <Tags post={post} tagColor='orange' />
+        <Tags post={post} />
       </header>
       <MDXProvider components={components}>
         <MDXRenderer>{post.body}</MDXRenderer>

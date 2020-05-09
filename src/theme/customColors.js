@@ -1,6 +1,6 @@
 import { theme } from '@chakra-ui/core';
 
-const chakraColors = theme.colors
+const chakraColors = theme.colors;
 
 const snsColors = {
   twitter: {
@@ -15,9 +15,10 @@ const snsColors = {
   pocket: {
     brand: '#EC435A',
   },
-}
+};
 
-const colorsByTheme = {
+const customColors = {
+  ...snsColors,
   headerIcon: {
     light: {
       border: chakraColors.blackAlpha[600],
@@ -30,11 +31,6 @@ const colorsByTheme = {
       hoverColor: chakraColors.black,
     },
   },
-};
-
-const customColors = {
-  ...snsColors,
-  ...colorsByTheme,
 };
 
 export default customColors;
