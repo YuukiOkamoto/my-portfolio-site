@@ -2,14 +2,13 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import Layout from '../../components/layout';
 import SEO from '../../components/SEO';
-import { useColorMode, Box, Heading, Stack, Text } from '@chakra-ui/core';
+import { Box, Heading, Stack, Text } from '@chakra-ui/core';
 import { GiMuscleUp } from 'react-icons/gi';
 
 import PostCard from '../../components/PostCard';
 import Container from '../../components/Container';
 
 const TagPageTemplate = ({ pageContext, data, location }) => {
-  const { colorMode } = useColorMode();
   const { tag } = pageContext;
   const { edges: posts, totalCount } = data.allMdx;
 
@@ -21,23 +20,10 @@ const TagPageTemplate = ({ pageContext, data, location }) => {
       />
       <Container>
         <Box pt='16' pb='24'>
-          <Box
-            mb='10'
-            textAlign='center'
-            color={
-              { light: 'blackAlpha.700', dark: 'whiteAlpha.700' }[colorMode]
-            }
-          >
+          <Box mb='10' textAlign='center' opacity='.7'>
             <Heading as='h1' size='xl' mb='6'>
               <Stack isInline spacing='3' d='flex' justify='center'>
-                <Box
-                  as={GiMuscleUp}
-                  fill={
-                    { light: 'blackAlpha.500', dark: 'whiteAlpha.500' }[
-                      colorMode
-                    ]
-                  }
-                />
+                <Box as={GiMuscleUp} fillOpacity='.5' />
                 <Text as='span'>{tag}</Text>
               </Stack>
             </Heading>

@@ -1,20 +1,24 @@
 import React from 'react';
-import { Box } from '@chakra-ui/core';
+import { useColorMode, Box } from '@chakra-ui/core';
 
 const Table = props => (
   <Box as='table' textAlign='left' mt='32px' width='full' {...props} />
 );
 
-const THead = props => (
-  <Box
-    as='th'
-    opacity='.1'
-    fontWeight='semibold'
-    p='2'
-    fontSize='sm'
-    {...props}
-  />
-);
+const THead = props => {
+  const { colorMode } = useColorMode();
+  const bg = { light: 'blackAlpha.100', dark: 'whiteAlpha.100' };
+  return (
+    <Box
+      as='th'
+      bg={bg[colorMode]}
+      fontWeight='semibold'
+      p='2'
+      fontSize='sm'
+      {...props}
+    />
+  );
+};
 
 const TData = props => (
   <Box
