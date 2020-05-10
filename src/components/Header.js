@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link as GatsbyLink } from 'gatsby';
 import {
   useColorMode,
@@ -20,6 +20,12 @@ import siteIcon from '../../content/assets/bodybuilding.png';
 const Header = ({ isHome }) => {
   const { title, snsAccounts } = useSiteMetadata();
   const { colorMode, toggleColorMode } = useColorMode();
+
+  // Note: Workaround this bug https://github.com/YuukiOkamoto/my-blog/issues/14
+  const [, setHasRendered] = useState(false);
+  useEffect(() => {
+    if (colorMode === 'dark') setHasRendered(true);
+  }, []);
 
   const HeaderIconButton = ({ bgColor, ...props }) => (
     <IconButton
