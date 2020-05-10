@@ -35,7 +35,6 @@ module.exports = {
         extensions: [`.mdx`, `.md`],
         remarkPlugins: [emoji],
         gatsbyRemarkPlugins: [
-          'gatsby-remark-code-titles',
           `gatsby-remark-autolink-headers`,
           {
             resolve: `gatsby-remark-images`,

@@ -53,7 +53,6 @@
   "devDependencies": {
     "babel-plugin-jsx-target-blank": "^1.0.0",
     "babel-preset-gatsby": "^0.3.6",
-    "gatsby-remark-code-titles": "^1.1.0",
     "prettier": "2.0.4"
   },
   "homepage": "https://github.com/gatsbyjs/gatsby-starter-blog#readme",
