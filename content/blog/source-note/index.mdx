@@ -1,0 +1,41 @@
+---
+title: Gatsbyにnoteの記事を追加する
+date: "2015-05-28T22:40:32.169Z"
+tags:
+  - Gatsby
+---
+
+import Callout from '../../../src/components/docsComponents/Callout'
+
+## はじめに
+
+ブログを始めたけど記事が少なくて寂しかったから、いくつか記事を書いたことあるnoteからデータを取得したかった！
+
+技術系の話書いてないけど、まあ問題なし！🙆‍♂️
+
+4,5記事しかないからコピペでもいいんだけど、せっかくGatsby使ってるんだし外部のソースを取り込みたい！
+
+## gatsby-node.jsで、noteから取得してGraphQLでnodeを追加する
+
+ルート直下に`gatsby-node.js`を追加し、処理を書いていく！
+
+このファイルはbuild時に一度実行され、  
+ページを動的に作成したり、  
+GraphQLでnodeを追加したり、  
+`build`のライフサイクル中にイベントに応答したりすることができます。
+
+[Gatsby Node APIs](https://www.gatsbyjs.org/docs/node-apis/)の中から、使いたいAPIをこのファイル内でexportすることで実行されます。
+
+<Callout emoji='🤔'>おそらくNode APIsであってるはず。使えそうなAPIをさがしていこう。</Callout>
+
+```jsx title=hoge.jsx live
+<Box>hoge</Box>
+```
+
+```jsx title=hoge.jsx live
+render(<Box>hoge</Box>)
+```
+
+```js title=hoge.js
+const hoge = 'hoge';
+```
