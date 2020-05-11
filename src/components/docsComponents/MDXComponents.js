@@ -2,27 +2,18 @@ import React from 'react';
 import {
   Box,
   Divider,
-  Icon,
   Image,
-  ListItem,
   Link,
-  Text,
+  ListItem,
 } from '@chakra-ui/core';
-import { FiExternalLink } from 'react-icons/fi';
 
 import CodeBlock from './CodeBlock';
 import Heading from './Heading';
 import InlineCode from './InlineCode';
 import List from './List';
+import Paragraph from './Paragraph';
 import Quote from './Quote';
 import Table, { THead, TData } from './Table';
-
-const ExternalLink = ({ children, ...props }) => (
-  <Link isExternal color='orange.300' {...props}>
-    {children}
-    <Icon as={FiExternalLink} pb='.15em' />
-  </Link>
-);
 
 const MDXComponents = {
   h2: props => <Heading as='h2' size='xl' mt='12' mb='5' {...props} />,
@@ -33,11 +24,11 @@ const MDXComponents = {
   inlineCode: InlineCode,
   code: CodeBlock,
   pre: props => <Box as='pre' my='6' rounded='sm' {...props} />,
-  p: props => <Text my='5' fontSize='md' {...props} />,
+  p: Paragraph,
   ul: props => <List styleType='disc' {...props} />,
   ol: props => <List styleType='decimal' {...props} />,
   li: props => <ListItem fontSize='md' {...props} />,
-  a: ExternalLink,
+  a: props => <Link color='orange.300' {...props} />,
   hr: Divider,
   thematicBreak: Divider,
   blockquote: Quote,
@@ -47,5 +38,4 @@ const MDXComponents = {
   td: TData,
 };
 
-export { ExternalLink };
 export default MDXComponents;
