@@ -5,11 +5,11 @@ import { Box, Flex, PseudoBox } from '@chakra-ui/core';
 
 import kebabCase from 'lodash/kebabCase';
 
-const Tag = ({ tag}) => {
+const Tag = ({ tag , ...props}) => {
   return (
     <PseudoBox
       as={GatsbyLink}
-      to={`tags/${kebabCase(tag)}`}
+      to={`/tags/${kebabCase(tag)}/`}
       display='inline-flex'
       alignItems='center'
       border='1px'
@@ -30,6 +30,7 @@ const Tag = ({ tag}) => {
         bg: 'orange.400',
         color: `white`,
       }}
+      {...props}
     >
       <Box as={GiMuscleUp} focusable='false' color='currentColor' mr='2' />
       <Box isTruncated as='span'>
@@ -39,7 +40,7 @@ const Tag = ({ tag}) => {
   );
 };
 
-const Tags = ({ post, fontSize }) => {
+const Tags = ({ post, fontSize, ...props }) => {
   const { tags } = post.frontmatter;
 
   if (!tags) return null;
@@ -51,6 +52,7 @@ const Tags = ({ post, fontSize }) => {
       flexWrap='wrap'
       mt='2'
       fontSize={fontSize}
+      {...props}
     >
       {tags.map((tag, i) => (
         <Tag

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { Link as GatsbyLink } from 'gatsby';
 import {
   useColorMode,
@@ -23,8 +23,8 @@ const Header = ({ isHome }) => {
 
   // Note: Workaround this bug https://github.com/YuukiOkamoto/my-blog/issues/14
   const [, setHasRendered] = useState(false);
-  useEffect(() => {
-    if (colorMode === 'dark') setHasRendered(true);
+  useLayoutEffect(() => {
+    setHasRendered(true);
   }, []);
 
   const HeaderIconButton = ({ bgColor, ...props }) => (

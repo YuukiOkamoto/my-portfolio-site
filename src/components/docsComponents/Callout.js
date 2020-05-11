@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { useColorMode, Stack, Text } from '@chakra-ui/core';
 
 const Callout = ({ emoji, children, ...props }) => {
@@ -6,7 +6,7 @@ const Callout = ({ emoji, children, ...props }) => {
 
   // Note: Workaround this bug https://github.com/YuukiOkamoto/my-blog/issues/14
   const [bg, setBg] = useState('');
-  useEffect(() => {
+  useLayoutEffect(() => {
     setBg({ light: 'gray.100', dark: 'gray.700' }[colorMode]);
   }, [colorMode]);
 
