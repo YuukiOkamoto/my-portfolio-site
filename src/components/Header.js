@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { Link as GatsbyLink } from 'gatsby';
 import {
   useColorMode,
@@ -22,35 +22,41 @@ const Header = ({ isHome }) => {
   const { colorMode, toggleColorMode } = useColorMode();
 
   // Note: Workaround this bug https://github.com/YuukiOkamoto/my-blog/issues/14
-  const [, setHasRendered] = useState(false);
-  useEffect(() => {
-    if (colorMode === 'dark') setHasRendered(true);
+  const [mounted, setMounted] = useState(false);
+  useLayoutEffect(() => {
+    setMounted(true);
   }, []);
 
-  const HeaderIconButton = ({ bgColor, ...props }) => (
-    <IconButton
-      borderColor={`headerIcon.${colorMode}.border`}
-      variant='outline'
-      isRound
-      _hover={{
-        bg: bgColor || `headerIcon.${colorMode}.bg`,
-        color: `headerIcon.${colorMode}.hoverColor`,
-        opacity: 0.8,
-      }}
-      _focus={{
-        bg: bgColor || `headerIcon.${colorMode}.bg`,
-        boxShadow: 'outline',
-        color: `headerIcon.${colorMode}.hoverColor`,
-        opacity: 0.6,
-      }}
-      _active={{
-        bg: bgColor || `headerIcon.${colorMode}.bg`,
-        color: `headerIcon.${colorMode}.hoverColor`,
-        opacity: 0.4,
-      }}
-      {...props}
-    />
-  );
+  const HeaderIconButton = ({ bgColor, ...props }) => {
+    const borderColors = { light: 'blackAlpha.600', dark: 'whiteAlpha.600' };
+    const bgColors = { light: 'black', dark: 'white' };
+    const hoverColors = { light: 'white', dark: 'black' };
+
+    return (
+      <IconButton
+        borderColor={borderColors[colorMode]}
+        variant='outline'
+        isRound
+        _hover={{
+          bg: bgColor || bgColors[colorMode],
+          color: hoverColors[colorMode],
+          opacity: 0.8,
+        }}
+        _focus={{
+          bg: bgColor || bgColors[colorMode],
+          boxShadow: 'outline',
+          color: hoverColors[colorMode],
+          opacity: 0.6,
+        }}
+        _active={{
+          bg: bgColor || bgColors[colorMode],
+          color: hoverColors[colorMode],
+          opacity: 0.4,
+        }}
+        {...props}
+      />
+    );
+  };
 
   const TwitterButton = ({ author, ...props }) => (
     <HeaderIconButton
@@ -68,6 +74,7 @@ const Header = ({ isHome }) => {
     <HeaderIconButton
       as={Link}
       aria-label={`Link to my GitHub ${author}`}
+      bgColor={{ light: 'blackAlpha.800', dark: 'whiteAlpha.800'}[colorMode]}
       icon={FiGithub}
       href={`https://github.com/${author}`}
       target='_blank'
@@ -85,7 +92,7 @@ const Header = ({ isHome }) => {
   );
 
   return (
-    <Box as='header'>
+    <Box as='header' visibility={mounted ? 'visible' : 'hidden'}>
       <Container px='3' py='2'>
         <Flex as='header' align='center' justify='space-between' wrap='warp'>
           <Link as={GatsbyLink} to={`/`} _hover={{ textDecoration: 'none' }}>
