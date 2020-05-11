@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, PseudoBox, Stack } from '@chakra-ui/core';
+import { Icon, Link, PseudoBox, Stack } from '@chakra-ui/core';
 
 import { FaTwitter, FaGithub } from 'react-icons/fa';
 
@@ -22,6 +22,17 @@ const SnsAccountList = ({ snsAccounts }) => (
         opacity='.6'
         transition='.1'
         _hover={{ opacity: 1 }}
+        _focus={{ bg: 'transparent' }}
+      />
+    </Link>
+    <Link href={`https://note.com/${snsAccounts.note}`} isExternal mt='-2px' ml='2px'>
+      <PseudoBox
+        as={Icon}
+        name='note'
+        size='4'
+        opacity='.6'
+        transition='.1'
+        _hover={{ color: 'note.brand', opacity: 1 }}
         _focus={{ bg: 'transparent' }}
       />
     </Link>

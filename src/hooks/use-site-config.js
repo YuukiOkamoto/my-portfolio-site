@@ -15,6 +15,7 @@ const useSiteMetadata = () => {
           snsAccounts {
             github
             twitter
+            note
           }
         }
       }

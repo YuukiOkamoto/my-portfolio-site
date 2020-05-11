@@ -12,6 +12,9 @@ const customColors = {
   pocket: {
     brand: '#EC435A',
   },
+  note: {
+    brand: '#41C9B4',
+  },
 };
 
 export default customColors;

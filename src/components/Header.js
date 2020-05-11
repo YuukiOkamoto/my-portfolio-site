@@ -70,6 +70,18 @@ const Header = ({ isHome }) => {
     />
   );
 
+  const NoteButton = ({ author, ...props }) => (
+    <HeaderIconButton
+      as={Link}
+      aria-label={`Link to my Note ${author}`}
+      bgColor='note.brand'
+      icon='note'
+      href={`https://note.com/${author}`}
+      target='_blank'
+      {...props}
+    />
+  );
+
   const GitHubButton = ({ author, ...props }) => (
     <HeaderIconButton
       as={Link}
@@ -106,6 +118,7 @@ const Header = ({ isHome }) => {
           <Stack isInline spacing='1'>
             <TwitterButton author={snsAccounts.twitter} size='sm' />
             <GitHubButton author={snsAccounts.github} size='sm' />
+            <NoteButton author={snsAccounts.note} size='sm' />
             <ThemeButton size='sm' />
           </Stack>
         </Flex>

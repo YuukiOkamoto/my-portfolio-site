@@ -11,6 +11,7 @@ module.exports = {
     siteUrl: `https://kinniku-choto-dekiru.netlify.com/`,
     snsAccounts: {
       twitter: `it_fitness_jp`,
+      note: `it_fitness_jp`,
       github: `YuukiOkamoto`,
     },
   },
