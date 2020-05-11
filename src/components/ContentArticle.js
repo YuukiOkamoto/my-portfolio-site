@@ -5,7 +5,7 @@ import { Box, Divider, Heading, Text } from '@chakra-ui/core';
 
 import Bio from './Bio';
 import Tags from './Tags';
-import components from './MDX';
+import components from './docsComponents/MDXComponents';
 
 const ContentArticle = ({ post }) => {
   return (
