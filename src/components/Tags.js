@@ -1,42 +1,43 @@
-import React from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { Link as GatsbyLink } from 'gatsby';
 import { GiMuscleUp } from 'react-icons/gi';
-import { Box, Flex, PseudoBox } from '@chakra-ui/core';
+import {
+  Flex,
+  Tag as ChakraTag,
+  TagIcon,
+  TagLabel,
+} from '@chakra-ui/core';
 
 import kebabCase from 'lodash/kebabCase';
 
-const Tag = ({ tag , ...props}) => {
+const Tag = ({ tag, ...props }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  // Note: Workaround this bug https://github.com/YuukiOkamoto/my-blog/issues/14
+  const [mounted, setMounted] = useState(false);
+  useLayoutEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
-    <PseudoBox
+    <ChakraTag
       as={GatsbyLink}
       to={`/tags/${kebabCase(tag)}/`}
-      display='inline-flex'
-      alignItems='center'
-      border='1px'
-      borderColor='orange.400'
-      color='orange.400'
-      minH='8'
-      minW='8'
-      px='3'
-      maxW='100%'
-      rounded='md'
       fontFamily='heading'
-      fontWeight='medium'
+      variant={isHovered ? 'solid' : 'outline'}
+      variantColor='orange'
       ml={[0, 0, 2]}
       mr={[2, 2, 0]}
       mb='2'
       transition='.1s'
-      _hover={{
-        bg: 'orange.400',
-        color: `white`,
-      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      visibility={mounted ? 'visible' : 'hidden'}
       {...props}
     >
-      <Box as={GiMuscleUp} focusable='false' color='currentColor' mr='2' />
-      <Box isTruncated as='span'>
-        {tag}
-      </Box>
-    </PseudoBox>
+      <TagIcon icon={GiMuscleUp} />
+      <TagLabel>{tag}</TagLabel>
+    </ChakraTag>
   );
 };
 
@@ -55,10 +56,7 @@ const Tags = ({ post, fontSize, ...props }) => {
       {...props}
     >
       {tags.map((tag, i) => (
-        <Tag
-          key={i}
-          tag={tag}
-        />
+        <Tag key={i} tag={tag} />
       ))}
     </Flex>
   );

@@ -22,9 +22,9 @@ const Header = ({ isHome }) => {
   const { colorMode, toggleColorMode } = useColorMode();
 
   // Note: Workaround this bug https://github.com/YuukiOkamoto/my-blog/issues/14
-  const [, setHasRendered] = useState(false);
+  const [mounted, setMounted] = useState(false);
   useLayoutEffect(() => {
-    setHasRendered(true);
+    setMounted(true);
   }, []);
 
   const HeaderIconButton = ({ bgColor, ...props }) => (
@@ -85,7 +85,7 @@ const Header = ({ isHome }) => {
   );
 
   return (
-    <Box as='header'>
+    <Box as='header' visibility={mounted ? 'visible' : 'hidden'}>
       <Container px='3' py='2'>
         <Flex as='header' align='center' justify='space-between' wrap='warp'>
           <Link as={GatsbyLink} to={`/`} _hover={{ textDecoration: 'none' }}>
