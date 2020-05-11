@@ -27,30 +27,36 @@ const Header = ({ isHome }) => {
     setMounted(true);
   }, []);
 
-  const HeaderIconButton = ({ bgColor, ...props }) => (
-    <IconButton
-      borderColor={`headerIcon.${colorMode}.border`}
-      variant='outline'
-      isRound
-      _hover={{
-        bg: bgColor || `headerIcon.${colorMode}.bg`,
-        color: `headerIcon.${colorMode}.hoverColor`,
-        opacity: 0.8,
-      }}
-      _focus={{
-        bg: bgColor || `headerIcon.${colorMode}.bg`,
-        boxShadow: 'outline',
-        color: `headerIcon.${colorMode}.hoverColor`,
-        opacity: 0.6,
-      }}
-      _active={{
-        bg: bgColor || `headerIcon.${colorMode}.bg`,
-        color: `headerIcon.${colorMode}.hoverColor`,
-        opacity: 0.4,
-      }}
-      {...props}
-    />
-  );
+  const HeaderIconButton = ({ bgColor, ...props }) => {
+    const borderColors = { light: 'blackAlpha.600', dark: 'whiteAlpha.600' };
+    const bgColors = { light: 'black', dark: 'white' };
+    const hoverColors = { light: 'white', dark: 'black' };
+
+    return (
+      <IconButton
+        borderColor={borderColors[colorMode]}
+        variant='outline'
+        isRound
+        _hover={{
+          bg: bgColor || bgColors[colorMode],
+          color: hoverColors[colorMode],
+          opacity: 0.8,
+        }}
+        _focus={{
+          bg: bgColor || bgColors[colorMode],
+          boxShadow: 'outline',
+          color: hoverColors[colorMode],
+          opacity: 0.6,
+        }}
+        _active={{
+          bg: bgColor || bgColors[colorMode],
+          color: hoverColors[colorMode],
+          opacity: 0.4,
+        }}
+        {...props}
+      />
+    );
+  };
 
   const TwitterButton = ({ author, ...props }) => (
     <HeaderIconButton
@@ -68,6 +74,7 @@ const Header = ({ isHome }) => {
     <HeaderIconButton
       as={Link}
       aria-label={`Link to my GitHub ${author}`}
+      bgColor={{ light: 'blackAlpha.800', dark: 'whiteAlpha.800'}[colorMode]}
       icon={FiGithub}
       href={`https://github.com/${author}`}
       target='_blank'
