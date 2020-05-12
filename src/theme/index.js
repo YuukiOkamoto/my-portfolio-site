@@ -14,8 +14,10 @@ const customTheme = {
   },
   fonts: {
     ...theme.fonts,
-    heading: 'Roboto Slab, M PLUS 1p',
-    body: 'Merriweather, Noto Sans JP',
+    heading:
+      'Roboto, 游ゴシック体, YuGothic, 游ゴシック Medium, Yu Gothic Medium, 游ゴシック, Yu Gothic, Noto Sans JP',
+    body:
+      'Roboto, 游ゴシック体, YuGothic, 游ゴシック Medium, Yu Gothic Medium, 游ゴシック, Yu Gothic, Noto Sans JP',
   },
   lineHeights: {
     shorter: 1.1,
