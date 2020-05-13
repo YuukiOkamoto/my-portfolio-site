@@ -3,7 +3,7 @@ import { Box, IconButton, Link, Stack } from '@chakra-ui/core';
 import { FaTwitter, FaFacebookF, FaGetPocket } from 'react-icons/fa';
 
 const SnsIconButton = ({ mr, ...props }) => (
-  <Box shadow='md' rounded='full' mr={mr}>
+  <Box as='aside' shadow='md' rounded='full' mr={mr}>
     <IconButton
       as={Link}
       isRound

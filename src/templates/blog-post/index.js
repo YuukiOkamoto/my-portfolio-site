@@ -1,8 +1,10 @@
 import React from 'react';
 import { graphql } from 'gatsby';
+import { Divider } from '@chakra-ui/core'
 
 import Layout from '../../components/layout';
 import SEO from '../../components/SEO';
+import Bio from '../../components/Bio';
 import ContentArticle from '../../components/ContentArticle';
 import Container from '../../components/Container';
 import PrevNextArticles from '../../components/PrevNextArticles';
@@ -21,9 +23,13 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
         description={mdx.frontmatter.description || mdx.excerpt}
       />
       <Container py='16'>
-        <ContentArticle post={mdx} />
-        <SnsShare url={url} title={title} />
-        <PrevNextArticles prev={prev} next={next} mt='10' />
+        <article>
+          <ContentArticle post={mdx} />
+          <SnsShare url={url} title={title} />
+          <Divider mt='2' />
+          <Bio mt='6' />
+          <PrevNextArticles prev={prev} next={next} mt='10' />
+        </article>
       </Container>
     </Layout>
   );
