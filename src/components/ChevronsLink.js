@@ -5,9 +5,6 @@ const ChevronsLink = ({ moveTo, ...props }) => (
   <Link
     fontFamily='heading'
     fontWeight='600'
-    _focus={{
-      boxShadow: 'outline',
-    }}
     _hover={{
       color: 'orange.300',
       '& .chevrons': {
