@@ -8,7 +8,7 @@ module.exports = {
       summary: `筋肉バカ。筋トレしてコード書いて、毎日幸せに生きてる。ボディビルのおかげでメンヘラ完治。2021年東京オープンボディビル選手権で最高の身体に仕上げてつよつよエンジニアになる！！`,
     },
     description: `筋肉はちょっとできる、ボディービルダーなエンジニアブログ`,
-    siteUrl: `https://kinniku-choto-dekiru.netlify.com/`,
+    siteUrl: `https://kinniku.engineer/`,
     snsAccounts: {
       twitter: `it_fitness_jp`,
       note: `it_fitness_jp`,
