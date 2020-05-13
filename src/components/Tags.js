@@ -4,7 +4,7 @@ import { GiMuscleUp } from 'react-icons/gi';
 import {
   Flex,
   Tag as ChakraTag,
-  TagIcon,
+  Box,
   TagLabel,
 } from '@chakra-ui/core';
 
@@ -35,7 +35,7 @@ const Tag = ({ tag, ...props }) => {
       visibility={mounted ? 'visible' : 'hidden'}
       {...props}
     >
-      <TagIcon icon={GiMuscleUp} />
+      <Box as={GiMuscleUp} mr='2' />
       <TagLabel>{tag}</TagLabel>
     </ChakraTag>
   );
