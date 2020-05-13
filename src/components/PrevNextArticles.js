@@ -21,7 +21,7 @@ const PrevNextArticles = ({ prev, next, ...props }) => (
             </Text>
             <ChevronsLink
               as={GatsbyLink}
-              to={prev.fields.slug}
+              to={`/blog${prev.fields.slug}`}
               rel='prev'
               moveTo='left'
             >
@@ -57,7 +57,7 @@ const PrevNextArticles = ({ prev, next, ...props }) => (
 
             <ChevronsLink
               as={GatsbyLink}
-              to={next.fields.slug}
+              to={`/blog${next.fields.slug}`}
               rel='next'
               moveTo='right'
             >

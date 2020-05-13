@@ -42,7 +42,7 @@ const Hero = ({ post }) => {
     <Box position='relative'>
       <Link
         as={GatsbyLink}
-        to={post.fields.slug}
+        to={`/blog${post.fields.slug}`}
         _hover={{
           '.read-more': {
             color: 'orange.300',

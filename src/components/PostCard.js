@@ -18,6 +18,7 @@ import Tags from './Tags';
 const PostCard = ({ post, ...props }) => {
   const { colorMode } = useColorMode();
   const borderColor = { light: 'blackAlpha.400', dark: 'whiteAlpha.400' };
+  const path = `/blog${post.fields.slug}`;
 
   return (
     <Stack spacing='10' {...props}>
@@ -36,7 +37,7 @@ const PostCard = ({ post, ...props }) => {
         <Heading as='h3' size='lg' gridArea='title' pl={[0, 0, '6']}>
           <Link
             as={GatsbyLink}
-            to={post.fields.slug}
+            to={path}
             _hover={{ textDecoration: 'none', color: 'orange.300' }}
           >
             {post.frontmatter.title}
@@ -76,7 +77,7 @@ const PostCard = ({ post, ...props }) => {
             </Text>
           </Box>
           <Box mt='3'>
-            <ChevronsLink as={GatsbyLink} to={post.fields.slug} moveTo='right'>
+            <ChevronsLink as={GatsbyLink} to={path} moveTo='right'>
               Read more
               <Icon
                 transition='transform .2s'

@@ -13,7 +13,7 @@ import SnsShare from '../../components/SnsShare';
 const BlogPostTemplate = ({ data, pageContext, location }) => {
   const { previous: prev, next } = pageContext;
   const mdx = data.mdx;
-  const url = `${data.site.siteMetadata.siteUrl}${mdx.fields.slug}`;
+  const url = `${data.site.siteMetadata.siteUrl}/blog${mdx.fields.slug}`;
   const title = mdx.frontmatter.title;
 
   return (

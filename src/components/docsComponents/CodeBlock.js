@@ -63,7 +63,7 @@ const EditableNotice = props => (
     textTransform='uppercase'
     {...props}
   >
-    Editable JSX
+    Editable Example
   </Box>
 );
 
@@ -114,6 +114,7 @@ const CodeBlock = ({
   if (language === 'jsx' && live) {
     return (
       <LiveProvider {...liveProviderProps}>
+        <LiveCodePreview />
         <Box my='8' rounded='md' overflow='hidden' zIndex='1'>
           {title && <EditorTitle title={title} />}
           <Box position='relative' overflow='hidden' zIndex='1'>
@@ -132,7 +133,6 @@ const CodeBlock = ({
             <EditableNotice />
           </Box>
         </Box>
-        <LiveCodePreview />
         <LiveError style={liveErrorStyle} />
       </LiveProvider>
     );
