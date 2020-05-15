@@ -5,6 +5,8 @@ import * as Chakra from '@chakra-ui/core';
 import theme from 'prism-react-renderer/themes/vsDark';
 import { RiFileCopyLine } from 'react-icons/ri';
 
+import * as DocsComponents from './'
+
 const { useClipboard, Box, Button, Icon } = Chakra;
 
 const liveEditorStyle = {
@@ -104,6 +106,7 @@ const CodeBlock = ({
     scope: {
       ...Chakra,
       mdx,
+      ...DocsComponents,
     },
     noInline: isManual,
     ...props,
