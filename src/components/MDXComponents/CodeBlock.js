@@ -5,7 +5,7 @@ import * as Chakra from '@chakra-ui/core';
 import theme from 'prism-react-renderer/themes/vsDark';
 import { RiFileCopyLine } from 'react-icons/ri';
 
-import * as DocsComponents from './'
+import * as widgetComponents from '../widgetComponents'
 
 const { useClipboard, Box, Button, Icon } = Chakra;
 
@@ -105,8 +105,8 @@ const CodeBlock = ({
     transformCode: code => `/** @jsx mdx */ ${code}`,
     scope: {
       ...Chakra,
+      ...widgetComponents,
       mdx,
-      ...DocsComponents,
     },
     noInline: isManual,
     ...props,

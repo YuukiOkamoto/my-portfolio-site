@@ -4,7 +4,7 @@ import { MDXProvider } from '@mdx-js/react';
 import { Heading, Text } from '@chakra-ui/core';
 
 import Tags from './Tags';
-import components from './docsComponents/MDXComponents';
+import components from './MDXComponents';
 
 const ContentArticle = ({ post }) => {
   return (
