@@ -1,7 +1,13 @@
 import React, { useLayoutEffect, useState } from 'react';
 import { useColorMode, Stack, Text } from '@chakra-ui/core';
 
-const Callout = ({ emoji, emojiSize ='xl', children, ...props }) => {
+const Callout = ({
+  emoji,
+  emojiSize = 'xl',
+  bg = { light: 'gray.50', dark: 'whiteAlpha.50' },
+  children,
+  ...props
+}) => {
   const { colorMode } = useColorMode();
 
   // Note: Workaround this bug https://github.com/YuukiOkamoto/my-blog/issues/14
@@ -16,7 +22,7 @@ const Callout = ({ emoji, emojiSize ='xl', children, ...props }) => {
       d='inline-flex'
       spacing='3'
       align='center'
-      bg={{ light: 'gray.50', dark: 'whiteAlpha.50' }[colorMode]}
+      bg={bg[colorMode]}
       fontSize='sm'
       py='4'
       px='6'

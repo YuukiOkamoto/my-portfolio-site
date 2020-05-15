@@ -25,7 +25,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
       <Container py='16'>
         <article>
           <ContentArticle post={mdx} />
-          <SnsShare url={url} title={title} />
+          <SnsShare url={url} title={title} mt='4' />
           <Divider mt='2' />
           <Bio mt='6' />
           <PrevNextArticles prev={prev} next={next} mt='10' />
