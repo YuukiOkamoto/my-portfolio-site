@@ -29,10 +29,10 @@ const LiveCodePreview = props => (
     as={LivePreview}
     fontFamily='body'
     mt='5'
-    p='4'
+    p='3'
     border='1px'
     borderColor='inherit'
-    rounded='lg'
+    rounded='md'
     {...props}
   />
 );
@@ -44,8 +44,8 @@ const CopyButton = props => (
     textTransform='uppercase'
     variantColor='teal'
     fontSize='xs'
-    height='24px'
-    top='.5em'
+    height='4'
+    top='0'
     zIndex='1'
     right='.5em'
     {...props}
@@ -118,9 +118,9 @@ const CodeBlock = ({
     return (
       <LiveProvider {...liveProviderProps}>
         <LiveCodePreview />
-        <Box my='8' rounded='md' overflow='hidden' zIndex='1'>
+        <Box my='8' rounded='md'>
           {title && <EditorTitle title={title} />}
-          <Box position='relative' overflow='hidden' zIndex='1'>
+          <Box position='relative'>
             <LiveEditor
               {...{ onChange: handleCodeChange }}
               padding={20}
@@ -130,7 +130,7 @@ const CodeBlock = ({
               {hasCopied ? (
                 'copied(^∀^)ᕗ'
               ) : (
-                <Icon as={RiFileCopyLine} fontSize='lg' />
+                <Icon as={RiFileCopyLine} />
               )}
             </CopyButton>
             <EditableNotice />
@@ -153,15 +153,15 @@ const CodeBlock = ({
 
   return (
     <LiveProvider disabled {...liveProviderProps}>
-      <Box my='8' rounded='md' overflow='hidden' zIndex='1'>
+      <Box my='8' rounded='md'>
         {title && <EditorTitle title={title} />}
-        <Box position='relative' overflow='hidden' zIndex='1'>
+        <Box position='relative'>
           <LiveEditor padding={20} style={liveEditorStyle} />
           <CopyButton onClick={onCopy}>
             {hasCopied ? (
               'copied(^∀^)ᕗ'
             ) : (
-              <Icon as={RiFileCopyLine} fontSize='lg' />
+              <Icon as={RiFileCopyLine} />
             )}
           </CopyButton>
         </Box>

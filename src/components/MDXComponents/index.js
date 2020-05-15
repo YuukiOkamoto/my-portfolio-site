@@ -23,7 +23,7 @@ const MDXComponents = {
   h6: props => <Heading as='h6' size='xs' mt='1' mb='1' {...props} />,
   inlineCode: InlineCode,
   code: CodeBlock,
-  pre: props => <Box as='pre' my='6' rounded='sm' {...props} />,
+  pre: props => <Box my='6' rounded='sm' {...props} />,
   p: Paragraph,
   ul: props => <List styleType='disc' {...props} />,
   ol: props => <List styleType='decimal' {...props} />,
