@@ -10,9 +10,9 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/core';
-import { FiChevronsRight } from "react-icons/fi"
+import { FiChevronsRight } from 'react-icons/fi';
 
-import ChevronsLink from './ChevronsLink'
+import ChevronsLink from './ChevronsLink';
 import Tags from './Tags';
 
 const PostCard = ({ post, ...props }) => {
@@ -35,13 +35,14 @@ const PostCard = ({ post, ...props }) => {
         templateColumns={['1fr', '1fr', '1fr 3fr']}
       >
         <Heading as='h3' size='lg' gridArea='title' pl={[0, 0, '6']}>
-          <Link
-            as={GatsbyLink}
-            to={path}
-            _hover={{ textDecoration: 'none', color: 'orange.300' }}
-          >
-            {post.frontmatter.title}
-          </Link>
+          <GatsbyLink to={path}>
+            <Link
+              as='span'
+              _hover={{ textDecoration: 'none', color: 'orange.300' }}
+            >
+              {post.frontmatter.title}
+            </Link>
+          </GatsbyLink>
         </Heading>
         <Text
           as='div'
@@ -77,7 +78,7 @@ const PostCard = ({ post, ...props }) => {
             </Text>
           </Box>
           <Box mt='3'>
-            <ChevronsLink as={GatsbyLink} to={path} moveTo='right'>
+            <ChevronsLink path={path} moveTo='right'>
               Read more
               <Icon
                 transition='transform .2s'
