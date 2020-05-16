@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React from 'react';
 import { Link as GatsbyLink } from 'gatsby';
 import {
   useColorMode,
@@ -20,12 +20,6 @@ import siteIcon from '../../content/assets/bodybuilding.png';
 const Header = ({ isHome }) => {
   const { title, snsAccounts } = useSiteMetadata();
   const { colorMode, toggleColorMode } = useColorMode();
-
-  // Note: Workaround this bug https://github.com/YuukiOkamoto/my-blog/issues/14
-  const [mounted, setMounted] = useState(false);
-  useLayoutEffect(() => {
-    setMounted(true);
-  }, []);
 
   const HeaderIconButton = ({ bgColor, ...props }) => {
     const borderColors = { light: 'blackAlpha.600', dark: 'whiteAlpha.600' };
@@ -95,7 +89,7 @@ const Header = ({ isHome }) => {
   );
 
   return (
-    <Box as='header' visibility={mounted ? 'visible' : 'hidden'}>
+    <Box as='header'>
       <Container px='3' py='2'>
         <Flex as='header' align='center' justify='space-between' wrap='warp'>
           <Link as={GatsbyLink} to={`/`} _hover={{ textDecoration: 'none' }}>

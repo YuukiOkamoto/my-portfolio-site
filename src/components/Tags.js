@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link as GatsbyLink } from 'gatsby';
 import { GiMuscleUp } from 'react-icons/gi';
 import {
@@ -13,12 +13,6 @@ import kebabCase from 'lodash/kebabCase';
 const Tag = ({ tag, ...props }) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  // Note: Workaround this bug https://github.com/YuukiOkamoto/my-blog/issues/14
-  const [mounted, setMounted] = useState(false);
-  useLayoutEffect(() => {
-    setMounted(true);
-  }, []);
-
   return (
     <ChakraTag
       as={GatsbyLink}
@@ -32,7 +26,6 @@ const Tag = ({ tag, ...props }) => {
       transition='.1s'
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      visibility={mounted ? 'visible' : 'hidden'}
       {...props}
     >
       <Box as={GiMuscleUp} mr='2' />

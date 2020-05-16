@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React from 'react';
 import { useColorMode, Stack, Text } from '@chakra-ui/core';
 
 const Callout = ({
@@ -9,12 +9,6 @@ const Callout = ({
   ...props
 }) => {
   const { colorMode } = useColorMode();
-
-  // Note: Workaround this bug https://github.com/YuukiOkamoto/my-blog/issues/14
-  const [mounted, setMounted] = useState(false);
-  useLayoutEffect(() => {
-    setMounted(true);
-  }, []);
 
   return (
     <Stack
@@ -27,7 +21,6 @@ const Callout = ({
       py='4'
       px='6'
       borderRadius='lg'
-      visibility={mounted ? 'visible' : 'hidden'}
       {...props}
     >
       <Text fontSize={emojiSize}>{emoji}</Text>

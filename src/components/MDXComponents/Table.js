@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React from 'react';
 import { useColorMode, Box } from '@chakra-ui/core';
 
 const Table = props => (
@@ -8,11 +8,6 @@ const Table = props => (
 const THead = props => {
   const { colorMode } = useColorMode();
 
-  // Note: Workaround this bug https://github.com/YuukiOkamoto/my-blog/issues/14
-  const [mounted, setMounted] = useState(false);
-  useLayoutEffect(() => {
-    setMounted(true);
-  }, []);
 
   const bg = { light: 'blackAlpha.100', dark: 'whiteAlpha.100' };
 
@@ -23,7 +18,6 @@ const THead = props => {
       fontWeight='semibold'
       p='2'
       fontSize='sm'
-      visibility={mounted ? 'visible' : 'hidden'}
       {...props}
     />
   );
