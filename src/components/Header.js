@@ -94,15 +94,6 @@ const Header = ({ isHome }) => {
     />
   );
 
-  const ThemeButton = props => (
-    <HeaderIconButton
-      aria-label='Toggle theme'
-      icon={colorMode === 'light' ? FiMoon : FiSun}
-      onClick={toggleColorMode}
-      {...props}
-    />
-  );
-
   return (
     <Box as='header' visibility={mounted ? 'visible' : 'hidden'}>
       <Container px='3' py='2'>
@@ -119,7 +110,6 @@ const Header = ({ isHome }) => {
             <TwitterButton author={snsAccounts.twitter} size='sm' />
             <GitHubButton author={snsAccounts.github} size='sm' />
             <NoteButton author={snsAccounts.note} size='sm' />
-            <ThemeButton size='sm' />
           </Stack>
         </Flex>
       </Container>

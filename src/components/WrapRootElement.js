@@ -4,10 +4,8 @@ import theme from '../theme'
 
 const WrapRootElement = ({ element }) => (
   <ThemeProvider theme={theme}>
-    <ColorModeProvider>
-      <CSSReset />
-      {element}
-    </ColorModeProvider>
+    <CSSReset />
+    {element}
   </ThemeProvider>
 );
 
