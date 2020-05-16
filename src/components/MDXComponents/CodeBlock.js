@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 import { mdx } from '@mdx-js/react';
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
+import Highlight, { defaultProps } from 'prism-react-renderer';
 import * as Chakra from '@chakra-ui/core';
 import theme from 'prism-react-renderer/themes/vsDark';
 import { RiFileCopyLine } from 'react-icons/ri';
 
-import * as widgetComponents from '../widgetComponents'
+import * as widgetComponents from '../widgetComponents';
 
 const { useClipboard, Box, Button, Icon } = Chakra;
 
 const liveEditorStyle = {
   fontSize: 14,
   fontFamily: 'Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace',
-  overflowX: 'auto',
+  overflow: 'auto',
   backgroundColor: '#2D2D2D',
+  whiteSpace: 'nowrap',
 };
 
 const liveErrorStyle = {
@@ -22,6 +24,15 @@ const liveErrorStyle = {
   overflowX: 'auto',
   color: 'white',
   backgroundColor: 'red',
+};
+
+const highlightStyle = {
+  padding: 20,
+  fontSize: 14,
+  overflow: 'auto',
+  lineHeight: '1.5',
+  fontFamily: 'Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace',
+  backgroundColor: '#2D2D2D',
 };
 
 const LiveCodePreview = props => (
@@ -122,16 +133,12 @@ const CodeBlock = ({
           {title && <EditorTitle title={title} />}
           <Box position='relative'>
             <LiveEditor
-              {...{ onChange: handleCodeChange }}
+              onChange={handleCodeChange}
               padding={20}
               style={liveEditorStyle}
             />
             <CopyButton onClick={onCopy}>
-              {hasCopied ? (
-                'copied(^∀^)ᕗ'
-              ) : (
-                <Icon as={RiFileCopyLine} />
-              )}
+              {hasCopied ? 'copied(^∀^)ᕗ' : <Icon as={RiFileCopyLine} />}
             </CopyButton>
             <EditableNotice />
           </Box>
@@ -141,31 +148,39 @@ const CodeBlock = ({
     );
   }
 
-  if (render) {
-    return (
-      <div style={{ marginTop: '40px' }}>
-        <LiveProvider {...liveProviderProps}>
-          <LiveCodePreview />
-        </LiveProvider>
-      </div>
-    );
-  }
-
   return (
-    <LiveProvider disabled {...liveProviderProps}>
+    <LiveProvider {...liveProviderProps}>
+      {render && <LiveCodePreview />}
       <Box my='8' rounded='md'>
         {title && <EditorTitle title={title} />}
         <Box position='relative'>
-          <LiveEditor padding={20} style={liveEditorStyle} />
-          <CopyButton onClick={onCopy}>
-            {hasCopied ? (
-              'copied(^∀^)ᕗ'
-            ) : (
-              <Icon as={RiFileCopyLine} />
+          <Highlight
+            {...defaultProps}
+            theme={theme}
+            code={children.trim()}
+            language={language}
+          >
+            {({ className, style, tokens, getLineProps, getTokenProps }) => (
+              <pre
+                className={className}
+                style={{ ...style, ...highlightStyle }}
+              >
+                {tokens.map((line, i) => (
+                  <div key={i} {...getLineProps({ line, key: i })}>
+                    {line.map((token, key) => (
+                      <span key={key} {...getTokenProps({ token, key })} />
+                    ))}
+                  </div>
+                ))}
+              </pre>
             )}
+          </Highlight>
+          <CopyButton onClick={onCopy}>
+            {hasCopied ? 'copied(^∀^)ᕗ' : <Icon as={RiFileCopyLine} />}
           </CopyButton>
         </Box>
       </Box>
+      {render && <LiveError style={liveErrorStyle} />}
     </LiveProvider>
   );
 };
