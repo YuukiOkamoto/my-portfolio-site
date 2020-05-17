@@ -1,0 +1,47 @@
+---
+title: Gatsbyのスターターとは？
+date: '2020-05-17T23:30:00Z'
+description: ''
+featured: false
+tags:
+  - Gatsby
+  - GatsbyStarters
+---
+
+import ExternalLink from '../../../src/components/widgetComponents/ExternalLink';
+
+## 概要
+
+スターターは既に設定された機能をもつ Gatsby サイトのことです。  
+それを「雛形」としてダウンロードし、そこからカスタマイズして自分のサイトを作っていくことができます。
+
+プラグインやテーマと違い元のスターターとの依存関係はないので、スターターが更新されても自分のサイトに影響はありません。
+
+## スターターでサイト構築を始めてみる
+
+もちろん手動で GitHub のレポジトリから`clone`し、`npm install`で依存関係をインストールすることもできます。
+
+`gatsby-cli`を使うことでより簡単に始められます。
+
+```shell title=gatsby-cliのインストール
+npm install -g gatsby-cli
+```
+
+`gatsby new`コマンドで、対象のレポジトリからstarterをcloneし、依存関係をインストールし、gitの履歴を消去した状態で始められます。
+
+```shell title=gatsby newコマンド
+gatsby new [サイト名] [スターターのGitレポジトリのURL]
+```
+
+たとえば、<ExternalLink href='https://www.gatsbyjs.org/starters/gatsbyjs/gatsby-starter-blog/'>gatsby-starter-blog</ExternalLink>というスターターを`blog`という名前でつくる場合以下のコマンドを実行します。
+
+```shell title=gatsby-starter-blogでサイト構築
+gatsby new blog https://github.com/gatsbyjs/gatsby-starter-blog
+```
+
+この`gatsby-starter-blog`というスターターは、ブログの基本設定やRSS、GoogleAnalytics、コードのシンタックスハイライト、サイトのmetaタグ設定など、既にブログを始めるために必要な設定が行われています。  
+このまま記事を書き始めることも、設定を変えることも、UIを変えることも自由にできます。
+
+他にもたくさんのスターターライブラリが <ExternalLink href='https://www.gatsbyjs.org/starters/?v=2'>こちら</ExternalLink> から探せます。  
+ぜひ目的にあったものを探してみてください！
+
