@@ -1,0 +1,153 @@
+---
+title: Gatsbyのテーマとは？
+date: '2020-05-18T22:30:00Z'
+description: ''
+featured: false
+tags:
+  - Gatsby
+  - GatsbyThemes
+---
+
+import Link from '../../../src/components/widgetComponents/Link';
+import ExternalLink from '../../../src/components/widgetComponents/ExternalLink';
+import Callout from '../../../src/components/widgetComponents/Callout';
+
+## 概要
+
+Gatsby テーマは<Link to='/blog/what-is-gatsby-plugins/'>プラグイン</Link>の一種です。
+
+プラグインとは違って自身で`gatsby-config.js`ファイルをもっており、複数のパッケージをインストールして管理できる Gatsby サイトになります。  
+この点は<Link to='/blog/what-is-gatsby-starters/'>スターター</Link>と同じようですが、テーマはプラグインの一種です。
+複数のテーマを同時に利用することができますし、テーマの更新や変更の影響を受けることができます。
+
+## テーマとスターターの違い
+
+テーマを理解するために、どんなときにテーマを作成するのか考えます。
+
+Gatsby サイトを構築する際、様々な設定をする必要があります。  
+たとえばどこにデータを置くのか？  
+どのようにアクセスするのか？  
+どのように表示するのか？  
+などなど。
+
+それらをテーマとしてパッケージ化することで、第三者や自分自身が再利用することができます。
+
+似たものに<Link to='/blog/what-is-gatsby-starters/'>スターター</Link>があります。  
+スターターは Gatsby サイトを素早く作成する方法の 1 つで、あらかじめ特定の目的のために設定された Gatsby サイトをダウンロードしてカスタマイズしていけます。  
+例えば、ブログを作りたい。TypeScript を使いたい。という目的があれば、これら 14 個(2020/5/18 時点)のスターターから始めて自分好みにカスタマイズできます。
+
+<ExternalLink href='https://www.gatsbyjs.org/starters/?c=Blog&d=gatsby-plugin-typescript&v=2'>
+  https://www.gatsbyjs.org/starters/?c=Blog&d=gatsby-plugin-typescript&v=2
+</ExternalLink>
+
+サイト作成の始めの手助け、雛形として使うだけ。つまり、今後スタータを更新変更してもそれをサイトに取り込む必要はない。あくまで雛形として使うだけなんだ。というならスターターで問題ないかもしれません。
+
+ただ、共通化した設定をパッケージとして再利用したい場合は、パッケージの更新変更もサイトに取り込みたいとお思います。  
+そんなときに使えるのがテーマです。
+
+次の場合、スターターではなくテーマの使用を検討できると思います。
+
+- すでに Gatsby サイトがありそこに追加したい。つまりスターターから始めることが出来ない場合
+- パッケージの更新変更を取り込み、サイトを最新にアップデートし続けたい場合
+- 複数の機能を実装したいが、すべての機能をもつスターターがない場合
+  (複数のテーマを組み合わせる)
+
+また次の場合、テーマの作成を検討できます。
+
+- 複数の Gatsby サイトで同じ機能・設定を再利用したい場合
+- 複数人で同じ機能・設定を共有したい場合
+
+## テーマの使い方
+
+テーマはプラグインの一種ですので、インストールして使い始めることが出来ます。
+
+
+```shell title=テーマをインストール
+npm install gatsby-theme-xxx
+```
+
+次にプラグインと同様、`gatsby-config.js`の plugins 配列に追加します。  
+テーマによってはオプションを設定できます。
+
+```js title=gatsby-config.js
+module.exports = {
+  plugins: [
+    {
+      resolve: `gatsby-theme-xxx`,
+      options: {
+        option1: `macho`,
+      },
+    },
+  ],
+};
+```
+
+他にもいくつものオプションがあります。ぜひ見てみましょう。
+
+<ExternalLink href='https://www.gatsbyjs.org/packages/gatsby-theme-blog/#theme-options'>
+  https://www.gatsbyjs.org/packages/gatsby-theme-blog/#theme-options
+</ExternalLink>
+
+そのあとテーマによって、必要な設定をしたり必要なファイルを作成したりしていきます。
+
+## 実際に使ってみる
+
+それでは実際に使ってみてみましょう。
+
+今回は、<ExternalLink href='https://www.gatsbyjs.org/packages/gatsby-theme-blog/'>gatsby-theme-blog</ExternalLink>というテーマを使ってみます。
+
+まず、最小構成で Gatsby サイトを作成します。
+
+```shell title=最小構成でgatsbyサイト作成
+mkdir example-of-gatsby-theme-usage
+cd example-of-gatsby-theme-usage
+npm init -y
+npm install react react-dom gatsby
+touch gatsby-config.js
+```
+
+次にテーマをインストールします。
+
+```shell title=テーマをインストール
+npm install gatsby-theme-blog
+```
+
+`gatsby-config.js`の`plugins`にテーマを指定します。
+
+```js title=gatsby-config.js
+module.exports = {
+  plugins: [
+    {
+      resolve: `gatsby-theme-blog`,
+      options: {},
+    },
+  ],
+};
+```
+
+これで完了です。
+
+早速、記事を作ってみましょう。
+
+このテーマではデフォルトで、`/content/posts/`の下に`.md`ファイルか`.mdx`ファイルを作るとページが作成されます。  
+このpathはオプションで変えることも出来ます。
+
+```md title=content/posts/bodybuilding.md
+---
+title: ボディビル
+date: 2020-05-18T22:00:00Z
+---
+
+ボディビルはたのしいぞ！！
+```
+
+早速 `gatsby develop`してみましょう！
+
+```shell
+gatsby develop
+```
+
+するとテーマを使ったサイトが表示されると思います。  
+こちらから <ExternalLink href='https://example-of-gatsby-theme-usage.netlify.app/'>Demo</ExternalLink> と、 <ExternalLink href='https://github.com/YuukiOkamoto/example-of-gatsby-theme-usage/tree/master'>ソースコード</ExternalLink> を確認することができます。
+
+<Callout emoji='🙌' my='5'>次回は、このサイトをカスタマイズしていこうかなと思います！</Callout>
