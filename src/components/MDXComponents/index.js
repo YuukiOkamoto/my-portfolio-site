@@ -16,8 +16,8 @@ import Quote from './Quote';
 import Table, { THead, TData } from './Table';
 
 const MDXComponents = {
-  h2: props => <Heading as='h2' size='lg' mt='12' mb='5' py='3' pl='1' borderTop='2px' borderBottom='2px' borderStyle='dotted' {...props} />,
-  h3: props => <Heading as='h3' size='md' mt='10' mb='4' py='2' pl='1' borderBottom='1px dotted' {...props} />,
+  h2: props => <Heading as='h2' size='lg' mt='16' mb='8' py='3' pl='1' borderTop='2px' borderBottom='2px' borderStyle='dotted' {...props} />,
+  h3: props => <Heading as='h3' size='md' mt='12' mb='6' py='2' pl='1' borderBottom='1px dotted' {...props} />,
   h4: props => <Heading as='h4' size='sm' mt='6' mb='3' {...props} />,
   h5: props => <Heading as='h5' size='xs' mt='3' mb='2' {...props} />,
   h6: props => <Heading as='h6' size='xs' mt='1' mb='1' {...props} />,
@@ -27,7 +27,7 @@ const MDXComponents = {
   p: Paragraph,
   ul: props => <List styleType='disc' {...props} />,
   ol: props => <List styleType='decimal' {...props} />,
-  li: props => <ListItem fontSize='md' {...props} />,
+  li: props => <ListItem  fontSize={['sm', 'md']} {...props} />,
   a: props => <Link color='orange.300' {...props} />,
   hr: Divider,
   thematicBreak: Divider,
