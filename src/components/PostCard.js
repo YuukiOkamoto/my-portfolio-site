@@ -32,14 +32,13 @@ const PostCard = ({ post, ...props }) => {
         templateColumns={['1fr', '1fr', '1fr 3fr']}
       >
         <Heading as='h3' size='lg' gridArea='title' pl={[0, 0, '6']}>
-          <GatsbyLink to={path}>
             <Link
-              as='span'
+              as={GatsbyLink}
+              to={path}
               _hover={{ textDecoration: 'none', color: 'orange.300' }}
             >
               {post.frontmatter.title}
             </Link>
-          </GatsbyLink>
         </Heading>
         <Text
           as='div'
@@ -75,7 +74,7 @@ const PostCard = ({ post, ...props }) => {
             </Text>
           </Box>
           <Box mt='3'>
-            <ChevronsLink path={path} moveTo='right'>
+            <ChevronsLink to={path} moveTo='right'>
               Read more
               <Icon
                 transition='transform .2s'
