@@ -1,14 +1,6 @@
 import React from 'react';
 import { Link as GatsbyLink } from 'gatsby';
-import {
-  Box,
-  Grid,
-  Heading,
-  Icon,
-  Link,
-  Stack,
-  Text,
-} from '@chakra-ui/core';
+import { Box, Grid, Heading, Icon, Link, Stack, Text } from '@chakra-ui/core';
 import { FiChevronsRight } from 'react-icons/fi';
 
 import ChevronsLink from './ChevronsLink';
@@ -31,14 +23,14 @@ const PostCard = ({ post, ...props }) => {
         rowGap='4'
         templateColumns={['1fr', '1fr', '1fr 3fr']}
       >
-        <Heading as='h3' size='lg' gridArea='title' pl={[0, 0, '6']}>
-            <Link
-              as={GatsbyLink}
-              to={path}
-              _hover={{ textDecoration: 'none', color: 'orange.300' }}
-            >
-              {post.frontmatter.title}
-            </Link>
+        <Heading as='h3' size='lg' gridArea='title' pl={[0, 0, 6]}>
+          <Link
+            as={GatsbyLink}
+            to={path}
+            _hover={{ textDecoration: 'none', color: 'orange.300' }}
+          >
+            {post.frontmatter.title}
+          </Link>
         </Heading>
         <Text
           as='div'

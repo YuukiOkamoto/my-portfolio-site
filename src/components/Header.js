@@ -9,7 +9,7 @@ import {
   IconButton,
   Stack,
 } from '@chakra-ui/core';
-import { FiTwitter, FiGithub} from 'react-icons/fi';
+import { FiTwitter, FiGithub } from 'react-icons/fi';
 
 import Container from './Container';
 import useSiteMetadata from '../hooks/use-site-config';
