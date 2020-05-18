@@ -20,6 +20,10 @@ const Header = ({ isHome }) => {
   const { title, snsAccounts } = useSiteMetadata();
 
   const HeaderIconButton = ({ bgColor, ...props }) => {
+    const invertedColor = {
+      bg: bgColor || 'black',
+      color: 'white',
+    };
 
     return (
       <IconButton
@@ -27,20 +31,17 @@ const Header = ({ isHome }) => {
         variant='outline'
         isRound
         _hover={{
-          bg: bgColor || 'black',
-          color: 'white',
           opacity: 0.8,
+          ...invertedColor,
         }}
         _focus={{
-          bg: bgColor || 'black',
           boxShadow: 'outline',
-          color: 'white',
           opacity: 0.6,
+          ...invertedColor,
         }}
         _active={{
-          bg: bgColor || 'black',
-          color: 'white',
           opacity: 0.4,
+          ...invertedColor,
         }}
         {...props}
       />
