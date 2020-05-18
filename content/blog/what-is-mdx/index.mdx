@@ -96,7 +96,7 @@ Notion の Callout ↓ と似たものがほしかったのでコンポーネン
 背景の色だってかんたんに変えられちゃう
 
 ```jsx render
-<Callout emoji='ᕕ( ᐛ )ᕗ' bg={{ light: 'pink.300', dark: 'pink.700' }}>
+<Callout emoji='ᕕ( ᐛ )ᕗ' bg='pink.300'>
   わーーい
   <br />
   わーーーい
@@ -116,7 +116,7 @@ Notion の Callout ↓ と似たものがほしかったのでコンポーネン
 こんな感じのAlertだって、簡単に書けちゃう！！
 
 ```jsx render title=Alertコンポーネントの例
-<Stack spacing={3} color='gray.500'>
+<Stack spacing='3'>
   <Alert status='success'>
     <AlertIcon />
     犯罪係数アンダー60。<br/>執行対象ではありません。<br/>トリガーをロックします。

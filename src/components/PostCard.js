@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link as GatsbyLink } from 'gatsby';
 import {
-  useColorMode,
   Box,
   Grid,
   Heading,
@@ -16,8 +15,6 @@ import ChevronsLink from './ChevronsLink';
 import Tags from './Tags';
 
 const PostCard = ({ post, ...props }) => {
-  const { colorMode } = useColorMode();
-  const borderColor = { light: 'blackAlpha.400', dark: 'whiteAlpha.400' };
   const path = `/blog${post.fields.slug}`;
 
   return (
@@ -62,7 +59,7 @@ const PostCard = ({ post, ...props }) => {
         <Box
           gridArea='preview'
           borderLeft={['none', 'none', '1px']}
-          borderColor={borderColor[colorMode]}
+          borderColor='blackAlpha.400'
           pl={[0, 0, '6']}
         >
           <Box

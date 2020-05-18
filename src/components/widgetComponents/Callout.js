@@ -1,14 +1,13 @@
 import React from 'react';
-import { useColorMode, Stack, Text } from '@chakra-ui/core';
+import { Stack, Text } from '@chakra-ui/core';
 
 const Callout = ({
   emoji,
   emojiSize = 'xl',
-  bg = { light: 'gray.50', dark: 'whiteAlpha.50' },
+  bg = 'gray.50',
   children,
   ...props
 }) => {
-  const { colorMode } = useColorMode();
 
   return (
     <Stack
@@ -16,7 +15,7 @@ const Callout = ({
       d='inline-flex'
       spacing='3'
       align='center'
-      bg={bg[colorMode]}
+      bg={bg}
       fontSize='sm'
       py='4'
       px='6'
