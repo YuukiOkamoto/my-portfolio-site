@@ -27,12 +27,11 @@ const liveErrorStyle = {
 };
 
 const highlightStyle = {
-  padding: 20,
-  fontSize: 14,
-  overflow: 'auto',
-  lineHeight: '1.5',
-  fontFamily: 'Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace',
   backgroundColor: '#2D2D2D',
+  fontFamily: 'Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace',
+  fontSize: [12, 14],
+  overflow: 'auto',
+  padding: 5,
 };
 
 const LiveCodePreview = props => (
@@ -161,9 +160,11 @@ const CodeBlock = ({
             language={language}
           >
             {({ className, style, tokens, getLineProps, getTokenProps }) => (
-              <pre
+              <Box
+                as='pre'
                 className={className}
-                style={{ ...style, ...highlightStyle }}
+                {...highlightStyle}
+                style={{ ...style }}
               >
                 {tokens.map((line, i) => (
                   <div key={i} {...getLineProps({ line, key: i })}>
@@ -172,7 +173,7 @@ const CodeBlock = ({
                     ))}
                   </div>
                 ))}
-              </pre>
+              </Box>
             )}
           </Highlight>
           <CopyButton onClick={onCopy}>

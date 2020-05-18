@@ -1,0 +1,149 @@
+---
+title: Gatsbyのプラグインとは？
+date: '2020-05-17T21:00:00Z'
+description: ''
+featured: false
+tags:
+  - Gatsby
+  - GatsbyPlugins
+---
+
+import ExternalLink from '../../../src/components/widgetComponents/ExternalLink';
+
+## プラグインとは？
+
+Gatsbyプラグインは、Gatsby APIを実装してGatsbyサイトに追加機能を追加するNode.jsパッケージです。  
+
+例えば、以下のようなものがあります。
+
+- build 時に GraphQL に外部データを追加したり
+  - ヘッドレス CMS から追加<br />
+    <ExternalLink href='https://www.gatsbyjs.org/packages/gatsby-source-contentful/'>
+      gatsby-source-contentful
+    </ExternalLink>
+  - Shopify からショップデータを追加<br />
+    <ExternalLink href='https://www.gatsbyjs.org/packages/gatsby-source-shopify/'>
+      gatsby-source-shopify
+    </ExternalLink>
+  - Tweet を検索し追加<br />
+    <ExternalLink href='https://www.gatsbyjs.org/packages/gatsby-source-twitter/'>
+      gatsby-source-twitter
+    </ExternalLink>
+- build 時に GraphQL に静的ファイルを追加したり<br />
+  <ExternalLink href='https://www.gatsbyjs.org/packages/gatsby-source-filesystem/'>
+    gatsby-source-filesystem
+  </ExternalLink>
+- 取得したデータのフォーマットを JSON オブジェクトに変換したり
+  - Markdown<br />
+    <ExternalLink href='https://www.gatsbyjs.org/packages/gatsby-transformer-remark/'>
+      gatsby-transformer-remark
+    </ExternalLink>
+  - YAML<br />
+    <ExternalLink href='https://www.gatsbyjs.org/packages/gatsby-transformer-yaml/'>
+      gatsby-transformer-yaml
+    </ExternalLink>
+  - PDF<br />
+    <ExternalLink href='https://www.gatsbyjs.org/packages/gatsby-transformer-pdf/'>
+      gatsby-transformer-pdf
+    </ExternalLink>
+- サードパーティーのサービスをサイトに追加したり
+  - Google Analytic<br />
+    <ExternalLink href='https://www.gatsbyjs.org/packages/gatsby-plugin-google-analytics/'>
+      gatsby-plugin-google-analytics
+    </ExternalLink>
+  - Web Font Loader<br />
+    <ExternalLink href='https://www.gatsbyjs.org/packages/gatsby-plugin-web-font-loader/'>
+      gatsby-plugin-web-font-loader
+    </ExternalLink>
+
+プラグインはスターターとは異なり、Gatsbyのデータレイヤーや他の構造的なサイトコードの機能をインストール可能なパーツにパッケージ化したものです。  
+よって、プラグインのコードが更新されればそれに応じてプラグインを使用しているサイトも更新されます。  
+対するスターターは始めのサイト構築時にソースコードを取り込み、それ以降スターターの更新は反映されません。
+
+## プラグインの使い方
+
+プラグインはNode.jsパッケージなので、まずnpmを使ってインストールします。
+
+例えば、<ExternalLink href='https://chakra-ui.com/'>ChakraUI</ExternalLink>というUIコンポーネントのライブラリをサポートするプラグインを入れてみましょう。
+
+```shell title=shell
+yarn add gatsby-plugin-chakra-ui @chakra-ui/core @emotion/core @emotion/styled emotion-theming
+```
+
+or
+
+```shell title=shell
+npm install gatsby-plugin-chakra-ui @chakra-ui/core @emotion/core @emotion/styled emotion-theming
+```
+
+次に、`gatsby-config.js`ファイルのplugins配列に`gatsby-plugin-chakra-ui`を追加するだけです。
+
+```js title=gatsby-config.js
+module.exports = {
+  plugins: [`gatsby-plugin-chakra-ui`],
+}
+```
+
+このようにオプションを渡すこともできます。
+
+```js title=gatsby-config.js
+// gatsby-config.js
+module.exports = {
+  plugins: [
+    {
+      resolve: "gatsby-plugin-chakra-ui",
+      options: {
+        /**
+         * @property {boolean} [isResettingCSS=true]
+         * if false, this plugin will not use `<CSSReset />
+         */
+        isResettingCSS: true,
+        /**
+         * @property {boolean} [isUsingColorMode=true]
+         * if false, this plugin will not use <ColorModeProvider />
+         */
+        isUsingColorMode: true,
+      },
+    },
+  ],
+};
+```
+
+ちなみにインストールされるパッケージは<ExternalLink href='https://github.com/chakra-ui/chakra-ui/tree/36dda059a6e34f0a57191101301b658ff95883c8/packages/gatsby-plugin-chakra-ui'>こちら</ExternalLink>です。
+
+ソースコードは比較的シンプルで、`gatsby-browser.js`と`gatsby-ssr.js`の2ファイルで以下のように`wrapRootElememnt`APIを使うためにexportしていることがわかります。
+
+```js gatsby-browser.js
+import React from "react";
+import { ThemeProvider, ColorModeProvider, CSSReset } from "@chakra-ui/core";
+import theme from "./theme";
+
+export const wrapRootElement = (
+  { element },
+  { isResettingCSS = true, isUsingColorMode = true },
+) => (
+  <ThemeProvider theme={theme}>
+    {isResettingCSS && !isUsingColorMode && <CSSReset />}
+    {isUsingColorMode ? (
+      <ColorModeProvider>
+        {isResettingCSS && <CSSReset />}
+        {element}
+      </ColorModeProvider>
+    ) : (
+      element
+    )}
+  </ThemeProvider>
+);
+```
+
+```js gatsby-ssr.js
+export { wrapRootElement } from "./gatsby-browser";
+```
+
+このソースコードを見れば、オプションの指定によっての違いがわかりやすいですね。
+
+ちなみに`gatsby-browser.js`では、クライアント側でブラウザ内のアクションに反応したり、追加のコンポーネントでサイトをラップしたりすることができるAPIをexportし、  
+`gatsby-ssr.js`では、サーバー側でGatsbyとNode.jsによってSSRされた静的なHTMLファイルを変更できるAPIをexportします。
+
+このようにプラグインではGatsbyのコアAPIを使う設定がされており、それをサイトに反映できます。
+
