@@ -14,7 +14,7 @@ const BlogIndex = ({ data: { featured, latest }, location }) => {
 
   return (
     <Layout location={location}>
-      <SEO title='All posts' />
+      <SEO />
       <Hero post={featuredPost} />
       <Container>
         <LatestPosts posts={latestPosts} />

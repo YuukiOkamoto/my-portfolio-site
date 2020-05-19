@@ -5,53 +5,69 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import React from "react"
-import PropTypes from "prop-types"
-import Helmet from "react-helmet"
-import { useStaticQuery, graphql } from "gatsby"
+import React from 'react';
+import PropTypes from 'prop-types';
+import Helmet from 'react-helmet';
+import { useLocation } from '@reach/router';
 
-const SEO = ({ description, lang, meta, title }) => {
-  const { site } = useStaticQuery(
-    graphql`
-      query {
-        site {
-          siteMetadata {
-            title
-            description
-            snsAccounts {
-              twitter
-            }
-          }
-        }
-      }
-    `
-  );
+import useSiteMetadata from '../hooks/use-site-config';
 
-  const metaDescription = description || site.siteMetadata.description
+const SEO = ({ title, description, image, isArticle, lang, meta }) => {
+  const { pathname } = useLocation();
+
+  const {
+    title: defaultTitle,
+    description: defaultDescription,
+    siteUrl,
+    image: defaultImage,
+    snsAccounts,
+  } = useSiteMetadata();
+
+  const formatedSiteUrl = siteUrl.endsWith('/') ? siteUrl.slice(0, -1) : siteUrl
+
+  const seo = {
+    title: title || defaultTitle,
+    titleTemplate: defaultTitle,
+    description: description || defaultDescription,
+    image: image ? `${formatedSiteUrl}${pathname}${image}` : defaultImage,
+    url: `${formatedSiteUrl}${pathname}`,
+  };
 
   return (
     <Helmet
       htmlAttributes={{
         lang,
       }}
-      title={title}
-      titleTemplate={`%s | ${site.siteMetadata.title}`}
+      title={seo.title}
+      titleTemplate={title ? `%s | ${seo.titleTemplate}` : null}
       meta={[
         {
           name: `description`,
-          content: metaDescription,
+          content: seo.description,
+        },
+        {
+          name: `image`,
+          content: seo.image,
         },
         {
           property: `og:title`,
-          content: title,
+          content: seo.title,
         },
         {
           property: `og:description`,
-          content: metaDescription,
+          content: seo.description,
+        },
+        {
+          name: `og:image`,
+          content: seo.image,
         },
         {
           property: `og:type`,
-          content: `website`,
+          content: isArticle ? `article` : `website`,
+        },
+        {
+          property: `og:url`,
+          content: seo.url,
         },
         {
           name: `twitter:card`,
@@ -59,32 +75,41 @@ const SEO = ({ description, lang, meta, title }) => {
         },
         {
           name: `twitter:creator`,
-          content: site.siteMetadata.snsAccounts.twitter,
+          content: snsAccounts.twitter,
         },
         {
           name: `twitter:title`,
-          content: title,
+          content: seo.title,
         },
         {
           name: `twitter:description`,
-          content: metaDescription,
+          content: seo.description,
+        },
+        {
+          name: `twitter:image`,
+          content: seo.image,
         },
       ].concat(meta)}
     />
   );
-}
+};
 
 SEO.defaultProps = {
+  title: null,
+  description: null,
+  image: null,
+  isArticle: false,
   lang: `ja`,
   meta: [],
-  description: ``,
-}
+};
 
 SEO.propTypes = {
+  title: PropTypes.string,
   description: PropTypes.string,
+  image: PropTypes.string,
+  isArticle: PropTypes.bool,
   lang: PropTypes.string,
   meta: PropTypes.arrayOf(PropTypes.object),
-  title: PropTypes.string.isRequired,
-}
+};
 
-export default SEO
+export default SEO;
