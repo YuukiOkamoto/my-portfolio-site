@@ -59,7 +59,13 @@ module.exports = {
     },
     'gatsby-remark-reading-time',
     `gatsby-transformer-sharp`,
-    `gatsby-plugin-chakra-ui`,
+    {
+      resolve: 'gatsby-plugin-chakra-ui',
+      options: {
+        isResettingCSS: true,
+        isUsingColorMode: false,
+      },
+    },
     `gatsby-plugin-instagram-embed`,
     `gatsby-plugin-pinterest`,
     `gatsby-plugin-twitter`,

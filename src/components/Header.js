@@ -1,7 +1,6 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React from 'react';
 import { Link as GatsbyLink } from 'gatsby';
 import {
-  useColorMode,
   Box,
   Flex,
   Heading,
@@ -10,7 +9,7 @@ import {
   IconButton,
   Stack,
 } from '@chakra-ui/core';
-import { FiTwitter, FiGithub, FiMoon, FiSun } from 'react-icons/fi';
+import { FiTwitter, FiGithub } from 'react-icons/fi';
 
 import Container from './Container';
 import useSiteMetadata from '../hooks/use-site-config';
@@ -19,39 +18,30 @@ import siteIcon from '../../content/assets/bodybuilding.png';
 
 const Header = ({ isHome }) => {
   const { title, snsAccounts } = useSiteMetadata();
-  const { colorMode, toggleColorMode } = useColorMode();
-
-  // Note: Workaround this bug https://github.com/YuukiOkamoto/my-blog/issues/14
-  const [mounted, setMounted] = useState(false);
-  useLayoutEffect(() => {
-    setMounted(true);
-  }, []);
 
   const HeaderIconButton = ({ bgColor, ...props }) => {
-    const borderColors = { light: 'blackAlpha.600', dark: 'whiteAlpha.600' };
-    const bgColors = { light: 'black', dark: 'white' };
-    const hoverColors = { light: 'white', dark: 'black' };
+    const invertedColor = {
+      bg: bgColor || 'black',
+      color: 'white',
+    };
 
     return (
       <IconButton
-        borderColor={borderColors[colorMode]}
+        borderColor='blackAlpha.600'
         variant='outline'
         isRound
         _hover={{
-          bg: bgColor || bgColors[colorMode],
-          color: hoverColors[colorMode],
           opacity: 0.8,
+          ...invertedColor,
         }}
         _focus={{
-          bg: bgColor || bgColors[colorMode],
           boxShadow: 'outline',
-          color: hoverColors[colorMode],
           opacity: 0.6,
+          ...invertedColor,
         }}
         _active={{
-          bg: bgColor || bgColors[colorMode],
-          color: hoverColors[colorMode],
           opacity: 0.4,
+          ...invertedColor,
         }}
         {...props}
       />
@@ -86,7 +76,7 @@ const Header = ({ isHome }) => {
     <HeaderIconButton
       as={Link}
       aria-label={`Link to my GitHub ${author}`}
-      bgColor={{ light: 'blackAlpha.800', dark: 'whiteAlpha.800'}[colorMode]}
+      bgColor='blackAlpha.800'
       icon={FiGithub}
       href={`https://github.com/${author}`}
       target='_blank'
@@ -94,17 +84,8 @@ const Header = ({ isHome }) => {
     />
   );
 
-  const ThemeButton = props => (
-    <HeaderIconButton
-      aria-label='Toggle theme'
-      icon={colorMode === 'light' ? FiMoon : FiSun}
-      onClick={toggleColorMode}
-      {...props}
-    />
-  );
-
   return (
-    <Box as='header' visibility={mounted ? 'visible' : 'hidden'}>
+    <Box as='header'>
       <Container px='3' py='2'>
         <Flex as='header' align='center' justify='space-between' wrap='warp'>
           <Link as={GatsbyLink} to={`/`} _hover={{ textDecoration: 'none' }}>
@@ -119,7 +100,6 @@ const Header = ({ isHome }) => {
             <TwitterButton author={snsAccounts.twitter} size='sm' />
             <GitHubButton author={snsAccounts.github} size='sm' />
             <NoteButton author={snsAccounts.note} size='sm' />
-            <ThemeButton size='sm' />
           </Stack>
         </Flex>
       </Container>

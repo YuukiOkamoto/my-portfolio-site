@@ -1,23 +1,12 @@
 import React from 'react';
 import { Link as GatsbyLink } from 'gatsby';
-import {
-  useColorMode,
-  Box,
-  Grid,
-  Heading,
-  Icon,
-  Link,
-  Stack,
-  Text,
-} from '@chakra-ui/core';
-import { FiChevronsRight } from "react-icons/fi"
+import { Box, Grid, Heading, Icon, Link, Stack, Text } from '@chakra-ui/core';
+import { FiChevronsRight } from 'react-icons/fi';
 
-import ChevronsLink from './ChevronsLink'
+import ChevronsLink from './ChevronsLink';
 import Tags from './Tags';
 
 const PostCard = ({ post, ...props }) => {
-  const { colorMode } = useColorMode();
-  const borderColor = { light: 'blackAlpha.400', dark: 'whiteAlpha.400' };
   const path = `/blog${post.fields.slug}`;
 
   return (
@@ -34,7 +23,7 @@ const PostCard = ({ post, ...props }) => {
         rowGap='4'
         templateColumns={['1fr', '1fr', '1fr 3fr']}
       >
-        <Heading as='h3' size='lg' gridArea='title' pl={[0, 0, '6']}>
+        <Heading as='h3' size='lg' gridArea='title' pl={[0, 0, 6]}>
           <Link
             as={GatsbyLink}
             to={path}
@@ -61,7 +50,7 @@ const PostCard = ({ post, ...props }) => {
         <Box
           gridArea='preview'
           borderLeft={['none', 'none', '1px']}
-          borderColor={borderColor[colorMode]}
+          borderColor='blackAlpha.400'
           pl={[0, 0, '6']}
         >
           <Box
@@ -77,7 +66,7 @@ const PostCard = ({ post, ...props }) => {
             </Text>
           </Box>
           <Box mt='3'>
-            <ChevronsLink as={GatsbyLink} to={path} moveTo='right'>
+            <ChevronsLink to={path} moveTo='right'>
               Read more
               <Icon
                 transition='transform .2s'
