@@ -1,8 +1,10 @@
 import React from 'react';
+import { Link as GatsbyLink } from 'gatsby';
 import { Link } from '@chakra-ui/core';
 
 const ChevronsLink = ({ moveTo, ...props }) => (
   <Link
+    as={GatsbyLink}
     fontFamily='heading'
     fontWeight='600'
     _focus={{
