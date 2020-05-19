@@ -21,6 +21,8 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
       <SEO
         title={title}
         description={mdx.frontmatter.description || mdx.excerpt}
+        image='cover.jpeg'
+        isArticle
       />
       <Container py='16'>
         <article>
