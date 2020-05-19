@@ -32,7 +32,7 @@ const SEO = ({ title, description, cover, isArticle, lang, meta }) => {
     title: title || defaultTitle,
     titleTemplate: defaultTitle,
     description: description || defaultDescription,
-    imagePath: cover || withPrefix(siteCover),
+    image: `${formatedSiteUrl}${cover || withPrefix(siteCover)}`,
     url: `${formatedSiteUrl}${pathname}`,
   };
 
@@ -50,7 +50,7 @@ const SEO = ({ title, description, cover, isArticle, lang, meta }) => {
         },
         {
           name: `image`,
-          content: seo.imagePath,
+          content: seo.image,
         },
         {
           property: `og:title`,
@@ -62,7 +62,7 @@ const SEO = ({ title, description, cover, isArticle, lang, meta }) => {
         },
         {
           name: `og:image`,
-          content: seo.imagePath,
+          content: seo.image,
         },
         {
           property: `og:type`,
@@ -90,7 +90,7 @@ const SEO = ({ title, description, cover, isArticle, lang, meta }) => {
         },
         {
           name: `twitter:image`,
-          content: seo.imagePath,
+          content: seo.image,
         },
       ].concat(meta)}
     />
