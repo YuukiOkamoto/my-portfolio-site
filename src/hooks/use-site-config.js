@@ -6,8 +6,9 @@ const useSiteMetadata = () => {
       site {
         siteMetadata {
           title
-          siteUrl
           description
+          siteUrl
+          siteCover
           author {
             name
             summary

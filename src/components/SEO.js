@@ -6,30 +6,33 @@
  */
 
 import React from 'react';
+import { withPrefix } from 'gatsby';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { useLocation } from '@reach/router';
 
 import useSiteMetadata from '../hooks/use-site-config';
 
-const SEO = ({ title, description, image, isArticle, lang, meta }) => {
+const SEO = ({ title, description, cover, isArticle, lang, meta }) => {
   const { pathname } = useLocation();
 
   const {
     title: defaultTitle,
     description: defaultDescription,
     siteUrl,
-    image: defaultImage,
+    siteCover,
     snsAccounts,
   } = useSiteMetadata();
 
-  const formatedSiteUrl = siteUrl.endsWith('/') ? siteUrl.slice(0, -1) : siteUrl
+  const formatedSiteUrl = siteUrl.endsWith('/')
+    ? siteUrl.slice(0, -1)
+    : siteUrl;
 
   const seo = {
     title: title || defaultTitle,
     titleTemplate: defaultTitle,
     description: description || defaultDescription,
-    image: image ? `${formatedSiteUrl}${pathname}${image}` : defaultImage,
+    imagePath: cover || withPrefix(siteCover),
     url: `${formatedSiteUrl}${pathname}`,
   };
 
@@ -47,7 +50,7 @@ const SEO = ({ title, description, image, isArticle, lang, meta }) => {
         },
         {
           name: `image`,
-          content: seo.image,
+          content: seo.imagePath,
         },
         {
           property: `og:title`,
@@ -59,7 +62,7 @@ const SEO = ({ title, description, image, isArticle, lang, meta }) => {
         },
         {
           name: `og:image`,
-          content: seo.image,
+          content: seo.imagePath,
         },
         {
           property: `og:type`,
@@ -87,7 +90,7 @@ const SEO = ({ title, description, image, isArticle, lang, meta }) => {
         },
         {
           name: `twitter:image`,
-          content: seo.image,
+          content: seo.imagePath,
         },
       ].concat(meta)}
     />

@@ -1,6 +1,6 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-import { Divider } from '@chakra-ui/core'
+import { Divider } from '@chakra-ui/core';
 
 import Layout from '../../components/layout';
 import SEO from '../../components/SEO';
@@ -21,7 +21,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
       <SEO
         title={title}
         description={mdx.frontmatter.description || mdx.excerpt}
-        image='cover.jpeg'
+        cover={mdx.frontmatter.cover && mdx.frontmatter.cover.publicURL}
         isArticle
       />
       <Container py='16'>
@@ -57,7 +57,9 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         description
-        tags
+        cover {
+          publicURL
+        }
       }
     }
   }

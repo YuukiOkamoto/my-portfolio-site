@@ -9,7 +9,7 @@ module.exports = {
     },
     description: `筋肉はちょっとできる、ボディービルダーなエンジニアブログ`,
     siteUrl: `https://kinniku.engineer/`,
-    image: `static/default-ogp.jpeg`,
+    siteCover: `default-cover.jpeg`,
     snsAccounts: {
       twitter: `it_fitness_jp`,
       note: `it_fitness_jp`,
