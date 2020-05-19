@@ -8,27 +8,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
-import { useStaticQuery, graphql } from 'gatsby';
 import { useLocation } from '@reach/router';
+
+import useSiteMetadata from '../hooks/use-site-config';
 
 const SEO = ({ title, description, image, isArticle, lang, meta }) => {
   const { pathname } = useLocation();
-  const { site } = useStaticQuery(query);
 
   const {
-    defaultTitle,
-    defaultDescription,
+    title: defaultTitle,
+    description: defaultDescription,
     siteUrl,
-    defaultImage,
+    image: defaultImage,
     snsAccounts,
-  } = site.siteMetadata;
+  } = useSiteMetadata();
+
+  const formatedSiteUrl = siteUrl.endsWith('/') ? siteUrl.slice(0, -1) : siteUrl
 
   const seo = {
     title: title || defaultTitle,
     titleTemplate: defaultTitle,
     description: description || defaultDescription,
-    image: `${siteUrl}${image || defaultImage}`,
-    url: `${siteUrl.endsWith('/') ? siteUrl.slice(0, -1) : siteUrl}${pathname}`,
+    image: image ? `${formatedSiteUrl}${pathname}${image}` : defaultImage,
+    url: `${formatedSiteUrl}${pathname}`,
   };
 
   return (
@@ -56,6 +58,10 @@ const SEO = ({ title, description, image, isArticle, lang, meta }) => {
           content: seo.description,
         },
         {
+          name: `og:image`,
+          content: seo.image,
+        },
+        {
           property: `og:type`,
           content: isArticle ? `article` : `website`,
         },
@@ -78,6 +84,10 @@ const SEO = ({ title, description, image, isArticle, lang, meta }) => {
         {
           name: `twitter:description`,
           content: seo.description,
+        },
+        {
+          name: `twitter:image`,
+          content: seo.image,
         },
       ].concat(meta)}
     />
@@ -103,19 +113,3 @@ SEO.propTypes = {
 };
 
 export default SEO;
-
-const query = graphql`
-  query SEO {
-    site {
-      siteMetadata {
-        defaultTitle: title
-        defaultDescription: description
-        siteUrl
-        defaultImage: image
-        snsAccounts {
-          twitter
-        }
-      }
-    }
-  }
-`;
