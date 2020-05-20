@@ -7,7 +7,7 @@ import ChevronsLink from './ChevronsLink';
 import Tags from './Tags';
 
 const PostCard = ({ post, ...props }) => {
-  const path = `/blog${post.fields.slug}`;
+  const path = post.fields.slug;
 
   return (
     <Stack spacing='10' {...props}>
