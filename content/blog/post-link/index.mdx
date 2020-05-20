@@ -1,0 +1,307 @@
+---
+title: サイト内記事へのサムネ付きリンクを表示するコンポーネントを作った
+date: '2020-05-19T21:00:00Z'
+description: ''
+featured: false
+cover: ./cover.jpeg
+tags:
+  - Gatsby
+---
+
+import Paragraph from '../../../src/components/MDXComponents/Paragraph';
+import Callout from '../../../src/components/widgetComponents/Callout';
+import ExternalLink from '../../../src/components/widgetComponents/ExternalLink';
+import PostLink from '../../../src/components/widgetComponents/PostLink';
+
+記事内に同じブログ内の記事へのリンクを貼ることがあって、リッチに表示できたらなぁと思ったのでやってみた。
+
+<Paragraph textAlign='center'>↓ こんなの</Paragraph>
+<PostLink to='/blog/what-is-mdx/' />
+
+## 使い方
+
+マークダウンファイル（`.mdx`）内に以下のように書きます！  
+
+```md title=mdx
+## マッチョ
+
+**マッチョ**はいいぞ！  
+**鏡が大好き**だぞ！  
+こんな感じでマークダウンの記述があるぞ！
+
+さあ出るぞ  
+コンポーネントが出るぞ
+
+でた！！
+<PostLink to='/blog/what-is-mdx' />
+```
+
+<Callout emoji='😄'>パスを指定するだけだから簡単だ！</Callout>
+
+## コンポーネント失敗例
+
+コンポーネントのソースコードは以下の通りです。
+
+```jsx title=PostLink.jsx
+import React from 'react';
+import { useStaticQuery, graphql, Link } from 'gatsby';
+import { Box,Flex, Text } from '@chakra-ui/core';
+import Img from 'gatsby-image';
+
+import Tags from '../Tags';
+
+const PostLink = ({ to, ...props }) => {
+  const { mdx } = useStaticQuery(graphql`
+    {
+      mdx(fields: { slug: { eq: ${to} } }) {
+        frontmatter {
+          cover {
+            childImageSharp {
+              fluid {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
+          tags
+          description
+          date(formatString: "YYYY年MM月DD日")
+        }
+        excerpt(pruneLength: 100)
+      }
+    }
+  `);
+
+  if (!mdx) return null;
+
+  return (
+    <Flex justify='center'>
+      <Link to={mdx.fields.slug}>
+        <Box
+          maxW='sm'
+          p='2'
+          borderWidth='1px'
+          rounded='lg'
+          overflow='hidden'
+          {...props}
+        >
+          <Img
+            fluid={mdx.frontmatter.cover.childImageSharp.fluid}
+            alt='post cover'
+          />
+          <Tags plain post={mdx} fontSize='xs' />
+          <Text textAlign='right'>{mdx.frontmatter.date}</Text>
+          <Box p='4'>{mdx.frontmatter.description || mdx.excerpt}</Box>
+        </Box>
+      </Link>
+    </Flex>
+  );
+};
+```
+
+と言いたいところなんですが、、  
+GraphQLのクエリ部分でエラーが出てしまいます。
+
+`String interpolation is not allowed in graphql tag`
+
+文字列の埋め込みはできない。  
+`useStaticQuery`は文字通り静的なクエリで動的には生成出来ないようです。  
+
+
+## コンポーネント成功例
+
+気を取り直して別の方法で！💪
+
+コンポーネントのソースコードは以下の通りです。
+
+```jsx title=PostLink.jsx
+import React from 'react';
+import { useStaticQuery, graphql, Link } from 'gatsby';
+import { Box,Flex, Text } from '@chakra-ui/core';
+import Img from 'gatsby-image';
+
+import Tags from '../Tags';
+
+const PostLink = ({ to, ...props }) => {
+  const { allMdx } = useStaticQuery(graphql`
+    {
+      allMdx {
+        edges {
+          node {
+            frontmatter {
+              cover {
+                childImageSharp {
+                  fluid {
+                    ...GatsbyImageSharpFluid
+                  }
+                }
+              }
+              tags
+              description
+              date(formatString: "YYYY年MM月DD日")
+            }
+            excerpt(pruneLength: 100)
+            fields {
+              slug
+            }
+          }
+        }
+      }
+    }
+  `);
+
+  const mdx = allMdx.edges.find(edge => edge.node.fields.slug === to)?.node;
+
+  if (!mdx) return null;
+
+  return (
+    <Flex justify='center'>
+      <Link to={mdx.fields.slug}>
+        <Box
+          maxW='sm'
+          p='2'
+          borderWidth='1px'
+          rounded='lg'
+          overflow='hidden'
+          {...props}
+        >
+          <Img
+            fluid={mdx.frontmatter.cover.childImageSharp.fluid}
+            alt='post cover'
+          />
+          <Tags plain post={mdx} fontSize='xs' />
+          <Text textAlign='right'>{mdx.frontmatter.date}</Text>
+          <Box p='4'>{mdx.frontmatter.description || mdx.excerpt}</Box>
+        </Box>
+      </Link>
+    </Flex>
+  );
+};
+
+export default PostLink;
+```
+
+内容は以下の流れです。
+
+1. `useStaticQuery`で全MDXを取得
+2. 全MDXの中から、指定するMDX1つを探す
+3. 見つからなければ何も表示しない
+4. 見つかれば表示
+
+です。
+
+それではコードと共に詳しく見ていきましょう。
+
+### useStaticQueryで全MDXを取得
+
+`useStaticQuery`はGraphQLクエリを受け取って、データを返すhookです。
+
+該当コードはこちらです。
+```jsx
+const { allMdx } = useStaticQuery(graphql`
+  {
+    allMdx {  // すべてのMDX
+      edges {
+        node {
+          frontmatter {
+            cover {  // サムネ画像情報
+              childImageSharp {
+                fluid {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
+            tags  // タグ設定
+            description  // description設定
+            date(formatString: "YYYY年MM月DD日")  // 日付設定、フォーマットはYYYY年MM月DD日
+          }
+          excerpt(pruneLength: 100)  // Gatsbyが抜粋した冒頭部分。descriptionが設定されてなければこちらを使う
+          fields {
+            slug  // スラッグ。任意のmdxを見つけ出すために使う
+          }
+        }
+      }
+    }
+  }
+`);
+```
+
+`useStaticQuery`について詳しくはこちらをどうぞ！
+
+<PostLink to='/blog/use-static-query/' />
+
+### 全MDXの中から、指定するMDX1つを探す
+
+MDXがもつslug情報と、propsの`to`
+
+```jsx
+<PostLink to='/blog/what-is-mdx' />
+```
+
+が一致するものを探します。
+
+該当コードはこちらです。
+
+```jsx
+const mdx = allMdx.edges.find(edge => edge.node.fields.slug === to)?.node;
+```
+
+### MDX見つからなければ何も表示しない
+
+該当コードはこちらです。
+
+```jsx
+if (!mdx) return null;
+```
+
+### MDXが見つかれば表示
+
+該当コードはこちらです。
+
+```jsx
+return (
+  <Flex justify='center'>
+    <Link to={mdx.fields.slug}>
+      <Box
+        maxW='sm'
+        p='2'
+        borderWidth='1px'
+        rounded='lg'
+        overflow='hidden'
+        {...props}
+      >
+        <Img
+          fluid={mdx.frontmatter.cover.childImageSharp.fluid}
+          alt='post cover'
+        />
+        <Tags plain post={mdx} fontSize='xs' />
+        <Text textAlign='right'>{mdx.frontmatter.date}</Text>
+        <Box p='4'>{mdx.frontmatter.description || mdx.excerpt}</Box>
+      </Box>
+    </Link>
+  </Flex>
+);
+```
+
+画像は少しでも表示速度が速くなるように、<ExternalLink to='https://www.gatsbyjs.org/packages/gatsby-image/'>gatsby-image</ExternalLink>を使っています。
+
+タグと日付を表示し、テキストはdescription（descriptionが未定義ならexcerpt）を表示しています。  
+
+ちなみに`frontmatter`は以下のように各記事で定義しているもので、`excerpt`はGatsbyが抜粋した冒頭部分です。
+
+```md
+---
+title: サイト内記事へのサムネ付きリンクを表示するコンポーネントを作った
+date: '2020-05-19T21:00:00Z'
+description: ''
+featured: false
+cover: ./cover.jpeg
+tags:
+  - Gatsby
+---
+```
+
+これでコンポーネントの出来上がりです！！
+
+<Callout emoji='🎉🎉' bg='orange.100'>
+  今回みたいにこんな風に書きたいなぁってのが実現できるし、それが勉強にもなるし、自分の技術ブログをもつのよきだなぁ！
+</Callout>
