@@ -1,31 +1,32 @@
 import React, { useState } from 'react';
 import { Link as GatsbyLink } from 'gatsby';
 import { GiMuscleUp } from 'react-icons/gi';
-import {
-  Flex,
-  Tag as ChakraTag,
-  Box,
-  TagLabel,
-} from '@chakra-ui/core';
+import { Flex, Tag as ChakraTag, Box, TagLabel } from '@chakra-ui/core';
 
 import kebabCase from 'lodash/kebabCase';
 
-const Tag = ({ tag, ...props }) => {
+const Tag = ({ tag, plain, ...props }) => {
   const [isHovered, setIsHovered] = useState(false);
+
+  const linkProps = plain
+    ? {}
+    : {
+        as: GatsbyLink,
+        to: `/tags/${kebabCase(tag)}/`,
+        transition: '.1s',
+        onMouseEnter: () => setIsHovered(true),
+        onMouseLeave: () => setIsHovered(false),
+      };
 
   return (
     <ChakraTag
-      as={GatsbyLink}
-      to={`/tags/${kebabCase(tag)}/`}
       fontFamily='heading'
       variant={isHovered ? 'solid' : 'outline'}
       variantColor='orange'
       ml={[0, 0, 2]}
       mr={[2, 2, 0]}
       mb='2'
-      transition='.1s'
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      {...linkProps}
       {...props}
     >
       <Box as={GiMuscleUp} mr='2' />
@@ -34,7 +35,7 @@ const Tag = ({ tag, ...props }) => {
   );
 };
 
-const Tags = ({ post, fontSize, ...props }) => {
+const Tags = ({ post, fontSize, plain, ...props }) => {
   const { tags } = post.frontmatter;
 
   if (!tags) return null;
@@ -49,7 +50,7 @@ const Tags = ({ post, fontSize, ...props }) => {
       {...props}
     >
       {tags.map((tag, i) => (
-        <Tag key={i} tag={tag} />
+        <Tag key={i} tag={tag} plain={plain} />
       ))}
     </Flex>
   );

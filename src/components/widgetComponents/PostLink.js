@@ -34,32 +34,29 @@ const PostLink = ({ to, ...props }) => {
     }
   `);
 
-  const mdx = result.allMdx.edges.find(edge => edge.node.fields.slug === to)
-    .node;
+  const mdx = result.allMdx.edges.find(edge => edge.node.fields.slug === to).node;
 
-  console.log(mdx);
   if (!mdx) return null;
 
   return (
     <Flex justify='center'>
       <Link to={mdx.fields.slug}>
-
-    <Box
-      maxW='sm'
-      p='2'
-      borderWidth='1px'
-      rounded='lg'
-      overflow='hidden'
-      {...props}
-    >
-        <Img
-          fluid={mdx.frontmatter.cover.childImageSharp.fluid}
-          alt='post cover'
-        />
-        <Tags post={mdx} fontSize='xs' />
-        <Text textAlign='right'>{mdx.frontmatter.date}</Text>
-        <Box p='4'>{mdx.frontmatter.description || mdx.excerpt}</Box>
-    </Box>
+        <Box
+          maxW='sm'
+          p='2'
+          borderWidth='1px'
+          rounded='lg'
+          overflow='hidden'
+          {...props}
+        >
+          <Img
+            fluid={mdx.frontmatter.cover.childImageSharp.fluid}
+            alt='post cover'
+          />
+          <Tags plain post={mdx} fontSize='xs' />
+          <Text textAlign='right'>{mdx.frontmatter.date}</Text>
+          <Box p='4'>{mdx.frontmatter.description || mdx.excerpt}</Box>
+        </Box>
       </Link>
     </Flex>
   );
