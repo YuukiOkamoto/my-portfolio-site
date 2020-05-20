@@ -1,0 +1,124 @@
+---
+title: GatsbyのuseStaticQueryとは？
+date: '2020-05-19T22:00:00Z'
+description: ''
+featured: false
+cover: ./cover.jpeg
+tags:
+  - Gatsby
+---
+
+import InlineCode from '../../../src/components/MDXComponents/InlineCode';
+import Callout from '../../../src/components/widgetComponents/Callout';
+
+`useStaticQuery`は GraphQL クエリを受け取って、データを返す hook です。
+
+## StaticQuery と useStaticQuery の違い
+
+React Hooks の登場によって`useStaticQuery`が実装されるまでは、  
+`StaticQuery`コンポーネントでレンダープロップスを使ってデータを取得することが出来ました。
+
+`StaticQuery`を使う場合と、`useStaticQuery`を使う場合の違いを見てみましょう。
+
+```jsx title=StaticQuryを使う場合
+import React from 'react';
+import { StaticQuery, graphql } from 'gatsby';
+
+const Header = () => {
+  return (
+    <StaticQuery
+      query={graphql`
+        query {
+          site {
+            siteMetadata {
+              title
+            }
+          }
+        }
+      `}
+      render={data => (
+        <header>
+          <h1>{data.site.siteMetadata.title}</h1>
+        </header>
+      )}
+    />
+  );
+};
+
+export default Header;
+```
+
+```jsx title=useStaticQueryを使う場合
+import React from 'react';
+import { useStaticQuery, graphql } from 'gatsby';
+
+const Header = () => {
+  const { site } = useStaticQuery(
+    graphql`
+      query {
+        site {
+          siteMetadata {
+            title
+          }
+        }
+      }
+    `
+  );
+
+  return (
+    <header>
+      <h1>{site.siteMetadata.title}</h1>
+    </header>
+  );
+};
+
+export default Header;
+```
+
+<Callout emoji='😄'>階層も浅くなってシンプルですね！</Callout>
+
+## useStaticQuery とは？
+
+<Callout emoji='🤔'>
+  そもそも<InlineCode>useStaticQuery</InlineCode>ってどんなときに使うの？
+</Callout>
+
+`StaticQuery`、あるいはそれを hook で扱える`useStaticQuery`は、  
+あらゆるコンポーネントで GraphQL クエリを介してデータを取得することができます。
+
+それに対し、ページコンポーネントでしか使うことのできないpage query があります。  
+（ページコンポーネントは特定の URL に対応するコンポーネントです）
+
+## ページコンポーネントでのみ使えるqueryとは？
+
+例えばページコンポーネントで以下のように、  
+`graphql`タグ付きテンプレートリテラルを定数に代入し export します。  
+すると、ページコンポーネントは`data`というpropsでGraphQLクエリの結果を得ることができます。
+
+```jsx title=src/pages/index.jsx
+import React from 'react'
+import { graphql } from 'gatsby'
+
+const TopPage = ({ data }) => (
+  <div>
+    {data.site.siteMetadata.title}
+  </div>
+)
+
+export const query = graphql`
+  query HomePageQuery {
+    site {
+      siteMetadata {
+        title
+      }
+    }
+  }
+`;
+
+export default TopPage;
+```
+
+page query と`StaticQuery`、`useStaticQuery`の違いは、  
+`StaticQuery`、`useStaticQuery`があらゆるコンポーネントで使えるのに対し、page queryはページコンポーネントのみで使える。  
+というほかに、  
+page queryはクエリに変数を使うことができるというメリットがあります。
