@@ -6,7 +6,7 @@ import Img from 'gatsby-image';
 import Tags from '../Tags';
 
 const PostLink = ({ to, ...props }) => {
-  const result = useStaticQuery(graphql`
+  const { allMdx } = useStaticQuery(graphql`
     {
       allMdx {
         edges {
@@ -34,7 +34,7 @@ const PostLink = ({ to, ...props }) => {
     }
   `);
 
-  const mdx = result.allMdx.edges.find(edge => edge.node.fields.slug === to).node;
+  const mdx = allMdx.edges.find(edge => edge.node.fields.slug === to).node;
 
   if (!mdx) return null;
 
