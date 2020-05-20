@@ -19,7 +19,6 @@ const PostLink = ({ to, ...props }) => {
                   }
                 }
               }
-              title
               tags
               description
               date(formatString: "YYYY年MM月DD日")
@@ -34,7 +33,7 @@ const PostLink = ({ to, ...props }) => {
     }
   `);
 
-  const mdx = allMdx.edges.find(edge => edge.node.fields.slug === to).node;
+  const mdx = allMdx.edges.find(edge => edge.node.fields.slug === to)?.node;
 
   if (!mdx) return null;
 
