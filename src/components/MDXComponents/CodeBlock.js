@@ -8,7 +8,7 @@ import { RiFileCopyLine } from 'react-icons/ri';
 
 import * as widgetComponents from '../widgetComponents';
 
-const { useClipboard, Box, Button, Icon } = Chakra;
+const { useClipboard, Box, Button, Collapse, Icon } = Chakra;
 
 const liveEditorStyle = {
   fontSize: 14,
@@ -93,18 +93,56 @@ const EditorTitle = ({ title, ...props }) => (
   </Box>
 );
 
+const CodeArea = ({ title, code, language, onCopy, hasCopied }) => (
+  <Box my='8' rounded='md'>
+    {title && <EditorTitle title={title} />}
+    <Box position='relative'>
+      <Highlight
+        {...defaultProps}
+        theme={theme}
+        code={code}
+        language={language}
+      >
+        {({ className, style, tokens, getLineProps, getTokenProps }) => (
+          <Box
+            as='pre'
+            className={className}
+            {...highlightStyle}
+            style={{ ...style }}
+          >
+            {tokens.map((line, i) => (
+              <div key={i} {...getLineProps({ line, key: i })}>
+                {line.map((token, key) => (
+                  <span key={key} {...getTokenProps({ token, key })} />
+                ))}
+              </div>
+            ))}
+          </Box>
+        )}
+      </Highlight>
+      <CopyButton onClick={onCopy}>
+        {hasCopied ? 'copied(^∀^)ᕗ' : <Icon as={RiFileCopyLine} />}
+      </CopyButton>
+    </Box>
+  </Box>
+);
+
 const CodeBlock = ({
   className,
   live,
   isManual,
   render,
+  collapse,
   title,
   children,
   ...props
 }) => {
   const [code, setCode] = useState(children.trim());
+  const [show, setShow] = React.useState(false);
 
   const { onCopy, hasCopied } = useClipboard(code);
+
+  const handleToggle = () => setShow(!show);
 
   const language = className && className.replace('language-', '');
 
@@ -147,40 +185,49 @@ const CodeBlock = ({
     );
   }
 
+  if (collapse) {
+    return (
+      <>
+        <Box
+          as='span'
+          cursor='pointer'
+          borderBottom='1px'
+          onClick={handleToggle}
+        >
+          {collapse}
+          <Icon
+            aria-hidden
+            focusable='false'
+            size='1.25em'
+            name='chevron-down'
+            transform={show ? 'rotate(-180deg)' : null}
+            transition='transform 0.2s'
+            transformOrigin='center'
+          />
+        </Box>
+        <Collapse mt={4} isOpen={show}>
+          <CodeArea
+            title={title}
+            code={code}
+            language={language}
+            onCopy={onCopy}
+            hasCopied={hasCopied}
+          />
+        </Collapse>
+      </>
+    );
+  }
+
   return (
     <LiveProvider {...liveProviderProps}>
       {render && <LiveCodePreview />}
-      <Box my='8' rounded='md'>
-        {title && <EditorTitle title={title} />}
-        <Box position='relative'>
-          <Highlight
-            {...defaultProps}
-            theme={theme}
-            code={children.trim()}
-            language={language}
-          >
-            {({ className, style, tokens, getLineProps, getTokenProps }) => (
-              <Box
-                as='pre'
-                className={className}
-                {...highlightStyle}
-                style={{ ...style }}
-              >
-                {tokens.map((line, i) => (
-                  <div key={i} {...getLineProps({ line, key: i })}>
-                    {line.map((token, key) => (
-                      <span key={key} {...getTokenProps({ token, key })} />
-                    ))}
-                  </div>
-                ))}
-              </Box>
-            )}
-          </Highlight>
-          <CopyButton onClick={onCopy}>
-            {hasCopied ? 'copied(^∀^)ᕗ' : <Icon as={RiFileCopyLine} />}
-          </CopyButton>
-        </Box>
-      </Box>
+      <CodeArea
+        title={title}
+        code={code}
+        language={language}
+        onCopy={onCopy}
+        hasCopied={hasCopied}
+      />
       {render && <LiveError style={liveErrorStyle} />}
     </LiveProvider>
   );
