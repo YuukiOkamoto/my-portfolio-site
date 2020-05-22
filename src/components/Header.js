@@ -78,7 +78,7 @@ const Header = ({ isHome }) => {
       aria-label={`Link to my GitHub ${author}`}
       bgColor='blackAlpha.800'
       icon={FiGithub}
-      href={`https://github.com/${author}`}
+      href={`https://github.com/${author}/my-blog`}
       target='_blank'
       {...props}
     />
