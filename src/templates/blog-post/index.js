@@ -21,7 +21,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
       <SEO
         title={title}
         description={mdx.frontmatter.description || mdx.excerpt}
-        cover={mdx.frontmatter.cover && mdx.frontmatter.cover.publicURL}
+        cover={mdx.frontmatter.cover?.publicURL}
         isArticle
       />
       <Container py='16'>
