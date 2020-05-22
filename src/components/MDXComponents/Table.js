@@ -2,7 +2,16 @@ import React from 'react';
 import { Box } from '@chakra-ui/core';
 
 const Table = props => (
-  <Box as='table' textAlign='left' mt='32px' width='full' {...props} />
+  <Box
+    as='table'
+    d='block'
+    textAlign='left'
+    mt='32px'
+    width='full'
+    overflowX='scroll'
+    whiteSpace='nowrap'
+    {...props}
+  />
 );
 
 const THead = props => (
@@ -12,6 +21,7 @@ const THead = props => (
     fontWeight='semibold'
     p='2'
     fontSize='sm'
+    whiteSpace='nowrap'
     {...props}
   />
 );
@@ -23,7 +33,7 @@ const TData = props => (
     borderTopWidth='1px'
     borderColor='inherit'
     fontSize='sm'
-    whiteSpace='normal'
+    whiteSpace='nowrap'
     {...props}
   />
 );
