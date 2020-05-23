@@ -1,0 +1,121 @@
+---
+title: mysql2がbundle installできない
+date: '2020-05-23T12:00:00Z'
+description: ''
+featured: false
+cover: ./cover.jpeg
+tags:
+  - Rails
+  - MySQL
+---
+
+import Callout from '../../../src/components/widgetComponents/Callout';
+import ExternalLink from '../../../src/components/widgetComponents/ExternalLink';
+
+## 実行環境
+
+```shell title=shell
+sq_vers
+```
+
+```text title=出力結果
+ProductName:    Mac OS X
+ProductVersion: 10.15.4
+BuildVersion:   19E287
+```
+
+```shell title=shell
+ruby -v
+```
+
+```text title=出力結果
+ruby 2.6.5p114 (2019-10-01 revision 67812) [x86_64-darwin18]
+```
+
+## エラー内容
+
+```shell
+Gem::Ext::BuildError: ERROR: Failed to build gem native extension.
+
+    current directory: /Users/yuuki.okamoto/RubymineProjects/355_YuukiOkamoto_runteq_learning_advanced/vendor/bundle/ruby/2.6.0/gems/mysql2-0.5.3/ext/mysql2
+/Users/yuuki.okamoto/.rbenv/versions/2.6.5/bin/ruby -I /Users/yuuki.okamoto/.rbenv/versions/2.6.5/lib/ruby/2.6.0 -r ./siteconf20200523-93216-1kq2skw.rb extconf.rb
+checking for rb_absint_size()... yes
+checking for rb_absint_singlebit_p()... yes
+checking for rb_wait_for_single_fd()... yes
+-----
+Using mysql_config at /usr/local/bin/mysql_config
+-----
+checking for mysql.h... yes
+checking for errmsg.h... yes
+checking for SSL_MODE_DISABLED in mysql.h... yes
+checking for SSL_MODE_PREFERRED in mysql.h... yes
+checking for SSL_MODE_REQUIRED in mysql.h... yes
+checking for SSL_MODE_VERIFY_CA in mysql.h... yes
+checking for SSL_MODE_VERIFY_IDENTITY in mysql.h... yes
+checking for MYSQL.net.vio in mysql.h... yes
+checking for MYSQL.net.pvio in mysql.h... no
+checking for MYSQL_ENABLE_CLEARTEXT_PLUGIN in mysql.h... yes
+checking for SERVER_QUERY_NO_GOOD_INDEX_USED in mysql.h... yes
+checking for SERVER_QUERY_NO_INDEX_USED in mysql.h... yes
+checking for SERVER_QUERY_WAS_SLOW in mysql.h... yes
+checking for MYSQL_OPTION_MULTI_STATEMENTS_ON in mysql.h... yes
+checking for MYSQL_OPTION_MULTI_STATEMENTS_OFF in mysql.h... yes
+checking for my_bool in mysql.h... no
+-----
+Don't know how to set rpath on your system, if MySQL libraries are not in path mysql2 may not load
+-----
+-----
+Setting libpath to /usr/local/Cellar/mysql/8.0.19/lib
+-----
+creating Makefile
+
+current directory: /Users/yuuki.okamoto/RubymineProjects/355_YuukiOkamoto_runteq_learning_advanced/vendor/bundle/ruby/2.6.0/gems/mysql2-0.5.3/ext/mysql2
+make "DESTDIR=" clean
+
+current directory: /Users/yuuki.okamoto/RubymineProjects/355_YuukiOkamoto_runteq_learning_advanced/vendor/bundle/ruby/2.6.0/gems/mysql2-0.5.3/ext/mysql2
+make "DESTDIR="
+compiling client.c
+compiling infile.c
+compiling mysql2_ext.c
+compiling result.c
+compiling statement.c
+linking shared-object mysql2/mysql2.bundle
+ld: library not found for -lssl
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+make: *** [mysql2.bundle] Error 1
+
+make failed, exit code 2
+
+Gem files will remain installed in /Users/yuuki.okamoto/RubymineProjects/355_YuukiOkamoto_runteq_learning_advanced/vendor/bundle/ruby/2.6.0/gems/mysql2-0.5.3 for inspection.
+Results logged to /Users/yuuki.okamoto/RubymineProjects/355_YuukiOkamoto_runteq_learning_advanced/vendor/bundle/ruby/2.6.0/extensions/x86_64-darwin-18/2.6.0/mysql2-0.5.3/gem_make.out
+
+An error occurred while installing mysql2 (0.5.3), and Bundler cannot continue.
+Make sure that `gem install mysql2 -v '0.5.3' --source 'https://rubygems.org/'` succeeds before bundling.
+
+In Gemfile:
+  mysql2
+```
+
+## 解決策
+
+### 方法1
+
+```shell
+bundle config --local build.mysql2 "--with-ldflags=-L/usr/local/opt/openssl/lib --with-cppflags=-I/usr/local/opt/openssl/include"
+bundle install
+```
+
+### 方法2
+
+```shell
+brew install openssl
+bundle config --local build.mysql2 --with-opt-dir="$(brew --prefix openssl)"
+bundle install
+```
+
+どちらの方法も、プロジェクトごとに設定が面倒なら`--local`ではなく`--global`で設定すればおｋ。
+
+<Callout emoji='🤔'>opensslにリンクされてなかったんだなぁ</Callout>
+
+↓ 参考になったサイト🙏🙏（良すぎ！はてブした！）  
+<ExternalLink href='https://github.com/brianmario/mysql2/issues/1005'>https://github.com/brianmario/mysql2/issues/1005</ExternalLink>
