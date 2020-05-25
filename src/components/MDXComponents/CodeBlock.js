@@ -111,6 +111,7 @@ const Line = ({ shouldHighlight, children, ...props }) => {
     bg: 'gray.700',
     borderLeft: '4px',
     borderLeftColor: 'red.200',
+    ml: '-4px',
   };
   return (
     <Box as='span' d='table-cell' pl='2' {...props} {...highlightProps}>
