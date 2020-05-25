@@ -99,6 +99,7 @@ const EditorTitle = ({ title, ...props }) => (
     px='4'
     color='white'
     bg='#444444'
+    overflowX='auto'
     {...props}
   >
     {title}
