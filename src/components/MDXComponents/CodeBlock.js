@@ -5,10 +5,22 @@ import Highlight, { defaultProps } from 'prism-react-renderer';
 import * as Chakra from '@chakra-ui/core';
 import theme from 'prism-react-renderer/themes/vsDark';
 import { RiFileCopyLine } from 'react-icons/ri';
+import rangeParser from 'parse-numeric-range';
 
 import * as widgetComponents from '../widgetComponents';
 
 const { useClipboard, Box, Button, Collapse, Icon } = Chakra;
+
+const calculateLinesToHighlight = meta => {
+  const RE = /{([\d,-]+)}/;
+  if (RE.test(meta)) {
+    const strlineNumbers = RE.exec(meta)[1];
+    const lineNumbers = rangeParser(strlineNumbers);
+    return index => lineNumbers.includes(index + 1);
+  } else {
+    return () => false;
+  }
+};
 
 const liveEditorStyle = {
   fontSize: 14,
@@ -93,39 +105,59 @@ const EditorTitle = ({ title, ...props }) => (
   </Box>
 );
 
-const CodeArea = ({ title, code, language, onCopy, hasCopied }) => (
-  <Box my='8' rounded='md'>
-    {title && <EditorTitle title={title} />}
-    <Box position='relative'>
-      <Highlight
-        {...defaultProps}
-        theme={theme}
-        code={code}
-        language={language}
-      >
-        {({ className, style, tokens, getLineProps, getTokenProps }) => (
-          <Box
-            as='pre'
-            className={className}
-            {...highlightStyle}
-            style={{ ...style }}
-          >
-            {tokens.map((line, i) => (
-              <div key={i} {...getLineProps({ line, key: i })}>
-                {line.map((token, key) => (
-                  <span key={key} {...getTokenProps({ token, key })} />
-                ))}
-              </div>
-            ))}
-          </Box>
-        )}
-      </Highlight>
-      <CopyButton onClick={onCopy}>
-        {hasCopied ? 'copied(^∀^)ᕗ' : <Icon as={RiFileCopyLine} />}
-      </CopyButton>
+const Line = ({ shouldHighlight, children, ...props }) => {
+  const highlightProps = shouldHighlight && {
+    d: 'block',
+    bg: 'gray.700',
+    borderLeft: '4px',
+    borderLeftColor: 'red.200',
+  };
+  return (
+    <Box as='span' d='table-cell' pl='2' {...props} {...highlightProps}>
+      {children}
     </Box>
-  </Box>
-);
+  );
+};
+
+const CodeArea = ({ title, code, language, line, onCopy, hasCopied }) => {
+  const shouldHighlightLine = calculateLinesToHighlight(line);
+
+  return (
+    <Box my='8' rounded='md'>
+      {title && <EditorTitle title={title} />}
+      <Box position='relative'>
+        <Highlight
+          {...defaultProps}
+          theme={theme}
+          code={code}
+          language={language}
+        >
+          {({ className, style, tokens, getLineProps, getTokenProps }) => (
+            <Box
+              as='pre'
+              className={className}
+              {...highlightStyle}
+              style={{ ...style }}
+            >
+              {tokens.map((line, i) => (
+                <div key={i} {...getLineProps({ line, key: i })}>
+                  <Line shouldHighlight={shouldHighlightLine(i)}>
+                    {line.map((token, key) => (
+                      <span key={key} {...getTokenProps({ token, key })} />
+                    ))}
+                  </Line>
+                </div>
+              ))}
+            </Box>
+          )}
+        </Highlight>
+        <CopyButton onClick={onCopy}>
+          {hasCopied ? 'copied(^∀^)ᕗ' : <Icon as={RiFileCopyLine} />}
+        </CopyButton>
+      </Box>
+    </Box>
+  );
+};
 
 const CodeBlock = ({
   className,
@@ -135,6 +167,7 @@ const CodeBlock = ({
   collapse,
   title,
   children,
+  line,
   ...props
 }) => {
   const [code, setCode] = useState(children.trim());
@@ -210,6 +243,7 @@ const CodeBlock = ({
             title={title}
             code={code}
             language={language}
+            line={line}
             onCopy={onCopy}
             hasCopied={hasCopied}
           />
@@ -225,6 +259,7 @@ const CodeBlock = ({
         title={title}
         code={code}
         language={language}
+        line={line}
         onCopy={onCopy}
         hasCopied={hasCopied}
       />
