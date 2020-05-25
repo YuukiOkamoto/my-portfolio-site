@@ -43,7 +43,9 @@ const highlightStyle = {
   fontFamily: 'Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace',
   fontSize: [12, 14],
   overflow: 'auto',
-  padding: 5,
+  py: 5,
+  float: 'left',
+  minWidth: 'full'
 };
 
 const LiveCodePreview = props => (
@@ -110,12 +112,12 @@ const Line = ({ shouldHighlight, children, ...props }) => {
   const highlightProps = shouldHighlight && {
     d: 'block',
     bg: 'gray.700',
-    borderLeft: '4px',
-    borderLeftColor: 'red.200',
-    ml: '-4px',
+    borderLeftWidth: '.5rem',
+    borderLeftColor: 'purple.200',
+    px: '3'
   };
   return (
-    <Box as='span' d='table-cell' pl='2' {...props} {...highlightProps}>
+    <Box d='table-cell' px='5' {...props} {...highlightProps}>
       {children}
     </Box>
   );
@@ -135,21 +137,23 @@ const CodeArea = ({ title, code, language, line, onCopy, hasCopied }) => {
           language={language}
         >
           {({ className, style, tokens, getLineProps, getTokenProps }) => (
-            <Box
-              as='pre'
-              className={className}
-              {...highlightStyle}
-              style={{ ...style }}
-            >
-              {tokens.map((line, i) => (
-                <div key={i} {...getLineProps({ line, key: i })}>
-                  <Line shouldHighlight={shouldHighlightLine(i)}>
-                    {line.map((token, key) => (
-                      <span key={key} {...getTokenProps({ token, key })} />
-                    ))}
-                  </Line>
-                </div>
-              ))}
+            <Box overflowX='auto'>
+              <Box
+                as='pre'
+                className={className}
+                {...highlightStyle}
+                style={{ ...style }}
+              >
+                {tokens.map((line, i) => (
+                  <div key={i} {...getLineProps({ line, key: i })}>
+                    <Line shouldHighlight={shouldHighlightLine(i)}>
+                      {line.map((token, key) => (
+                        <span key={key} {...getTokenProps({ token, key })} />
+                      ))}
+                    </Line>
+                  </div>
+                ))}
+              </Box>
             </Box>
           )}
         </Highlight>
