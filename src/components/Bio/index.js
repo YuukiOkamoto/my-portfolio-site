@@ -28,6 +28,7 @@ const Bio = props => {
           snsAccounts {
             twitter
             github
+            note
           }
         }
       }
