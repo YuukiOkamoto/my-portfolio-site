@@ -1,11 +1,11 @@
 import React from 'react';
 import { useStaticQuery, graphql, Link } from 'gatsby';
-import { Box,Flex, Text } from '@chakra-ui/core';
+import { Box, Flex, Text } from '@chakra-ui/core';
 import Img from 'gatsby-image';
 
 import Tags from '../Tags';
 
-const PostLink = ({ to, ...props }) => {
+const PostLink = ({ to, align = 'center', ...props }) => {
   const { allMdx } = useStaticQuery(graphql`
     {
       allMdx {
@@ -38,7 +38,7 @@ const PostLink = ({ to, ...props }) => {
   if (!mdx) return null;
 
   return (
-    <Flex justify='center'>
+    <Flex justify={align}>
       <Link to={mdx.fields.slug}>
         <Box
           maxW='sm'
