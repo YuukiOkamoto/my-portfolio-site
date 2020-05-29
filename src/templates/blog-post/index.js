@@ -87,7 +87,7 @@ const TOCDrawer = ({ headings, ...props }) => {
         zIndex='1401'
         onClick={isOpen ? onClose : onOpen}
       >
-        <Flex align='flex-start' overflow='hidden' h='60px'>
+        <Flex align='flex-start' overflow='hidden' h='64px'>
           <Flex direction='column' alignSelf='center' px='5'>
             <Icon
               as={FiChevronUp}
