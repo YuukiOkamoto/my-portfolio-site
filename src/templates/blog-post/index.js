@@ -27,26 +27,32 @@ import ContentArticle from '../../components/ContentArticle';
 import PrevNextArticles from '../../components/PrevNextArticles';
 import SnsShare from '../../components/SnsShare';
 
-const TOCList = ({ headings, itemMy = '4', ...props }) => (
-  <List mt='3' fontSize='sm' {...props}>
-    {headings.map(heading => (
-      <React.Fragment key={heading.title}>
-        <ListItem my={itemMy}>
-          <Link href={heading.url}>{heading.title}</Link>
-        </ListItem>
-        {heading.items && (
-          <TOCList
-            headings={heading.items}
-            itemMy='2'
-            ml='3'
-            mt='0'
-            fontSize='xs'
-          />
-        )}
-      </React.Fragment>
-    ))}
-  </List>
-);
+const TOCList = ({ headings, itemMy = '4', onDrawerClose, ...props }) => {
+  console.log(onDrawerClose)
+  return (
+    <List mt='3' fontSize='sm' {...props}>
+      {headings.map(heading => (
+        <React.Fragment key={heading.title}>
+          <ListItem my={itemMy}>
+            <Link href={heading.url} onClick={onDrawerClose && onDrawerClose}>
+              {heading.title}
+            </Link>
+          </ListItem>
+          {heading.items && (
+            <TOCList
+              headings={heading.items}
+              itemMy='2'
+              onDrawerClose={onDrawerClose}
+              ml='3'
+              mt='0'
+              fontSize='xs'
+            />
+          )}
+        </React.Fragment>
+      ))}
+    </List>
+  );
+};
 
 const TOC = ({ data, ...props }) => (
   <Box
@@ -65,9 +71,8 @@ const TOC = ({ data, ...props }) => (
 );
 
 const TOCDrawer = ({ headings, ...props }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
   const btnRef = React.useRef();
-  const chevronTranslate = isOpen ? 15 : 4;
   const iconStyles = {
     size: '6',
     transition: '0.2s ease 0s, transform 0.2s ease 0s',
@@ -85,7 +90,7 @@ const TOCDrawer = ({ headings, ...props }) => {
         borderRadius='50%'
         shadow='0 0 20px rgba(0, 0, 0, 0.3)'
         zIndex='1401'
-        onClick={isOpen ? onClose : onOpen}
+        onClick={onToggle}
       >
         <Flex align='flex-start' overflow='hidden' h='64px'>
           <Flex direction='column' alignSelf='center' px='5'>
@@ -106,7 +111,7 @@ const TOCDrawer = ({ headings, ...props }) => {
         isOpen={isOpen}
         placement='right'
         size='md'
-        onClose={onClose}
+        onClose={onToggle}
         finalFocusRef={btnRef}
         {...props}
       >
@@ -115,7 +120,7 @@ const TOCDrawer = ({ headings, ...props }) => {
           <DrawerCloseButton />
           <DrawerHeader>目次</DrawerHeader>
           <DrawerBody pb='24' overflowY='auto'>
-            <TOCList headings={headings} />
+            <TOCList headings={headings} onDrawerClose={onClose} />
           </DrawerBody>
         </DrawerContent>
       </Drawer>
