@@ -16,9 +16,10 @@ import {
   Icon,
   List,
   ListItem,
-  Link,
 } from '@chakra-ui/core';
+import { Link } from 'react-scroll';
 import { FiChevronUp, FiChevronDown } from 'react-icons/fi';
+import {css} from '@emotion/core'
 
 import Layout from '../../components/layout';
 import SEO from '../../components/SEO';
@@ -27,32 +28,43 @@ import ContentArticle from '../../components/ContentArticle';
 import PrevNextArticles from '../../components/PrevNextArticles';
 import SnsShare from '../../components/SnsShare';
 
-const TOCList = ({ headings, itemMy = '4', onDrawerClose, ...props }) => {
-  console.log(onDrawerClose)
-  return (
-    <List mt='3' fontSize='sm' {...props}>
-      {headings.map(heading => (
-        <React.Fragment key={heading.title}>
-          <ListItem my={itemMy}>
-            <Link href={heading.url} onClick={onDrawerClose && onDrawerClose}>
-              {heading.title}
-            </Link>
-          </ListItem>
-          {heading.items && (
-            <TOCList
-              headings={heading.items}
-              itemMy='2'
-              onDrawerClose={onDrawerClose}
-              ml='3'
-              mt='0'
-              fontSize='xs'
-            />
-          )}
-        </React.Fragment>
-      ))}
-    </List>
-  );
-};
+const TOCList = ({ headings, itemMy = '4', onDrawerClose, ...props }) => (
+  <List mt='3' fontSize='sm' {...props}>
+    {headings.map(heading => (
+      <React.Fragment key={heading.title}>
+        <ListItem my={itemMy}>
+          <Link
+            to={heading.url.replace('#', '')}
+            smooth={true}
+            offset={-10}
+            duration={800}
+            onClick={onDrawerClose && onDrawerClose}
+            css={css`
+              cursor: pointer;
+              &:hover,
+              &.active {
+                text-decoration: underline;
+                opacity: 0.7;
+              }
+            `}
+          >
+            {heading.title}
+          </Link>
+        </ListItem>
+        {heading.items && (
+          <TOCList
+            headings={heading.items}
+            itemMy='2'
+            onDrawerClose={onDrawerClose}
+            ml='3'
+            mt='0'
+            fontSize='xs'
+          />
+        )}
+      </React.Fragment>
+    ))}
+  </List>
+);
 
 const TOC = ({ data, ...props }) => (
   <Box
@@ -71,7 +83,7 @@ const TOC = ({ data, ...props }) => (
 );
 
 const TOCDrawer = ({ headings, ...props }) => {
-  const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
+  const { isOpen, onClose, onToggle } = useDisclosure();
   const btnRef = React.useRef();
   const iconStyles = {
     size: '6',
@@ -111,7 +123,7 @@ const TOCDrawer = ({ headings, ...props }) => {
         isOpen={isOpen}
         placement='right'
         size='md'
-        onClose={onToggle}
+        onClose={onClose}
         finalFocusRef={btnRef}
         {...props}
       >
