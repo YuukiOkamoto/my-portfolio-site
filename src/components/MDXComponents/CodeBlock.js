@@ -9,7 +9,7 @@ import rangeParser from 'parse-numeric-range';
 
 import * as widgetComponents from '../widgetComponents';
 
-const { useClipboard, Box, Button, Collapse, Icon } = Chakra;
+const { useClipboard, Box, Button, Icon } = Chakra;
 
 const calculateLinesToHighlight = meta => {
   const RE = /{([\d,-]+)}/;
@@ -170,18 +170,13 @@ const CodeBlock = ({
   live,
   isManual,
   render,
-  collapse,
   title,
   children,
   line,
   ...props
 }) => {
   const [code, setCode] = useState(children.trim());
-  const [show, setShow] = React.useState(false);
-
   const { onCopy, hasCopied } = useClipboard(code);
-
-  const handleToggle = () => setShow(!show);
 
   const language = className && className.replace('language-', '');
 
@@ -221,40 +216,6 @@ const CodeBlock = ({
         </Box>
         <LiveError style={liveErrorStyle} />
       </LiveProvider>
-    );
-  }
-
-  if (collapse) {
-    return (
-      <>
-        <Box
-          as='span'
-          cursor='pointer'
-          borderBottom='1px'
-          onClick={handleToggle}
-        >
-          {collapse}
-          <Icon
-            aria-hidden
-            focusable='false'
-            size='1.25em'
-            name='chevron-down'
-            transform={show ? 'rotate(-180deg)' : null}
-            transition='transform 0.2s'
-            transformOrigin='center'
-          />
-        </Box>
-        <Collapse mt={4} isOpen={show}>
-          <CodeArea
-            title={title}
-            code={code}
-            language={language}
-            line={line}
-            onCopy={onCopy}
-            hasCopied={hasCopied}
-          />
-        </Collapse>
-      </>
     );
   }
 
