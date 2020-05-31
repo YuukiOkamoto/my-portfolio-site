@@ -8,8 +8,9 @@ import { RiFileCopyLine } from 'react-icons/ri';
 import rangeParser from 'parse-numeric-range';
 
 import * as widgetComponents from '../widgetComponents';
+import { generateAlphaColors } from '../../theme/colors-utils'
 
-const { useClipboard, Box, Button, Icon } = Chakra;
+const { useClipboard, useTheme, Box, Button, Icon } = Chakra;
 
 const calculateLinesToHighlight = meta => {
   const RE = /{([\d,-]+)}/;
@@ -45,7 +46,7 @@ const highlightStyle = {
   overflow: 'auto',
   py: 5,
   float: 'left',
-  minWidth: 'full'
+  minWidth: 'full',
 };
 
 const LiveCodePreview = props => (
@@ -114,7 +115,7 @@ const Line = ({ shouldHighlight, children, ...props }) => {
     bg: 'gray.700',
     borderLeftWidth: '.5rem',
     borderLeftColor: 'purple.200',
-    px: '3'
+    px: '3',
   };
   return (
     <Box d='table-cell' px='5' {...props} {...highlightProps}>
@@ -125,6 +126,26 @@ const Line = ({ shouldHighlight, children, ...props }) => {
 
 const CodeArea = ({ title, code, language, line, onCopy, hasCopied }) => {
   const shouldHighlightLine = calculateLinesToHighlight(line);
+  const [clickedWord, setClickedWord] = useState('');
+  const [delayHandler, setDelayHandler] = useState(null);
+  const { colors } = useTheme();
+
+  const orangeAlpha = generateAlphaColors(colors.orange[100]);
+
+  const handleMouseEnter = word => {
+    setDelayHandler(
+      setTimeout(() => {
+        setClickedWord(word);
+      }, 500)
+    );
+  };
+
+  const handleMouseLeave = () => {
+    setClickedWord('');
+    clearTimeout(delayHandler);
+  };
+
+  const isHighlightWord = word => clickedWord === word && word.length > 1;
 
   return (
     <Box my='8' rounded='md'>
@@ -148,7 +169,19 @@ const CodeArea = ({ title, code, language, line, onCopy, hasCopied }) => {
                   <div key={i} {...getLineProps({ line, key: i })}>
                     <Line shouldHighlight={shouldHighlightLine(i)}>
                       {line.map((token, key) => (
-                        <span key={key} {...getTokenProps({ token, key })} />
+                        <Box
+                          as='span'
+                          key={key}
+                          bg={
+                            isHighlightWord(token.content.trim()) &&
+                            orangeAlpha[400]
+                          }
+                          onMouseEnter={() =>
+                            handleMouseEnter(token.content.trim())
+                          }
+                          onMouseLeave={handleMouseLeave}
+                          {...getTokenProps({ token, key })}
+                        />
                       ))}
                     </Line>
                   </div>
