@@ -10,6 +10,7 @@ tags:
 ---
 
 import Callout from '../../../src/components/widgetComponents/Callout';
+import Collapse from '../../../src/components/widgetComponents/Collapse';
 import ExternalLink from '../../../src/components/widgetComponents/ExternalLink';
 import PostLink from '../../../src/components/widgetComponents/PostLink';
 
@@ -132,7 +133,10 @@ src
 </>
 ```
 
-```jsx title=gatsby-theme-blog/src/components/bio-content.js collapse=テーマのbio-content.js全文
+<Collapse>
+<>テーマのbio-content.js全文</>
+
+```jsx title=gatsby-theme-blog/src/components/bio-content.js
 import React, { Fragment } from 'react';
 import { Styled } from 'theme-ui';
 
@@ -149,7 +153,12 @@ export default () => (
 );
 ```
 
-```jsx title=src/gatsby-theme-blog/components/bio-content.js collapse=自サイトのbio-content.js全文
+</Collapse>
+
+<Collapse>
+<>自サイトのbio-content.js全文</>
+
+```jsx title=src/gatsby-theme-blog/components/bio-content.js
 import React from 'react';
 
 export default ({ author }) => (
@@ -165,6 +174,8 @@ export default ({ author }) => (
 );
 ```
 
+</Collapse>
+
 ### Bio コンポーネントのシャドウイング
 
 BioContent コンポーネントで、`gatsby-config.js`で設定した sitemetadat の`author`を使いたいので、  
@@ -175,7 +186,10 @@ BioContent コンポーネントで、`gatsby-config.js`で設定した sitemeta
 + <BioContent author={author} />
 ```
 
-```jsx title=gatsby-theme-blog/src/components/bio.js collapse=テーマのbio.js全文
+<Collapse>
+<>テーマのbio.js全文</>
+
+```jsx title=gatsby-theme-blog/src/components/bio.js
 /**
  * Bio component that queries for data
  * with Gatsby's StaticQuery component
@@ -251,7 +265,13 @@ const bioQuery = graphql`
 export default Bio;
 ```
 
-```jsx title=src/gatsby-theme-blog/components/bio.js collapse=自サイトのbio.js全文
+</Collapse>
+
+
+<Collapse>
+<>自サイトのbio.js全文</>
+
+```jsx title=src/gatsby-theme-blog/components/bio.js
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import Image from 'gatsby-image';
@@ -319,6 +339,8 @@ const bioQuery = graphql`
 
 export default Bio;
 ```
+
+</Collapse>
 
 <Callout emoji='🙌🙌' bg='orange.100'>
   このように、オーバーライドしたいファイルを用意するだけなのでテーマは便利ですね！

@@ -11,6 +11,7 @@ tags:
 ---
 
 import Callout from '../../../src/components/widgetComponents/Callout';
+import Collapse from '../../../src/components/widgetComponents/Collapse';
 import FigureImage from '../../../src/components/widgetComponents/FigureImage';
 import ExternalLink from '../../../src/components/widgetComponents/ExternalLink';
 import PostLink from '../../../src/components/widgetComponents/PostLink';
@@ -163,7 +164,10 @@ plugins: [
 `gatsby-config.js`ではテーマの他に、サイト名などのサイトの設定がされています。  
 （あとで変えていきたいきます！）
 
-```js title=gatsby-config.js collapse=gatsby-config.jsの全文を読む
+<Collapse>
+<>gatsby-config.jsの全文を読む</>
+
+```js title=gatsby-config.js
 module.exports = {
   siteMetadata: {
     title: `Novela by Narative`,
@@ -230,6 +234,9 @@ module.exports = {
   ],
 };
 ```
+
+</Collapse>
+
 
 `gatsby-config.js`の他には、`content/`以下に author の設定や記事のファイルがあることがわかると思います。
 
@@ -531,7 +538,10 @@ const NavigationHeader: React.FC<{}> = () => {
 </ExternalLink>
 をカスタマイズすれば良さそう🤔
 
-```jsx title=@narative/gatsby-theme-novela/src/components/Logo/Logo.tsx collapse=現在のLogoコンポーネント
+<Collapse>
+<>現在のLogoコンポーネント</>
+
+```jsx title=@narative/gatsby-theme-novela/src/components/Logo/Logo.tsx
 import React from 'react';
 import styled from '@emotion/styled';
 
@@ -673,6 +683,8 @@ const LogoContainer = styled.div`
 `;
 ```
 
+</Collapse>
+
 テーマをシャドウイングしてカスタマイズします。  
 シャドウイングしたいコンポーネントのパスが`@narative/gatsby-theme-novela/src/components/Logo/Logo.tsx`なので、  
 `src/@narative/gatsby-theme-novela/components/Logo/Logo.js`というファイルを自サイトに作ります。
@@ -680,7 +692,10 @@ const LogoContainer = styled.div`
 任意の svg を記述してください。  
 svg の fill は props の fill を使いましょう。
 
-```jsx title=src/@narative/gatsby-theme-novela/components/Logo/Logo.js collapse=例を見る
+<Collapse>
+<>例を見る</>
+
+```jsx title=src/@narative/gatsby-theme-novela/components/Logo/Logo.js
 import React from 'react';
 
 const Logo = ({ fill }) => (
@@ -722,6 +737,8 @@ export default Logo;
 <ExternalLink href='https://github.com/YuukiOkamoto/blog-using-novela-theme/blob/config-site/src/%40narative/gatsby-theme-novela/components/Logo/Logo.js'>
   GitHub
 </ExternalLink>
+
+</Collapse>
 
 ### トップページの説明
 
@@ -835,7 +852,10 @@ const ArticlesHero: React.FC<IAuthor> = ({ authors }) => {
 
 meta タグの設定はテーマ内の SEO コンポーネントに記述があります。
 
-```jsx collapse=SEOコンポーネント（長いです） title=@narative/gatsby-theme-novela/src/components/SEO/SEO.tsx
+<Collapse>
+<>SEOコンポーネント（長いです）</>
+
+```jsx title=@narative/gatsby-theme-novela/src/components/SEO/SEO.tsx
 /**
  * This react helmt code is adapted from
  * https://themeteorchef.com/tutorials/reusable-seo-with-react-helmet.
@@ -1241,6 +1261,8 @@ export default SEO;
   GitHub
 </ExternalLink>
 
+</Collapse>
+
 パッと見た感じ、以下の GraphQL クエリを使って取得するデータを使っているようです。
 
 ```jsx title=@narative/gatsby-theme-novela/src/components/SEO/SEO.tsx
@@ -1339,7 +1361,10 @@ module.exports = {
 以下のソースコードを見てみると、コピーライトには siteMetadata の name が使われているようです。  
 これは先程変更したので OK です。
 
-```jsx line={16,42,59} collapse=Footerコンポーネント title=@narative/gatsby-theme-novela/src/components/Navigation/Navigation.Footer.tsx
+<Collapse>
+<>Footerコンポーネント</>
+
+```jsx line={16,42,59} title=@narative/gatsby-theme-novela/src/components/Navigation/Navigation.Footer.tsx
 import React from 'react';
 import styled from '@emotion/styled';
 import { graphql, useStaticQuery } from 'gatsby';
@@ -1392,7 +1417,7 @@ const Footer: React.FC<{}> = () => {
   })();
 
   return (
-    <>
+    <Collapse>
       <FooterGradient />
       <Section narrow>
         <HoritzontalRule />
@@ -1465,13 +1490,18 @@ const FooterGradient = styled.div`
   GitHub
 </ExternalLink>
 
+</Collapse>
+
 ### フッターの SNS リンク
 
 これも先程`gatsby-config.js`で siteMetadata の social を変更したので OK です！
 
 コピーライトでも紹介した Footer コンポーネントにて GraphQL で social 情報を取得し、<ExternalLink href='https://github.com/narative/gatsby-theme-novela/blob/master/%40narative/gatsby-theme-novela/src/components/SocialLinks/SocialLinks.tsx'>SocialLinks</ExternalLink>というコンポーネントに渡しています。
 
-```jsx line={17-20,42,62} collapse=Footerコンポーネント title=@narative/gatsby-theme-novela/src/components/Navigation/Navigation.Footer.tsx
+<Collapse>
+<>Footerコンポーネント</>
+
+```jsx line={17-20,42,62} title=@narative/gatsby-theme-novela/src/components/Navigation/Navigation.Footer.tsx
 import React from 'react';
 import styled from '@emotion/styled';
 import { graphql, useStaticQuery } from 'gatsby';
@@ -1592,6 +1622,8 @@ const FooterGradient = styled.div`
   transition: ${p => p.theme.colorModeTransition};
 `;
 ```
+
+</Collapse>
 
 ### PWA の設定
 
