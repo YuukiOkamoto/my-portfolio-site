@@ -31,7 +31,7 @@ Markdown の中に JSX を書くことが出来る。コンポーネントをイ
 実はもうこの記事でひとつ使っています！  
 リンクをコンポーネントにして使っています！
 
-```jsx render
+```jsx demo
 <ExternalLink href='https://mdxjs.com/'>公式サイト</ExternalLink>
 ```
 
@@ -78,7 +78,7 @@ export default ExternalLink;
 
 お次は直前に使ったこちら！
 
-```jsx render
+```jsx demo
 <Callout emoji='🙌'>よく使うからコンポーネントにしてると楽ですね！！</Callout>
 ```
 
@@ -88,7 +88,7 @@ Notion の Callout ↓ と似たものがほしかったのでコンポーネン
 
 背景の小さいものも作れるし
 
-```jsx render
+```jsx demo
 <Callout emoji='🕺' p='1'>
   いぇいいぇい
 </Callout>
@@ -96,7 +96,7 @@ Notion の Callout ↓ と似たものがほしかったのでコンポーネン
 
 背景の色だってかんたんに変えられちゃう
 
-```jsx render
+```jsx demo
 <Callout emoji='ᕕ( ᐛ )ᕗ' bg='pink.300'>
   わーーい
   <br />
@@ -116,7 +116,7 @@ Notion の Callout ↓ と似たものがほしかったのでコンポーネン
 
 こんな感じのAlertだって、簡単に書けちゃう！！
 
-```jsx render title=Alertコンポーネントの例
+```jsx demo title=Alertコンポーネントの例
 <Stack spacing='3'>
   <Alert status='success'>
     <AlertIcon />
