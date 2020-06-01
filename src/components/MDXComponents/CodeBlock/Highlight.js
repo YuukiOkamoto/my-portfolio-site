@@ -80,7 +80,7 @@ const Word = ({ focusedWord, setFocusedWord, content, tokenProps }) => {
 const Highlight = ({ title, code, language, line }) => {
   const [focusedWord, setFocusedWord] = useState('');
 
-  const judgeHighlightLine = calculateLinesToHighlight(line);
+  const shouldHighlightLine = calculateLinesToHighlight(line);
 
   return (
     <Box my='8' rounded='md'>
@@ -102,7 +102,7 @@ const Highlight = ({ title, code, language, line }) => {
               >
                 {tokens.map((line, i) => (
                   <div key={i} {...getLineProps({ line, key: i })}>
-                    <Line shouldHighlight={judgeHighlightLine(i)}>
+                    <Line shouldHighlight={shouldHighlightLine(i)}>
                       {line.map((token, key) => (
                         <Word
                           key={key}
