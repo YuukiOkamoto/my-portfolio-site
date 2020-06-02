@@ -41,7 +41,7 @@ const trainingMenu = new Set('Squat');
 
 ### タイトル
 
-`.mdx`ファイルにこんな感じに書くと、
+こんな感じに`title`を指定すると、
 
 <CodeBlock>
   {`
@@ -79,7 +79,7 @@ trainingMenu.add('Calf raises');
 
 ### 行のハイライト
 
-`.mdx`ファイルにこんな感じに書くと、
+こんな感じに`line`を指定すると、
 
 <CodeBlock>
   {`
@@ -102,7 +102,7 @@ trainingMenu.add('Bench press');
 ```
 
 <Callout emoji='🙌' bg='orange.50'>
-  行を指定してハイライトができました！
+  行のハイライトができました！
 </Callout>
 
 ### ワードのハイライト
@@ -125,7 +125,7 @@ trainingMenu.add('Chinning');
 
 ### JSX のデモ表示
 
-`.mdx`ファイルにこんな感じに書くと、
+こんな感じに`demo`を指定すると、
 
 <CodeBlock>
 {`
@@ -198,12 +198,12 @@ trainingMenu.add('Chinning');
 ```
 
 <Callout emoji='🙌' bg='orange.50'>
-  demoとつけることで、コードブロックの上に書いたjsxのデモ表示ができます！
+  コードブロックの上に、jsxのデモ表示ができます！
 </Callout>
 
 ### JSX のライブエディター
 
-`.mdx`ファイルにこんな感じに書くと、
+こんな感じに言語がjsxのときに`live`を指定すると、
 
 <CodeBlock>
   {`
@@ -227,7 +227,7 @@ trainingMenu.add('Chinning');
 
 ![Live code](./live-code.gif)
 
-また、`isManual`を指定するとコンポーネントを定義して自身で render するライブエディターが書けます！
+また、`live`に加えて`isManual`を指定すると、
 
 ```jsx live isManual
 function Counter() {
@@ -251,6 +251,11 @@ function Counter() {
 
 render(Counter, document.getElementById('root'));
 ```
+
+<Callout emoji='🙌' bg='orange.50'>
+  コンポーネントを定義して自身で render するライブエディターが書けます！
+  複数コンポーネントを使ったり、コンポーネント内で`useState`や`useEffect`などを使いたいときに使えます！
+</Callout>
 
 ## コード
 
