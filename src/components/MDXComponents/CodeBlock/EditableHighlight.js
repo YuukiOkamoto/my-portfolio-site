@@ -34,7 +34,7 @@ const EditableHighlight = ({ code, setCode, title }) => {
   const handleCodeChange = newCode => setCode(newCode.trim());
 
   return (
-    <Box my='8' rounded='md'>
+    <Box my='8' mx={['-24px', '-24px', '0']} rounded='md'>
       {title && <Title>{title}</Title>}
       <Box position='relative'>
         <LiveEditor

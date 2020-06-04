@@ -1,10 +1,6 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-import {
-  Box,
-  Divider,
-  Grid,
-} from '@chakra-ui/core';
+import { Box, Divider, Grid } from '@chakra-ui/core';
 
 import Layout from '../../components/layout';
 import SEO from '../../components/SEO';
@@ -12,7 +8,7 @@ import Bio from '../../components/Bio';
 import ContentArticle from '../../components/ContentArticle';
 import PrevNextArticles from '../../components/PrevNextArticles';
 import SnsShare from '../../components/SnsShare';
-import { TOC, TOCDrawer} from '../../components/TOC';
+import { TOC, TOCDrawer } from '../../components/TOC';
 
 const BlogPostTemplate = ({ data, pageContext, location }) => {
   const { previous: prev, next } = pageContext;
