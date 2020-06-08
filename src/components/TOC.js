@@ -18,7 +18,7 @@ import { Link } from 'react-scroll';
 import { FiChevronUp, FiChevronDown } from 'react-icons/fi';
 import { css } from '@emotion/core';
 
-const TOCList = ({ headings, itemMy = '4', onDrawerClose, ...props }) => (
+const HeadingList = ({ headings, itemMy = '4', onDrawerClose, ...props }) => (
   <List mt='3' fontSize='sm' {...props}>
     {headings.map(heading => (
       <React.Fragment key={heading.title}>
@@ -42,7 +42,7 @@ const TOCList = ({ headings, itemMy = '4', onDrawerClose, ...props }) => (
           </Link>
         </ListItem>
         {heading.items && (
-          <TOCList
+          <HeadingList
             headings={heading.items}
             itemMy='2'
             onDrawerClose={onDrawerClose}
@@ -56,7 +56,7 @@ const TOCList = ({ headings, itemMy = '4', onDrawerClose, ...props }) => (
   </List>
 );
 
-const TOC = ({ data, ...props }) => (
+const TOC = ({ headings, ...props }) => (
   <Box
     p='3'
     boxShadow='0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04)'
@@ -67,7 +67,7 @@ const TOC = ({ data, ...props }) => (
       目次
     </Heading>
     <Box overflowY='auto' maxH='70vh'>
-      <TOCList headings={data.mdx.tableOfContents.items} />
+      <HeadingList headings={headings} />
     </Box>
   </Box>
 );
@@ -121,7 +121,7 @@ const TOCDrawer = ({ headings, ...props }) => {
           <DrawerCloseButton />
           <DrawerHeader>目次</DrawerHeader>
           <DrawerBody pb='24' overflowY='auto'>
-            <TOCList headings={headings} onDrawerClose={onClose} />
+            <HeadingList headings={headings} onDrawerClose={onClose} />
           </DrawerBody>
         </DrawerContent>
       </Drawer>
@@ -129,4 +129,4 @@ const TOCDrawer = ({ headings, ...props }) => {
   );
 };
 
-export { TOC, TOCList, TOCDrawer };
+export { TOC, TOCDrawer };

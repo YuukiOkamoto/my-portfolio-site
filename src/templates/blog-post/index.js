@@ -52,7 +52,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
         </Box>
         <Box as='aside' gridArea='aside' position='relative'>
           <TOC
-            data={data}
+            headings={data.mdx.tableOfContents.items}
             position='sticky'
             top='0'
             d={['none', 'none', 'block', 'block']}
