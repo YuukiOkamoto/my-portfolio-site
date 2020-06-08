@@ -1,65 +1,35 @@
 import React from 'react';
-import { graphql } from 'gatsby';
+import { Text } from '@chakra-ui/core';
 
-import Bio from '../components/Bio';
+import Ability from '../components/Ability';
 import Container from '../components/Container';
-import Hero from '../components/Hero';
 import Layout from '../components/layout';
 import SEO from '../components/SEO';
-import LatestPosts from '../components/LatestPosts';
 
-const BlogIndex = ({ data: { featured, latest }, location }) => {
-  const featuredPost = featured.edges[0].node;
-  const latestPosts = latest.edges;
+const SectionTitle = ({ children, ...props }) => (
+  <Text as='h2' fontSize='4xl' textAlign='center' my='8' {...props}>
+    {children}
+  </Text>
+);
 
+const Top = ({ data, location }) => {
   return (
     <Layout location={location}>
       <SEO />
-      <Hero post={featuredPost} />
       <Container>
-        <LatestPosts posts={latestPosts} />
-        <Bio mb={8} />
+        <section id='my-data'>
+          <SectionTitle>わたしのデータ</SectionTitle>
+          <Ability />
+        </section>
+        <section id='careers'>
+          <SectionTitle>職務経歴</SectionTitle>
+        </section>
+        <section id='developments'>
+          <SectionTitle>開発実績</SectionTitle>
+        </section>
       </Container>
     </Layout>
   );
 };
 
-export default BlogIndex;
-
-export const pageQuery = graphql`
-  query {
-    featured: allMdx(
-      limit: 1
-      sort: { fields: frontmatter___date, order: DESC }
-      filter: { frontmatter: { featured: { eq: true } } }
-    ) {
-      edges {
-        node {
-          ...PostData
-        }
-      }
-    }
-    latest: allMdx(sort: { fields: frontmatter___date, order: DESC }) {
-      edges {
-        node {
-          ...PostData
-        }
-      }
-    }
-  }
-  fragment PostData on Mdx {
-    excerpt(pruneLength: 500)
-    fields {
-      slug
-      readingTime {
-        text
-      }
-    }
-    frontmatter {
-      date(formatString: "YYYY年MM月DD日")
-      title
-      description
-      tags
-    }
-  }
-`;
+export default Top;
