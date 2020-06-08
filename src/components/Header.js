@@ -86,8 +86,8 @@ const Header = ({ isHome }) => {
 
   return (
     <Box as='header'>
-      <Container px='3' py='2'>
-        <Flex as='header' align='center' justify='space-between' wrap='warp'>
+      <Container px='3' py='2' maxW='containers.xl'>
+        <Flex align='center' justify='space-between' wrap='warp'>
           <Link as={GatsbyLink} to={`/`} _hover={{ textDecoration: 'none' }}>
             <Stack isInline align='center' spacing='2'>
               <Image size='8' src={siteIcon} />
