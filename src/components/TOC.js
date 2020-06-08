@@ -83,7 +83,6 @@ const TOCDrawer = ({ headings, ...props }) => {
     <>
       <Box
         ref={btnRef}
-        d={['inline-block', 'inline-block', 'none', 'none']}
         position='fixed'
         bottom='12'
         right='5'
@@ -93,6 +92,7 @@ const TOCDrawer = ({ headings, ...props }) => {
         shadow='0 0 20px rgba(0, 0, 0, 0.3)'
         zIndex='1401'
         onClick={onToggle}
+        {...props}
       >
         <Flex align='flex-start' overflow='hidden' h='64px'>
           <Flex direction='column' alignSelf='center' px='5'>
@@ -115,7 +115,6 @@ const TOCDrawer = ({ headings, ...props }) => {
         size='md'
         onClose={onClose}
         finalFocusRef={btnRef}
-        {...props}
       >
         <DrawerOverlay />
         <DrawerContent>

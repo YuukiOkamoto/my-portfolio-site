@@ -59,7 +59,10 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           />
         </Box>
       </Grid>
-      <TOCDrawer headings={data.mdx.tableOfContents.items} />
+      <TOCDrawer
+        headings={data.mdx.tableOfContents.items}
+        d={['inline-block', 'inline-block', 'none', 'none']}
+      />
     </Layout>
   );
 };
