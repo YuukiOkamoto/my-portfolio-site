@@ -32,7 +32,6 @@ const Status = ({ name, value, type, ...props }) => {
 
   return (
     <Flex
-      isInline
       justify='space-between'
       borderRadius='lg'
       bg='white'
@@ -53,7 +52,7 @@ const Status = ({ name, value, type, ...props }) => {
         } inset`}
         color='blue.600'
         fontWeight='bold'
-        w='40%'
+        w='50%'
       >
         {name}
       </Flex>
@@ -62,7 +61,9 @@ const Status = ({ name, value, type, ...props }) => {
         color='blue.700'
         fontSize='2xl'
         fontWeight='bold'
+        textAlign='right'
         textShadow={`0px 1px 2px ${colors.blue[[700]]}`}
+        w='20%'
       >
         {value}
       </Text>
