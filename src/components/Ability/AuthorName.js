@@ -5,7 +5,7 @@ const AuthorName = ({ children, ...props }) => {
   const { colors } = useTheme();
   return (
     <Flex
-      background={`linear-gradient(to bottom, 
+      background={`linear-gradient(to bottom,
                   ${colors.green[100]} 0%,
                   ${colors.green[100]} 50%,
                   ${colors.green[200]} 50%,
@@ -19,7 +19,7 @@ const AuthorName = ({ children, ...props }) => {
       align='center'
       justify='center'
       w='120px'
-      h='30px'
+      h='40px'
       shadow='sm'
       {...props}
     >
