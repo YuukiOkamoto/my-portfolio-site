@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'gatsby-image';
-import { Flex, Stack, Text } from '@chakra-ui/core';
+import { Flex, Stack } from '@chakra-ui/core';
 
 import AuthorName from './AuthorName';
 import Remarks from './Remarks';

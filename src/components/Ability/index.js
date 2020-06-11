@@ -1,9 +1,7 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
-import Image from 'gatsby-image';
 import {
   useTheme,
-  Box,
   Flex,
   SimpleGrid,
   Stack,
@@ -12,15 +10,11 @@ import {
   TabPanels,
   Tab,
   TabPanel,
-  Text,
 } from '@chakra-ui/core';
 
 import Header from './Header';
-import AuthorName from './AuthorName';
 import Skill from './Skill';
 import Status from './Status';
-import Timestamp from './Timestamp';
-import UniformNumber from './UniformNumber';
 import { generateAlphaColors } from '../../theme/colors-utils';
 
 const Ability = () => {
@@ -38,12 +32,6 @@ const Ability = () => {
         siteMetadata {
           author {
             name
-            summary
-          }
-          snsAccounts {
-            twitter
-            github
-            note
           }
         }
       }
@@ -132,6 +120,7 @@ const Ability = () => {
               <Skill mainType='special'>脚職人</Skill>
               <Skill mainType='special'>ド根性</Skill>
               <Skill mainType='special'>苦痛を愛する者</Skill>
+              <Skill mainType='special'>体重操作</Skill>
               <Skill mainType='good'>筋肉操作◎</Skill>
               <Skill mainType='good'>減量◎</Skill>
               <Skill mainType='good'>粘り強さ◎</Skill>
