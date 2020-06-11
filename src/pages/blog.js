@@ -35,31 +35,16 @@ export const pageQuery = graphql`
     ) {
       edges {
         node {
-          ...PostData
+          ...postFields
         }
       }
     }
     latest: allMdx(sort: { fields: frontmatter___date, order: DESC }) {
       edges {
         node {
-          ...PostData
+          ...postFields
         }
       }
-    }
-  }
-  fragment PostData on Mdx {
-    excerpt(pruneLength: 500)
-    fields {
-      slug
-      readingTime {
-        text
-      }
-    }
-    frontmatter {
-      date(formatString: "YYYY年MM月DD日")
-      title
-      description
-      tags
     }
   }
 `;
