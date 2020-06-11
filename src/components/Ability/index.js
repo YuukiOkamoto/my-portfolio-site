@@ -15,6 +15,7 @@ import {
   Text,
 } from '@chakra-ui/core';
 
+import Header from './Header';
 import AuthorName from './AuthorName';
 import Skill from './Skill';
 import Status from './Status';
@@ -48,7 +49,8 @@ const Ability = () => {
       }
     }
   `);
-  const { author, snsAccounts } = data.site.siteMetadata;
+  const { author } = data.site.siteMetadata;
+  const { avatar } = data;
 
   return (
     <Tabs>
@@ -59,81 +61,7 @@ const Ability = () => {
 
       <TabPanels p={[0, 0, 8]}>
         <TabPanel>
-          <Stack isInline wrap='wrap' spacing='2' my='3' p='2'>
-            <Stack
-              spacing='3'
-              w={['100%', '100%', '240px']}
-              flexDirection={['row', 'row', 'colum']}
-              flexWrap='wrap'
-            >
-              <Stack isInline spacing='4' mx='auto'>
-                <AuthorName>{author.name.split('@')[0]}</AuthorName>
-                <UniformNumber number='29' />
-              </Stack>
-              <Timestamp isEngineer />
-            </Stack>
-            <Flex flex='1'>
-              <Image
-                fixed={data.avatar.childImageSharp.fixed}
-                alt={author.name}
-                css={{
-                  marginBottom: '0',
-                  minHeight: '100px',
-                  minWidth: '100px',
-                }}
-              />
-              <Stack spacing='2' w='100%'>
-                <Flex
-                  align='center'
-                  p='2'
-                  ml='4'
-                  border='1px'
-                  borderColor='gray.300'
-                  borderRadius='lg'
-                  color='blue.600'
-                  fontWeight='bold'
-                  h='45px'
-                >
-                  <Flex
-                    align='center'
-                    justify='center'
-                    border='1px'
-                    borderColor='gray.300'
-                    borderRadius='lg'
-                    h='100%'
-                    w='100px'
-                  >
-                    所属
-                  </Flex>
-                  <Text ml='4'>求職中</Text>
-                </Flex>
-                <Flex
-                  align='center'
-                  p='2'
-                  ml='4'
-                  border='1px'
-                  borderColor='gray.300'
-                  borderRadius='lg'
-                  color='blue.600'
-                  fontWeight='bold'
-                  h='45px'
-                >
-                  <Flex
-                    align='center'
-                    justify='center'
-                    border='1px'
-                    borderColor='gray.300'
-                    borderRadius='lg'
-                    h='100%'
-                    w='100px'
-                  >
-                    職種
-                  </Flex>
-                  <Text ml='4'>筋肉エンジニア</Text>
-                </Flex>
-              </Stack>
-            </Flex>
-          </Stack>
+          <Header isEngineer author={author} avatar={avatar} />
           <Flex
             flexDirection={['column', 'column', 'row']}
             bg={generateAlphaColors(colors.blue[500])[100]}
@@ -182,81 +110,7 @@ const Ability = () => {
           </Flex>
         </TabPanel>
         <TabPanel>
-          <Stack isInline wrap='wrap' spacing='2' my='3' p='2'>
-            <Stack
-              spacing='3'
-              w={['100%', '100%', '240px']}
-              flexDirection={['row', 'row', 'colum']}
-              flexWrap='wrap'
-            >
-              <Stack isInline spacing='4' mx='auto'>
-                <AuthorName>{author.name.split('@')[0]}</AuthorName>
-                <UniformNumber number='29' />
-              </Stack>
-              <Timestamp />
-            </Stack>
-            <Flex flex='1'>
-              <Image
-                fixed={data.avatar.childImageSharp.fixed}
-                alt={author.name}
-                css={{
-                  marginBottom: '0',
-                  minHeight: '100px',
-                  minWidth: '100px',
-                }}
-              />
-              <Stack spacing='2' w='100%'>
-                <Flex
-                  align='center'
-                  p='2'
-                  ml='4'
-                  border='1px'
-                  borderColor='gray.300'
-                  borderRadius='lg'
-                  color='blue.600'
-                  fontWeight='bold'
-                  h='45px'
-                >
-                  <Flex
-                    align='center'
-                    justify='center'
-                    border='1px'
-                    borderColor='gray.300'
-                    borderRadius='lg'
-                    h='100%'
-                    w='100px'
-                  >
-                    所属
-                  </Flex>
-                  <Text ml='4'>サンプレイ</Text>
-                </Flex>
-                <Flex
-                  align='center'
-                  p='2'
-                  ml='4'
-                  border='1px'
-                  borderColor='gray.300'
-                  borderRadius='lg'
-                  color='blue.600'
-                  fontWeight='bold'
-                  h='45px'
-                >
-                  <Flex
-                    align='center'
-                    justify='center'
-                    border='1px'
-                    borderColor='gray.300'
-                    borderRadius='lg'
-                    h='100%'
-                    w='100px'
-                  >
-                    身長・体重
-                  </Flex>
-                  <Text ml='4'>178cm・75kg/85kg(オン/オフ)</Text>
-                </Flex>
-              </Stack>
-            </Flex>
-          </Stack>
+          <Header author={author} avatar={avatar} />
           <Flex
             flexDirection={['column', 'column', 'row']}
             bg={generateAlphaColors(colors.blue[500])[100]}

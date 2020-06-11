@@ -84,6 +84,11 @@ module.exports = {
             family: `Noto+Sans+JP`,
             variants: [`400`, '600', `700`],
           },
+          {
+            family: `M PLUS Rounded 1c`,
+            variants: [`400`, '600', `700`],
+            subsets: [`japanese`],
+          },
         ],
       },
     },
