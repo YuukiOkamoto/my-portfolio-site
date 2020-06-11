@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import Image from 'gatsby-image';
+import dayjs from 'dayjs';
 import {
   useTheme,
   Box,
@@ -12,6 +13,7 @@ import {
   TabPanels,
   Tab,
   TabPanel,
+  Text,
 } from '@chakra-ui/core';
 
 import AuthorName from './AuthorName';
@@ -48,6 +50,33 @@ const Ability = () => {
   `);
   const { author, snsAccounts } = data.site.siteMetadata;
 
+  const [engineerYears, setEngineerYears] = useState('');
+  const [muscleYears, setMuscleYears] = useState('');
+
+  useEffect(() => {
+    const { diffYear, diffMonth, diffWeek } = getDiff('2018-04-01');
+
+    setEngineerYears(`${diffYear}年${diffMonth}ヶ月${diffWeek}週`);
+  }, []);
+
+  useEffect(() => {
+    const { diffYear, diffMonth, diffWeek } = getDiff('2017-11-01');
+
+    setMuscleYears(`${diffYear}年${diffMonth}ヶ月${diffWeek}週`);
+  }, []);
+
+  const getDiff = from => {
+    const diffYear = dayjs().diff(dayjs(from), 'year');
+    const diffMonth = dayjs().diff(dayjs(from).add(diffYear, 'year'), 'month');
+    const diffWeek =
+      dayjs().diff(
+        dayjs(from).add(diffYear, 'year').add(diffMonth, 'month'),
+        'week'
+      ) + 1;
+
+    return { diffYear, diffMonth, diffWeek };
+  };
+
   return (
     <Tabs>
       <TabList>
@@ -58,9 +87,26 @@ const Ability = () => {
       <TabPanels p={[0, 0, 8]}>
         <TabPanel>
           <Stack isInline wrap='wrap' spacing='2' my='3' p='2'>
-            <Stack isInline spacing='4' mb='3' w={['100%', '100%', '240px']}>
-              <AuthorName>{author.name.split('@')[0]}</AuthorName>
-              <UniformNumber number='29' />
+            <Stack
+              spacing='3'
+              w={['100%', '100%', '240px']}
+              flexDirection={['row', 'row', 'colum']}
+              flexWrap='wrap'
+            >
+              <Stack isInline spacing='4' mx='auto'>
+                <AuthorName>{author.name.split('@')[0]}</AuthorName>
+                <UniformNumber number='29' />
+              </Stack>
+              <Text
+                fontFamily='"M PLUS Rounded 1c"'
+                fontSize='xl'
+                fontWeight='bold'
+                textAlign='center'
+                letterSpacing='0.25em'
+                w='100%'
+              >
+                {engineerYears}
+              </Text>
             </Stack>
             <Stack align='center'>
               <Image
@@ -72,7 +118,6 @@ const Ability = () => {
                   minWidth: '80px',
                 }}
               />
-              <Box></Box>
             </Stack>
           </Stack>
           <Flex
@@ -120,10 +165,27 @@ const Ability = () => {
           </Flex>
         </TabPanel>
         <TabPanel>
-          <Stack isInline wrap='wrap' my='3'>
-            <Stack isInline spacing='4' mb='3' w={['100%', '100%', '240px']}>
-              <AuthorName>{author.name.split('@')[0]}</AuthorName>
-              <UniformNumber number='29' />
+          <Stack isInline wrap='wrap' spacing='2' my='3' p='2'>
+            <Stack
+              spacing='3'
+              w={['100%', '100%', '240px']}
+              flexDirection={['row', 'row', 'colum']}
+              flexWrap='wrap'
+            >
+              <Stack isInline spacing='4' mx='auto'>
+                <AuthorName>{author.name.split('@')[0]}</AuthorName>
+                <UniformNumber number='29' />
+              </Stack>
+              <Text
+                fontFamily='"M PLUS Rounded 1c"'
+                fontSize='xl'
+                fontWeight='bold'
+                textAlign='center'
+                letterSpacing='0.25em'
+                w='100%'
+              >
+                {muscleYears}
+              </Text>
             </Stack>
             <Stack align='center'>
               <Image
@@ -135,7 +197,6 @@ const Ability = () => {
                   minWidth: '80px',
                 }}
               />
-              <Box></Box>
             </Stack>
           </Stack>
           <Flex
