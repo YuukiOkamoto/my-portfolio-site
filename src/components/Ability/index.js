@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import Image from 'gatsby-image';
-import dayjs from 'dayjs';
 import {
   useTheme,
   Box,
@@ -19,6 +18,7 @@ import {
 import AuthorName from './AuthorName';
 import Skill from './Skill';
 import Status from './Status';
+import Timestamp from './Timestamp';
 import UniformNumber from './UniformNumber';
 import { generateAlphaColors } from '../../theme/colors-utils';
 
@@ -50,33 +50,6 @@ const Ability = () => {
   `);
   const { author, snsAccounts } = data.site.siteMetadata;
 
-  const [engineerYears, setEngineerYears] = useState('');
-  const [muscleYears, setMuscleYears] = useState('');
-
-  useEffect(() => {
-    const { diffYear, diffMonth, diffWeek } = getDiff('2018-04-01');
-
-    setEngineerYears(`${diffYear}年${diffMonth}ヶ月${diffWeek}週`);
-  }, []);
-
-  useEffect(() => {
-    const { diffYear, diffMonth, diffWeek } = getDiff('2017-11-01');
-
-    setMuscleYears(`${diffYear}年${diffMonth}ヶ月${diffWeek}週`);
-  }, []);
-
-  const getDiff = from => {
-    const diffYear = dayjs().diff(dayjs(from), 'year');
-    const diffMonth = dayjs().diff(dayjs(from).add(diffYear, 'year'), 'month');
-    const diffWeek =
-      dayjs().diff(
-        dayjs(from).add(diffYear, 'year').add(diffMonth, 'month'),
-        'week'
-      ) + 1;
-
-    return { diffYear, diffMonth, diffWeek };
-  };
-
   return (
     <Tabs>
       <TabList>
@@ -97,28 +70,69 @@ const Ability = () => {
                 <AuthorName>{author.name.split('@')[0]}</AuthorName>
                 <UniformNumber number='29' />
               </Stack>
-              <Text
-                fontFamily='"M PLUS Rounded 1c"'
-                fontSize='xl'
-                fontWeight='bold'
-                textAlign='center'
-                letterSpacing='0.25em'
-                w='100%'
-              >
-                {engineerYears}
-              </Text>
+              <Timestamp isEngineer />
             </Stack>
-            <Stack align='center'>
+            <Flex flex='1'>
               <Image
                 fixed={data.avatar.childImageSharp.fixed}
                 alt={author.name}
                 css={{
                   marginBottom: '0',
-                  minHeight: '80px',
-                  minWidth: '80px',
+                  minHeight: '100px',
+                  minWidth: '100px',
                 }}
               />
-            </Stack>
+              <Stack spacing='2' w='100%'>
+                <Flex
+                  align='center'
+                  p='2'
+                  ml='4'
+                  border='1px'
+                  borderColor='gray.300'
+                  borderRadius='lg'
+                  color='blue.600'
+                  fontWeight='bold'
+                  h='45px'
+                >
+                  <Flex
+                    align='center'
+                    justify='center'
+                    border='1px'
+                    borderColor='gray.300'
+                    borderRadius='lg'
+                    h='100%'
+                    w='100px'
+                  >
+                    所属
+                  </Flex>
+                  <Text ml='4'>求職中</Text>
+                </Flex>
+                <Flex
+                  align='center'
+                  p='2'
+                  ml='4'
+                  border='1px'
+                  borderColor='gray.300'
+                  borderRadius='lg'
+                  color='blue.600'
+                  fontWeight='bold'
+                  h='45px'
+                >
+                  <Flex
+                    align='center'
+                    justify='center'
+                    border='1px'
+                    borderColor='gray.300'
+                    borderRadius='lg'
+                    h='100%'
+                    w='100px'
+                  >
+                    職種
+                  </Flex>
+                  <Text ml='4'>筋肉エンジニア</Text>
+                </Flex>
+              </Stack>
+            </Flex>
           </Stack>
           <Flex
             flexDirection={['column', 'column', 'row']}
@@ -150,7 +164,10 @@ const Ability = () => {
               <Skill mainType='bad'>見積もり☓</Skill>
               <Skill mainType='good'>プレゼン○</Skill>
               <Skill mainType='good'>帳尻合わせ</Skill>
-              <Skill mainType='normal'>ﾏﾙﾁﾀｽｸ</Skill>
+              <Skill mainType='normal'>ﾏﾙﾁﾀｽｸ☓</Skill>
+              <Skill mainType='normal'>メール☓</Skill>
+              <Skill mainType='good'>チャット○</Skill>
+              <Skill mainType='good'>ムード○</Skill>
               <Skill mainType='good' subType='bad'>
                 力配分
               </Skill>
@@ -176,28 +193,69 @@ const Ability = () => {
                 <AuthorName>{author.name.split('@')[0]}</AuthorName>
                 <UniformNumber number='29' />
               </Stack>
-              <Text
-                fontFamily='"M PLUS Rounded 1c"'
-                fontSize='xl'
-                fontWeight='bold'
-                textAlign='center'
-                letterSpacing='0.25em'
-                w='100%'
-              >
-                {muscleYears}
-              </Text>
+              <Timestamp />
             </Stack>
-            <Stack align='center'>
+            <Flex flex='1'>
               <Image
                 fixed={data.avatar.childImageSharp.fixed}
                 alt={author.name}
                 css={{
                   marginBottom: '0',
-                  minHeight: '80px',
-                  minWidth: '80px',
+                  minHeight: '100px',
+                  minWidth: '100px',
                 }}
               />
-            </Stack>
+              <Stack spacing='2' w='100%'>
+                <Flex
+                  align='center'
+                  p='2'
+                  ml='4'
+                  border='1px'
+                  borderColor='gray.300'
+                  borderRadius='lg'
+                  color='blue.600'
+                  fontWeight='bold'
+                  h='45px'
+                >
+                  <Flex
+                    align='center'
+                    justify='center'
+                    border='1px'
+                    borderColor='gray.300'
+                    borderRadius='lg'
+                    h='100%'
+                    w='100px'
+                  >
+                    所属
+                  </Flex>
+                  <Text ml='4'>サンプレイ</Text>
+                </Flex>
+                <Flex
+                  align='center'
+                  p='2'
+                  ml='4'
+                  border='1px'
+                  borderColor='gray.300'
+                  borderRadius='lg'
+                  color='blue.600'
+                  fontWeight='bold'
+                  h='45px'
+                >
+                  <Flex
+                    align='center'
+                    justify='center'
+                    border='1px'
+                    borderColor='gray.300'
+                    borderRadius='lg'
+                    h='100%'
+                    w='100px'
+                  >
+                    身長・体重
+                  </Flex>
+                  <Text ml='4'>178cm・75kg/85kg(オン/オフ)</Text>
+                </Flex>
+              </Stack>
+            </Flex>
           </Stack>
           <Flex
             flexDirection={['column', 'column', 'row']}
