@@ -55,9 +55,9 @@ const Ability = () => {
         <Tab>筋肉能力</Tab>
       </TabList>
 
-      <TabPanels p={[0, 8]}>
+      <TabPanels p={[0, 0, 8]}>
         <TabPanel>
-          <Stack isInline wrap='wrap' my='3'>
+          <Stack isInline wrap='wrap' spacing='2' my='3' p='2'>
             <Stack isInline spacing='4' mb='3' w={['100%', '100%', '240px']}>
               <AuthorName>{author.name.split('@')[0]}</AuthorName>
               <UniformNumber number='29' />
@@ -106,12 +106,16 @@ const Ability = () => {
               <Skill mainType='good'>プレゼン○</Skill>
               <Skill mainType='good'>帳尻合わせ</Skill>
               <Skill mainType='normal'>ﾏﾙﾁﾀｽｸ</Skill>
-              <Skill mainType='good' subType='bad'>力配分</Skill>
+              <Skill mainType='good' subType='bad'>
+                力配分
+              </Skill>
               <Skill mainType='good'>ｹｶﾞしにくさ○</Skill>
               <Skill mainType='good'>HP自動回復</Skill>
               <Skill mainType='good'>MP自動回復</Skill>
               <Skill mainType='good'>体調管理○</Skill>
-              <Skill mainType='good' subType='bad'>n%I＝W</Skill>
+              <Skill mainType='good' subType='bad'>
+                n%I＝W
+              </Skill>
             </SimpleGrid>
           </Flex>
         </TabPanel>
@@ -166,8 +170,12 @@ const Ability = () => {
               <Skill mainType='good'>筋肉お菓子職人</Skill>
               <Skill mainType='good'>筋肉料理職人</Skill>
               <Skill mainType='special'>絶対切断</Skill>
-              <Skill mainType='good' subType='bad'>暴食者</Skill>
-              <Skill mainType='good' subType='bad'>理屈屋</Skill>
+              <Skill mainType='good' subType='bad'>
+                暴食者
+              </Skill>
+              <Skill mainType='good' subType='bad'>
+                理屈屋
+              </Skill>
               <Skill mainType='good'>鑑定</Skill>
               <Skill mainType='good'>リベンジ</Skill>
               <Skill mainType='good'>連筋○</Skill>

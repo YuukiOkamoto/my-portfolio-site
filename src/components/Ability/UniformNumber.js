@@ -27,13 +27,13 @@ const UniformNumber = ({ number, ...props }) => {
         &::before {
           bottom: -22px;
           border-color: ${colors.blue[500]};
-          border-width: 0 39px 22px 0;
+          border-width: 0 40px 22px 0;
           box-shadow: ${shadows.sm};
         }
         &::after {
           bottom: -21px;
           border-color: #fff;
-          border-width: 0 37px 21px 0;
+          border-width: 0 38px 21px 0;
         }
       `}
       {...props}

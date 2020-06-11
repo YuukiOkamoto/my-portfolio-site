@@ -16,9 +16,9 @@ const Skill = ({ mainType, subType, children, ...props }) => {
 
   return (
     <Flex
+      d='inline-flex'
       align='center'
       justify='space-evenly'
-      d='inline-flex'
       position='relative'
       background={`linear-gradient(to bottom,
                   ${colors[mainColor][100]} 0%,
@@ -26,9 +26,6 @@ const Skill = ({ mainType, subType, children, ...props }) => {
                   ${colors[mainColor][200]} 50%,
                   ${colors[mainColor][200]} 100%)`}
       borderRadius='7px'
-      color={colors[mainColor][700]}
-      fontSize='lg'
-      lineHeight='1.1'
       h='40px'
       shadow='sm'
       css={css`
@@ -70,7 +67,15 @@ const Skill = ({ mainType, subType, children, ...props }) => {
       {...props}
     >
       {[...children].map(s => (
-        <Text as='span' zIndex='2'>{s}</Text>
+        <Text
+          as='span'
+          zIndex='2'
+          color={colors[mainColor][700]}
+          textShadow={`0px 1px 1px ${colors[mainColor][700]}`}
+          fontSize='lg'
+        >
+          {s}
+        </Text>
       ))}
     </Flex>
   );
