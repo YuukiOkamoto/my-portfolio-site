@@ -19,7 +19,7 @@ const Header = ({ author, avatar, isEngineer }) => (
         <AuthorName>{author.name.split('@')[0]}</AuthorName>
         <UniformNumber number='29' />
       </Stack>
-      <Timestamp isEngineer />
+      <Timestamp isEngineer={isEngineer} />
     </Stack>
     <Flex
       flex='1'
