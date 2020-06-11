@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link as GatsbyLink } from 'gatsby';
-import { Box, Grid, Heading, Icon, Link, Stack, Text } from '@chakra-ui/core';
-import { FiChevronsRight } from 'react-icons/fi';
+import { Box, Grid, Heading, Link, Stack, Text } from '@chakra-ui/core';
 
 import ChevronsLink from './ChevronsLink';
 import Tags from './Tags';
@@ -68,11 +67,6 @@ const PostCard = ({ post, ...props }) => {
           <Box mt='3'>
             <ChevronsLink to={path} moveTo='right'>
               Read more
-              <Icon
-                transition='transform .2s'
-                className='chevrons'
-                as={FiChevronsRight}
-              />
             </ChevronsLink>
           </Box>
         </Box>
