@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Stack, Text } from '@chakra-ui/core';
+import { Box, Flex, Stack } from '@chakra-ui/core';
 
 const Label = ({ children, ...props }) => (
   <Flex
@@ -37,11 +37,11 @@ const Remarks = ({ isEngineer, ...props }) => (
   <Stack spacing='2' {...props}>
     <Remark>
       <Label>所属</Label>
-      <Text ml='4'>{isEngineer ? '求職中' : 'サンプレイ'}</Text>
+      <Box ml='4'>{isEngineer ? '求職中' : 'サンプレイ'}</Box>
     </Remark>
     <Remark>
       <Label>{isEngineer ? '職種' : '身長/体重'}</Label>
-      <Text ml='4'>{isEngineer ? '筋肉エンジニア' : '178cm/75kg~85kg'}</Text>
+      <Box ml='4'>{isEngineer ? '筋肉エンジニア' : '178cm/75kg~85kg'}</Box>
     </Remark>
   </Stack>
 );

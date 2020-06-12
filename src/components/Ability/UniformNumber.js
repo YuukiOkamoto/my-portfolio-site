@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTheme, Box, Text } from '@chakra-ui/core';
+import { useTheme, Box } from '@chakra-ui/core';
 import { css } from '@emotion/core';
 
 const UniformNumber = ({ number, ...props }) => {
@@ -38,7 +38,7 @@ const UniformNumber = ({ number, ...props }) => {
       `}
       {...props}
     >
-      <Text
+      <Box
         color='blue.600'
         fontSize='2xl'
         fontWeight='bold'
@@ -49,9 +49,9 @@ const UniformNumber = ({ number, ...props }) => {
         zIndex='1'
       >
         {number}
-      </Text>
+      </Box>
     </Box>
   );
-}
+};
 
 export default UniformNumber;

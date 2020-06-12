@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTheme, Flex, Text } from '@chakra-ui/core';
+import { useTheme, Box, Flex } from '@chakra-ui/core';
 import { css } from '@emotion/core';
 
 const typeColors = {
@@ -67,7 +67,7 @@ const Skill = ({ mainType, subType, children, ...props }) => {
       {...props}
     >
       {[...children].map(s => (
-        <Text
+        <Box
           as='span'
           zIndex='2'
           color={colors[mainColor][700]}
@@ -75,7 +75,7 @@ const Skill = ({ mainType, subType, children, ...props }) => {
           fontSize='lg'
         >
           {s}
-        </Text>
+        </Box>
       ))}
     </Flex>
   );

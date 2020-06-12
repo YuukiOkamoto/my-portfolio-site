@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTheme, Flex, Text } from '@chakra-ui/core';
+import { useTheme, Box, Flex } from '@chakra-ui/core';
 
 import { generateAlphaColors } from '../../theme/colors-utils';
 
@@ -17,13 +17,13 @@ const Grade = ({ value, ...props }) => {
   else grade = { value: 'S', color: colors.pink[200] };
 
   return (
-    <Text
+    <Box
       color={grade.color}
       textShadow={`0px 1px 2px ${grade.color}`}
       {...props}
     >
       {grade.value}
-    </Text>
+    </Box>
   );
 };
 
@@ -57,7 +57,7 @@ const Status = ({ name, value, type, ...props }) => {
         {name}
       </Flex>
       <Grade value={value} fontSize='2xl' fontWeight='bold' />
-      <Text
+      <Box
         color='blue.700'
         fontSize='2xl'
         fontWeight='bold'
@@ -66,7 +66,7 @@ const Status = ({ name, value, type, ...props }) => {
         w='20%'
       >
         {value}
-      </Text>
+      </Box>
     </Flex>
   );
 };

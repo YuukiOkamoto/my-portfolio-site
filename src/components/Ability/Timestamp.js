@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text } from '@chakra-ui/core';
+import { Box } from '@chakra-ui/core';
 import dayjs from 'dayjs';
 
 const Timestamp = ({ isEngineer, ...props }) => {
@@ -31,8 +31,7 @@ const Timestamp = ({ isEngineer, ...props }) => {
   };
 
   return (
-    <Text
-      fontFamily='"M PLUS Rounded 1c"'
+    <Box
       fontSize='xl'
       fontWeight='bold'
       textAlign='center'
@@ -41,7 +40,7 @@ const Timestamp = ({ isEngineer, ...props }) => {
       {...props}
     >
       {isEngineer ? engineerYears : muscleYears}
-    </Text>
+    </Box>
   );
 };
 

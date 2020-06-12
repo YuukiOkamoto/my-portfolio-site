@@ -10,6 +10,7 @@ import {
   TabPanels,
   Tab,
   TabPanel,
+  Text,
 } from '@chakra-ui/core';
 
 import Header from './Header';
@@ -41,7 +42,7 @@ const Ability = () => {
   const { avatar } = data;
 
   return (
-    <Tabs>
+    <Tabs fontFamily='"M PLUS Rounded 1c"'>
       <TabList>
         <Tab>電脳能力</Tab>
         <Tab>筋肉能力</Tab>
@@ -96,6 +97,7 @@ const Ability = () => {
               </Skill>
             </SimpleGrid>
           </Flex>
+          <Text></Text>
         </TabPanel>
         <TabPanel>
           <Header author={author} avatar={avatar} />
