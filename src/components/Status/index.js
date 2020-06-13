@@ -9,19 +9,18 @@ import {
   TabPanels,
   Tab,
   TabPanel,
-  Text,
 } from '@chakra-ui/core';
 
 import Header from './Header';
 import Skill from './Skill';
-import Status from './Status';
+import Ability from './Ability';
 import { generateAlphaColors } from '../../theme/colors-utils';
 
 const Ability = () => {
   const { colors } = useTheme();
 
   return (
-    <Tabs fontFamily='"M PLUS Rounded 1c"'>
+    <Tabs fontFamily='pawapuro'>
       <TabList>
         <Tab>電脳能力</Tab>
         <Tab>筋肉能力</Tab>
@@ -29,7 +28,7 @@ const Ability = () => {
 
       <TabPanels p={[0, 0, 8]}>
         <TabPanel>
-          <Header isEngineer/>
+          <Header isEngineer />
           <Flex
             flexDirection={['column', 'column', 'row']}
             bg={generateAlphaColors(colors.blue[500])[100]}
@@ -37,16 +36,16 @@ const Ability = () => {
             borderRadius='lg'
           >
             <Stack w={['100%', '100%', '240px']} mr={[0, 0, 2]} mb={[2, 2, 0]}>
-              <Status name='HTML' value='70' />
-              <Status name='CSS' value='65' />
-              <Status name='JS' value='65' />
-              <Status name='TS' value='9' />
-              <Status name='React' value='40' />
-              <Status name='Gatsby' value='74' />
-              <Status name='ReactNative' value='15' />
-              <Status name='Ruby' value='58' />
-              <Status name='Rails' value='67' />
-              <Status name='Java' value='10' />
+              <Ability name='HTML' value='70' />
+              <Ability name='CSS' value='65' />
+              <Ability name='JS' value='65' />
+              <Ability name='TS' value='9' />
+              <Ability name='React' value='40' />
+              <Ability name='Gatsby' value='74' />
+              <Ability name='ReactNative' value='15' />
+              <Ability name='Ruby' value='58' />
+              <Ability name='Rails' value='67' />
+              <Ability name='Java' value='10' />
             </Stack>
             <SimpleGrid columns={[2, 3, 4]} gap='2px' h='max-content' flex='1'>
               <Skill mainType='special'>勤勉</Skill>
@@ -76,7 +75,6 @@ const Ability = () => {
               </Skill>
             </SimpleGrid>
           </Flex>
-          <Text></Text>
         </TabPanel>
         <TabPanel>
           <Header />
@@ -87,12 +85,12 @@ const Ability = () => {
             borderRadius='lg'
           >
             <Stack w={['100%', '100%', '240px']} mr={[0, 0, 2]} mb={[2, 2, 0]}>
-              <Status name='胸' value='30' />
-              <Status name='背中' value='18' />
-              <Status name='肩' value='39' />
-              <Status name='腕' value='14' />
-              <Status name='脚' value='84' />
-              <Status name='腹筋' value='59' />
+              <Ability name='胸' value='30' />
+              <Ability name='背中' value='18' />
+              <Ability name='肩' value='39' />
+              <Ability name='腕' value='14' />
+              <Ability name='脚' value='84' />
+              <Ability name='腹筋' value='59' />
             </Stack>
             <SimpleGrid columns={[2, 3, 4]} gap='2px' h='max-content' flex='1'>
               <Skill mainType='special'>痛覚耐性</Skill>
@@ -119,6 +117,9 @@ const Ability = () => {
               <Skill mainType='good' subType='bad'>
                 理屈屋
               </Skill>
+              <Skill mainType='bad'>満腹無効</Skill>
+              <Skill mainType='bad'>肩幅狭</Skill>
+              <Skill mainType='bad'>顔デカ</Skill>
               <Skill mainType='good'>鑑定</Skill>
               <Skill mainType='good'>リベンジ</Skill>
               <Skill mainType='good'>連筋○</Skill>

@@ -27,7 +27,7 @@ const Grade = ({ value, ...props }) => {
   );
 };
 
-const Status = ({ name, value, type, ...props }) => {
+const Ability = ({ name, value, type, ...props }) => {
   const { colors } = useTheme();
 
   return (
@@ -71,4 +71,4 @@ const Status = ({ name, value, type, ...props }) => {
   );
 };
 
-export default Status;
+export default Ability;
