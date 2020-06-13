@@ -13,6 +13,7 @@
     "@emotion/styled": "^10.0.27",
     "@mdx-js/mdx": "^1.5.9",
     "@mdx-js/react": "^1.5.9",
+    "dayjs": "^1.8.28",
     "emotion-theming": "^10.0.27",
     "gatsby": "^2.20.25",
     "gatsby-image": "^2.3.4",
@@ -48,6 +49,7 @@
     "react-icons": "^3.10.0",
     "react-live": "^2.2.2",
     "react-scroll": "^1.7.16",
+    "react-vertical-timeline-component": "^3.0.0",
     "remark-emoji": "^2.1.0",
     "typeface-merriweather": "0.0.72",
     "typeface-montserrat": "0.0.75"

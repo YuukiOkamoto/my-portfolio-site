@@ -4,10 +4,11 @@ import { Box, Button, Stack, Text } from '@chakra-ui/core';
 
 import { GiSpellBook } from 'react-icons/gi';
 
-import Ability from '../components/Ability';
+import Status from '../components/Status';
 import Container from '../components/Container';
 import PostCard from '../components/PostCard';
 import Layout from '../components/layout';
+import History from '../components/History'
 import SEO from '../components/SEO';
 
 const Section = ({ children, ...props }) => (
@@ -47,10 +48,11 @@ const Top = ({ data: { allMdx }, location }) => {
       <Container>
         <Section id='status'>
           <SectionTitle>ステータスオープン！</SectionTitle>
-          <Ability />
+          <Status />
         </Section>
         <Section id='careers'>
           <SectionTitle>職務経歴</SectionTitle>
+          <History />
         </Section>
         <Section id='developments'>
           <SectionTitle>開発実績</SectionTitle>
