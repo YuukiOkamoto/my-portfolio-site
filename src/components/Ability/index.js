@@ -1,5 +1,4 @@
 import React from 'react';
-import { useStaticQuery, graphql } from 'gatsby';
 import {
   useTheme,
   Flex,
@@ -20,26 +19,6 @@ import { generateAlphaColors } from '../../theme/colors-utils';
 
 const Ability = () => {
   const { colors } = useTheme();
-  const data = useStaticQuery(graphql`
-    query {
-      avatar: file(absolutePath: { regex: "/profile-pic.jpg/" }) {
-        childImageSharp {
-          fixed(width: 80, height: 80) {
-            ...GatsbyImageSharpFixed
-          }
-        }
-      }
-      site {
-        siteMetadata {
-          author {
-            name
-          }
-        }
-      }
-    }
-  `);
-  const { author } = data.site.siteMetadata;
-  const { avatar } = data;
 
   return (
     <Tabs fontFamily='"M PLUS Rounded 1c"'>
@@ -50,7 +29,7 @@ const Ability = () => {
 
       <TabPanels p={[0, 0, 8]}>
         <TabPanel>
-          <Header isEngineer author={author} avatar={avatar} />
+          <Header isEngineer/>
           <Flex
             flexDirection={['column', 'column', 'row']}
             bg={generateAlphaColors(colors.blue[500])[100]}
@@ -100,7 +79,7 @@ const Ability = () => {
           <Text></Text>
         </TabPanel>
         <TabPanel>
-          <Header author={author} avatar={avatar} />
+          <Header />
           <Flex
             flexDirection={['column', 'column', 'row']}
             bg={generateAlphaColors(colors.blue[500])[100]}
