@@ -66,8 +66,9 @@ const Skill = ({ mainType, subType, children, ...props }) => {
       `}
       {...props}
     >
-      {[...children].map(s => (
+      {[...children].map((s, i) => (
         <Box
+          key={i}
           as='span'
           zIndex='2'
           color={colors[mainColor][700]}
