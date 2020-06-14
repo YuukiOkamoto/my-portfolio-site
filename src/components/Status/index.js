@@ -16,7 +16,7 @@ import Skill from './Skill';
 import Ability from './Ability';
 import { generateAlphaColors } from '../../theme/colors-utils';
 
-const Ability = () => {
+const Status = () => {
   const { colors } = useTheme();
 
   return (
@@ -131,4 +131,4 @@ const Ability = () => {
   );
 };
 
-export default Ability;
+export default Status;
