@@ -32,6 +32,13 @@ module.exports = {
       },
     },
     {
+      resolve: 'gatsby-source-google-spreadsheets',
+      options: {
+        spreadsheetId: '1ZETnfBaMuvon06tYSOrS_lVJoygtQX2wLTA28w6PXJw',
+        credentials: require('./spreadsheets-credentials.json'),
+      },
+    },
+    {
       resolve: `gatsby-plugin-mdx`,
       options: {
         extensions: [`.mdx`, `.md`],
