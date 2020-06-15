@@ -31,7 +31,10 @@ export const pageQuery = graphql`
     featured: allMdx(
       limit: 1
       sort: { fields: frontmatter___date, order: DESC }
-      filter: { frontmatter: { featured: { eq: true } } }
+      filter: {
+        fileAbsolutePath: { regex: "/content/blog/" }
+        frontmatter: { featured: { eq: true } }
+      }
     ) {
       edges {
         node {
@@ -39,7 +42,10 @@ export const pageQuery = graphql`
         }
       }
     }
-    latest: allMdx(sort: { fields: frontmatter___date, order: DESC }) {
+    latest: allMdx(
+      sort: { fields: frontmatter___date, order: DESC }
+      filter: { fileAbsolutePath: { regex: "/content/blog/" } }
+    ) {
       edges {
         node {
           ...postFields

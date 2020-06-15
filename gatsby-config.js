@@ -32,6 +32,13 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/content/profiles`,
+        name: `profiles`,
+      },
+    },
+    {
       resolve: 'gatsby-source-google-spreadsheets',
       options: {
         spreadsheetId: '1ZETnfBaMuvon06tYSOrS_lVJoygtQX2wLTA28w6PXJw',
@@ -122,8 +129,8 @@ module.exports = {
         `,
         feeds: [
           {
-            serialize: ({ query: { site, allMdx } }) => {
-              return allMdx.edges.map(edge => {
+            serialize: ({ query: { site, allPosts } }) => {
+              return allPosts.edges.map(edge => {
                 return Object.assign({}, edge.node.frontmatter, {
                   description: edge.node.excerpt,
                   date: edge.node.frontmatter.date,
@@ -135,8 +142,9 @@ module.exports = {
             },
             query: `
               {
-                allMdx(
-                  sort: { order: DESC, fields: [frontmatter___date] },
+                allPosts: allMdx(
+                  sort: { fields: frontmatter___date, order: DESC }
+                  filter: { fileAbsolutePath: { regex: "/content/blog/" } }
                 ) {
                   edges {
                     node {

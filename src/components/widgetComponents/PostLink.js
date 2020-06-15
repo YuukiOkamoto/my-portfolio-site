@@ -8,7 +8,7 @@ import Tags from '../Tags';
 const PostLink = ({ to, align = 'center', ...props }) => {
   const { allMdx } = useStaticQuery(graphql`
     {
-      allMdx {
+      allMdx(filter: { fileAbsolutePath: { regex: "/content/blog/" } }) {
         edges {
           node {
             frontmatter {
