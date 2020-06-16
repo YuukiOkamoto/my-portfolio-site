@@ -13,14 +13,14 @@ import {
   SlideIn,
 } from '@chakra-ui/core';
 
-import MDXComponents from './MDXComponents'
+import MDXComponents from './MDXComponents';
 
 const StoryModal = ({ isOpen, onClose, story, ...props }) => (
   <SlideIn in={isOpen} {...props}>
     {styles => (
-      <Modal onClose={onClose} isOpen={true} scrollBehavior='inside'>
+      <Modal onClose={onClose} isOpen={true} scrollBehavior='inside' size='xl'>
         <ModalOverlay opacity={styles.opacity} />
-        <ModalContent pb={5} {...styles}>
+        <ModalContent {...styles}>
           <ModalHeader>Story</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
@@ -28,10 +28,10 @@ const StoryModal = ({ isOpen, onClose, story, ...props }) => (
               <MDXRenderer>{story.body}</MDXRenderer>
             </MDXProvider>
           </ModalBody>
+          <ModalFooter>
+            <Button onClick={onClose}>Close</Button>
+          </ModalFooter>
         </ModalContent>
-        <ModalFooter>
-          <Button>Close</Button>
-        </ModalFooter>
       </Modal>
     )}
   </SlideIn>
