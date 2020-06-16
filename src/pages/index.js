@@ -46,7 +46,7 @@ const Top = ({ data: { allPosts }, location }) => {
     <Layout location={location}>
       <SEO />
       <Container>
-        <Section id='status'>
+        <Section id='status' minHeight='80vh'>
           <SectionTitle>ステータスオープン！</SectionTitle>
           <Status />
         </Section>
