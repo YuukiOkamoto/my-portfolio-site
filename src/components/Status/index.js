@@ -29,7 +29,6 @@ const StatusContent = ({ isEngineer, abilities, skills }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { engineerStory, muscleStory } = useProfiles();
 
-  console.log(engineerStory.body);
   return (
     <>
       <Header isEngineer={isEngineer} />

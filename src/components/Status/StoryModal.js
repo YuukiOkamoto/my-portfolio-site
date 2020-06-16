@@ -1,4 +1,5 @@
 import React from 'react';
+import { MDXProvider } from '@mdx-js/react';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import {
   Button,
@@ -12,6 +13,8 @@ import {
   SlideIn,
 } from '@chakra-ui/core';
 
+import MDXComponents from './MDXComponents'
+
 const StoryModal = ({ isOpen, onClose, story, ...props }) => (
   <SlideIn in={isOpen} {...props}>
     {styles => (
@@ -21,7 +24,9 @@ const StoryModal = ({ isOpen, onClose, story, ...props }) => (
           <ModalHeader>Story</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <MDXRenderer>{story.body}</MDXRenderer>
+            <MDXProvider components={MDXComponents}>
+              <MDXRenderer>{story.body}</MDXRenderer>
+            </MDXProvider>
           </ModalBody>
         </ModalContent>
         <ModalFooter>
