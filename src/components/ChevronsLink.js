@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link as GatsbyLink } from 'gatsby';
 import { Link, Icon } from '@chakra-ui/core';
-import { FiChevronsRight } from 'react-icons/fi';
+import { FiChevronsRight, FiChevronsLeft } from 'react-icons/fi';
 
 const ChevronsLink = ({ moveTo, children, ...props }) => (
   <Link
@@ -19,12 +19,21 @@ const ChevronsLink = ({ moveTo, children, ...props }) => (
     }}
     {...props}
   >
+    {moveTo === 'left' && (
+      <Icon
+        transition='transform .2s'
+        className='chevrons'
+        as={FiChevronsLeft}
+      />
+    )}
     {children}
-    <Icon
-      transition='transform .2s'
-      className='chevrons'
-      as={FiChevronsRight}
-    />
+    {moveTo === 'right' && (
+      <Icon
+        transition='transform .2s'
+        className='chevrons'
+        as={FiChevronsRight}
+      />
+    )}
   </Link>
 );
 
