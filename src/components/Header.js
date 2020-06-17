@@ -199,7 +199,7 @@ const Header = ({ isHome }) => {
                   as={GatsbyLink}
                   _hover={{ color: colors.orange[300] }}
                   px='2'
-                  to={`#blog`}
+                  to={`/blog`}
                 >
                   ブログ
                 </Link>
