@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link as GatsbyLink } from 'gatsby';
-import { Box, Flex, Icon, SimpleGrid, Text } from '@chakra-ui/core';
-import { FiChevronsLeft, FiChevronsRight } from 'react-icons/fi';
+import { Box, SimpleGrid, Text } from '@chakra-ui/core';
 
 import ChevronsLink from './ChevronsLink';
 
