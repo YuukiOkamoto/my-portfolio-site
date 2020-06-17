@@ -12,7 +12,7 @@ import { EngineerHistory, MuscleHistory, DevelopmentHistory } from '../component
 import SEO from '../components/SEO';
 
 const Section = ({ children, ...props }) => (
-  <Box as='section' py='10' {...props}>
+  <Box as='section' py='12' {...props}>
     {children}
   </Box>
 );

@@ -11,7 +11,7 @@ const Layout = ({ location, children }) => {
   return (
     <Flex direction='column' minH='100vh' mx='auto'>
       <Header isHome={isHome} />
-      <Box as='main' flex='1'>
+      <Box as='main' flex='1' mt='12'>
         {children}
       </Box>
       <Footer />

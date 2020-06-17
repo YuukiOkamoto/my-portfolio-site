@@ -98,6 +98,7 @@ const ScrollLink = props => {
     <ReactScrollLink
       smooth={true}
       duration={800}
+      offset={-20}
       css={{
         paddingRight: space[2],
         paddingLeft: space[2],
@@ -122,7 +123,14 @@ const Header = ({ isHome }) => {
   };
 
   return (
-    <Box as='header' whiteSpace='nowrap'>
+    <Box
+      as='header'
+      whiteSpace='nowrap'
+      position='fixed'
+      zIndex='docked'
+      w='full'
+      bg='white'
+    >
       <Container px={[1, 1, 3]} py='2'>
         <Flex as='header' align='center' justify='space-between' wrap='warp'>
           <Link as={GatsbyLink} to={`/`} _hover={{ textDecoration: 'none' }}>
@@ -155,46 +163,11 @@ const Header = ({ isHome }) => {
               </Flex>
             ) : (
               <Flex align='center'>
-                <Link
-                  as={GatsbyLink}
-                  _hover={{ color: colors.orange[300] }}
-                  px='2'
-                  to={`#status`}
-                >
-                  ステータス
-                </Link>
-                <Link
-                  as={GatsbyLink}
-                  _hover={{ color: colors.orange[300] }}
-                  px='2'
-                  to={`#careers`}
-                >
-                  職務経歴
-                </Link>
-                <Link
-                  as={GatsbyLink}
-                  _hover={{ color: colors.orange[300] }}
-                  px='2'
-                  to={`#muscles`}
-                >
-                  筋肉経歴
-                </Link>
-                <Link
-                  as={GatsbyLink}
-                  _hover={{ color: colors.orange[300] }}
-                  px='2'
-                  to={`#developments`}
-                >
-                  開発実績
-                </Link>
-                <Link
-                  as={GatsbyLink}
-                  _hover={{ color: colors.orange[300] }}
-                  px='2'
-                  to={`#blog`}
-                >
-                  ブログ
-                </Link>
+                <Link as={GatsbyLink} _hover={{color: colors.orange[300]}} px='2' to={`#status`}>ステータス</Link>
+                <Link as={GatsbyLink} _hover={{color: colors.orange[300]}} px='2' to={`#careers`}>職務経歴</Link>
+                <Link as={GatsbyLink} _hover={{color: colors.orange[300]}} px='2' to={`#muscles`}>筋肉経歴</Link>
+                <Link as={GatsbyLink} _hover={{color: colors.orange[300]}} px='2' to={`#developments`}>開発実績</Link>
+                <Link as={GatsbyLink} _hover={{color: colors.orange[300]}} px='2' to={`#blog`}>ブログ</Link>
               </Flex>
             )}
             <SNSButtons pr={[4, 4, 0]} snsAccounts={snsAccounts} />
