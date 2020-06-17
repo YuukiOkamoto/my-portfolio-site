@@ -8,11 +8,11 @@ import Status from '../components/Status';
 import Container from '../components/Container';
 import PostCard from '../components/PostCard';
 import Layout from '../components/layout';
-import History from '../components/History';
+import { EngineerHistory, MuscleHistory, DevelopmentHistory } from '../components/History';
 import SEO from '../components/SEO';
 
 const Section = ({ children, ...props }) => (
-  <Box as='section' my='8' {...props}>
+  <Box as='section' py='10' {...props}>
     {children}
   </Box>
 );
@@ -45,19 +45,33 @@ const Top = ({ data: { allPosts }, location }) => {
   return (
     <Layout location={location}>
       <SEO />
-      <Container>
-        <Section id='status' minHeight='80vh'>
+
+      <Section id='status' minHeight='80vh'>
+        <Container>
           <SectionTitle>ステータスオープン！</SectionTitle>
           <Status />
-        </Section>
-        <Section id='careers'>
+        </Container>
+      </Section>
+      <Section id='careers' bg='gray.200'>
+        <Container>
           <SectionTitle>職務経歴</SectionTitle>
-          <History />
-        </Section>
-        <Section id='developments'>
+          <EngineerHistory />
+        </Container>
+      </Section>
+      <Section id='muscles'>
+        <Container>
+          <SectionTitle>筋肉経歴</SectionTitle>
+          <MuscleHistory />
+        </Container>
+      </Section>
+      <Section id='developments' bg='gray.200'>
+        <Container>
           <SectionTitle>開発実績</SectionTitle>
-        </Section>
-        <Section id='blog'>
+          <DevelopmentHistory />
+        </Container>
+      </Section>
+      <Section id='blog'>
+        <Container>
           <SectionTitle>ブログ</SectionTitle>
           <Stack spacing='20'>
             {allPosts.edges.map(({ node: post }) => (
@@ -69,8 +83,8 @@ const Top = ({ data: { allPosts }, location }) => {
               ブログ記事一覧へ
             </ButtonLink>
           </Box>
-        </Section>
-      </Container>
+        </Container>
+      </Section>
     </Layout>
   );
 };
