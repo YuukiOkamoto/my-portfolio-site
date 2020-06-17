@@ -240,6 +240,7 @@ const DevelopmentHistory = () => {
       justify='center'
       h='full'
       fontSize='2xl'
+      fontWeight='bold'
       {...props}
     />
   );
@@ -277,7 +278,7 @@ const DevelopmentHistory = () => {
         </p>
       </TimelineElement>
       <TimelineElement
-        date='2019.12 - 2020.3'
+        date='2019.12 - 2020.2'
         iconStyle={{ background: blue[400], color: 'white' }}
         icon={<LetterIcon>公</LetterIcon>}
       >
@@ -292,7 +293,7 @@ const DevelopmentHistory = () => {
         </p>
       </TimelineElement>
       <TimelineElement
-        date='2019.7 - 2019.9'
+        date='2019.6 - 2019.8'
         iconStyle={{ background: blue[400], color: 'white' }}
         icon={<LetterIcon>公</LetterIcon>}
       >
