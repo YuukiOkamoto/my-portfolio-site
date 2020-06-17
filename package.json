@@ -13,6 +13,9 @@
     "@emotion/styled": "^10.0.27",
     "@mdx-js/mdx": "^1.5.9",
     "@mdx-js/react": "^1.5.9",
+    "add": "^2.0.6",
+    "dayjs": "^1.8.28",
+    "dotenv": "^8.2.0",
     "emotion-theming": "^10.0.27",
     "gatsby": "^2.20.25",
     "gatsby-image": "^2.3.4",
@@ -37,6 +40,7 @@
     "gatsby-remark-responsive-iframe": "^2.3.3",
     "gatsby-remark-smartypants": "^2.2.3",
     "gatsby-source-filesystem": "^2.2.4",
+    "gatsby-source-google-spreadsheets": "^3.0.5",
     "gatsby-transformer-remark": "^2.7.3",
     "gatsby-transformer-sharp": "^2.4.6",
     "gray-percentage": "^2.0.0",
@@ -48,9 +52,11 @@
     "react-icons": "^3.10.0",
     "react-live": "^2.2.2",
     "react-scroll": "^1.7.16",
+    "react-vertical-timeline-component": "^3.0.0",
     "remark-emoji": "^2.1.0",
     "typeface-merriweather": "0.0.72",
-    "typeface-montserrat": "0.0.75"
+    "typeface-montserrat": "0.0.75",
+    "yarn": "^1.22.4"
   },
   "devDependencies": {
     "babel-plugin-jsx-target-blank": "^1.0.0",

@@ -12,6 +12,7 @@ exports.createPages = async ({ graphql, actions }) => {
       {
         postsRemark: allMdx(
           sort: { fields: [frontmatter___date], order: DESC }
+          filter: { fileAbsolutePath: { regex: "/content/blog/" } }
           limit: 2000
         ) {
           edges {
@@ -73,7 +74,10 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
 
   // Create nodes slug from file path.
-  if (node.internal.type === `Mdx`) {
+  if (
+    node.internal.type === `Mdx` &&
+    node.fileAbsolutePath.includes('content/blog/')
+  ) {
     const value = `/blog${createFilePath({ node, getNode })}`;
     createNodeField({
       name: `slug`,

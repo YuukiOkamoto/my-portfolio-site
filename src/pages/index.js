@@ -1,65 +1,108 @@
 import React from 'react';
-import { graphql } from 'gatsby';
+import { Link, graphql } from 'gatsby';
+import { Box, Button, Stack, Text } from '@chakra-ui/core';
 
-import Bio from '../components/Bio';
+import { GiSpellBook } from 'react-icons/gi';
+
+import Status from '../components/Status';
 import Container from '../components/Container';
-import Hero from '../components/Hero';
+import PostCard from '../components/PostCard';
 import Layout from '../components/layout';
+import { EngineerHistory, MuscleHistory, DevelopmentHistory } from '../components/History';
 import SEO from '../components/SEO';
-import LatestPosts from '../components/LatestPosts';
 
-const BlogIndex = ({ data: { featured, latest }, location }) => {
-  const featuredPost = featured.edges[0].node;
-  const latestPosts = latest.edges;
+const Section = ({ children, ...props }) => (
+  <Box as='section' py='12' {...props}>
+    {children}
+  </Box>
+);
 
+const SectionTitle = ({ children, ...props }) => (
+  <Text as='h2' fontSize='4xl' textAlign='center' mb='8' {...props}>
+    {children}
+  </Text>
+);
+
+const ButtonLink = ({ children, icon, ...props }) => (
+  <Button
+    as={Link}
+    rightIcon={icon}
+    variantColor='teal'
+    variant='outline'
+    css={{
+      svg: {
+        width: '1.5rem',
+        height: '1.5rem',
+      },
+    }}
+    {...props}
+  >
+    {children}
+  </Button>
+);
+
+const Top = ({ data: { allPosts }, location }) => {
   return (
     <Layout location={location}>
       <SEO />
-      <Hero post={featuredPost} />
-      <Container>
-        <LatestPosts posts={latestPosts} />
-        <Bio mb={8} />
-      </Container>
+
+      <Section id='status' minHeight='80vh'>
+        <Container>
+          <SectionTitle>ステータスオープン！</SectionTitle>
+          <Status />
+        </Container>
+      </Section>
+      <Section id='careers' bg='gray.200'>
+        <Container>
+          <SectionTitle>職務経歴</SectionTitle>
+          <EngineerHistory />
+        </Container>
+      </Section>
+      <Section id='muscles'>
+        <Container>
+          <SectionTitle>筋肉経歴</SectionTitle>
+          <MuscleHistory />
+        </Container>
+      </Section>
+      <Section id='developments' bg='gray.200'>
+        <Container>
+          <SectionTitle>開発実績</SectionTitle>
+          <DevelopmentHistory />
+        </Container>
+      </Section>
+      <Section id='blog'>
+        <Container>
+          <SectionTitle>ブログ</SectionTitle>
+          <Stack spacing='20'>
+            {allPosts.edges.map(({ node: post }) => (
+              <PostCard key={post.fields.slug} post={post} />
+            ))}
+          </Stack>
+          <Box textAlign='center' mt='4'>
+            <ButtonLink to='/blog' icon={GiSpellBook}>
+              ブログ記事一覧へ
+            </ButtonLink>
+          </Box>
+        </Container>
+      </Section>
     </Layout>
   );
 };
 
-export default BlogIndex;
-
 export const pageQuery = graphql`
   query {
-    featured: allMdx(
-      limit: 1
-      sort: { fields: frontmatter___date, order: DESC }
-      filter: { frontmatter: { featured: { eq: true } } }
+    allPosts: allMdx(
+      sort: { order: DESC, fields: frontmatter___date }
+      filter: { fileAbsolutePath: { regex: "/content/blog/" } }
+      limit: 5
     ) {
       edges {
         node {
-          ...PostData
+          ...postFields
         }
       }
-    }
-    latest: allMdx(sort: { fields: frontmatter___date, order: DESC }) {
-      edges {
-        node {
-          ...PostData
-        }
-      }
-    }
-  }
-  fragment PostData on Mdx {
-    excerpt(pruneLength: 500)
-    fields {
-      slug
-      readingTime {
-        text
-      }
-    }
-    frontmatter {
-      date(formatString: "YYYY年MM月DD日")
-      title
-      description
-      tags
     }
   }
 `;
+
+export default Top;

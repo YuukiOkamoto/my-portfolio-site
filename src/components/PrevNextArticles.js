@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link as GatsbyLink } from 'gatsby';
-import { Box, Flex, Icon, SimpleGrid, Text } from '@chakra-ui/core';
-import { FiChevronsLeft, FiChevronsRight } from 'react-icons/fi';
+import { Box, SimpleGrid, Text } from '@chakra-ui/core';
 
 import ChevronsLink from './ChevronsLink';
 
@@ -24,20 +23,11 @@ const PrevNextArticles = ({ prev, next, ...props }) => (
               to={prev.fields.slug}
               rel='prev'
               moveTo='left'
+              d='flex'
+              justifyContent='flex-start'
+              alignItems='center'
             >
-              <Flex
-                align='center'
-                justify={['center', 'center', 'flex-start']}
-                opacity='.8'
-              >
-                <Icon
-                  transition='transform .2s'
-                  className='chevrons'
-                  as={FiChevronsLeft}
-                  mr='2'
-                />
-                {prev.frontmatter.title}
-              </Flex>
+              {prev.frontmatter.title}
             </ChevronsLink>
           </>
         )}
@@ -60,20 +50,11 @@ const PrevNextArticles = ({ prev, next, ...props }) => (
               to={next.fields.slug}
               rel='next'
               moveTo='right'
+              d='flex'
+              justifyContent='flex-end'
+              alignItems='center'
             >
-              <Flex
-                align='center'
-                justify={['center', 'center', 'flex-end']}
-                opacity='.8'
-              >
-                {next.frontmatter.title}
-                <Icon
-                  transition='transform .2s'
-                  className='chevrons'
-                  as={FiChevronsRight}
-                  ml='2'
-                />
-              </Flex>
+              {next.frontmatter.title}
             </ChevronsLink>
           </>
         )}

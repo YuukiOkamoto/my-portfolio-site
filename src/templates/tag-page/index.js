@@ -10,7 +10,7 @@ import Container from '../../components/Container';
 
 const TagPageTemplate = ({ pageContext, data, location }) => {
   const { tag } = pageContext;
-  const { edges: posts, totalCount } = data.allMdx;
+  const { edges: posts, totalCount } = data.tagPosts;
 
   return (
     <Layout location={location}>
@@ -44,10 +44,13 @@ const TagPageTemplate = ({ pageContext, data, location }) => {
 
 export const pageQuery = graphql`
   query($tag: String) {
-    allMdx(
+    tagPosts: allMdx(
       limit: 2000
       sort: { fields: [frontmatter___date], order: DESC }
-      filter: { frontmatter: { tags: { in: [$tag] } } }
+      filter: {
+        frontmatter: { tags: { in: [$tag] } }
+        fileAbsolutePath: { regex: "/content/blog/" }
+      }
     ) {
       totalCount
       edges {

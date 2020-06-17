@@ -18,6 +18,7 @@ const customTheme = {
       'Roboto, 游ゴシック体, YuGothic, 游ゴシック Medium, Yu Gothic Medium, 游ゴシック, Yu Gothic, Noto Sans JP',
     body:
       'Roboto, 游ゴシック体, YuGothic, 游ゴシック Medium, Yu Gothic Medium, 游ゴシック, Yu Gothic, Noto Sans JP',
+    pawapuro: '"M PLUS Rounded 1c"',
   },
   lineHeights: {
     shorter: 1.1,

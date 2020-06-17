@@ -54,7 +54,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           <TOC
             headings={data.mdx.tableOfContents.items}
             position='sticky'
-            top='0'
+            top='12'
             d={['none', 'none', 'block', 'block']}
           />
         </Box>
@@ -70,7 +70,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
 export default BlogPostTemplate;
 
 export const pageQuery = graphql`
-  query BlogPostBySlug($slug: String!) {
+  query BlogPostBySlug($slug: String) {
     site {
       siteMetadata {
         siteUrl
