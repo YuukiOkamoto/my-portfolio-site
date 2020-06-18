@@ -14,22 +14,19 @@ const Skill = ({ mainType, subType, children, ...props }) => {
   const mainColor = typeColors[mainType];
   const subColor = typeColors[subType];
 
-  return (
-    <Flex
-      d='inline-flex'
-      align='center'
-      justify='space-evenly'
-      position='relative'
-      background={`linear-gradient(to bottom,
-                  ${colors[mainColor][100]} 0%,
-                  ${colors[mainColor][100]} 50%,
-                  ${colors[mainColor][200]} 50%,
-                  ${colors[mainColor][200]} 100%)`}
-      borderRadius='7px'
-      h='40px'
-      shadow='sm'
-      css={css`
-        &::before {
+  const Letter = props => (
+    <Box
+      as='span'
+      zIndex='2'
+      color={colors[mainColor][700]}
+      textShadow={`0px 1px 1px ${colors[mainColor][700]}`}
+      fontSize='lg'
+      {...props}
+    />
+  );
+
+  const borderStyle = `
+    &::before {
           content: '';
           position: absolute;
           top: -1px;
@@ -46,7 +43,10 @@ const Skill = ({ mainType, subType, children, ...props }) => {
           z-index: -1;
           border-radius: 8px;
         }
-        &::after {
+  `;
+
+  const subSkillStyle = `
+    &::after {
           content: '';
           position: absolute;
           top: 0;
@@ -63,20 +63,30 @@ const Skill = ({ mainType, subType, children, ...props }) => {
           z-index: 1;
           border-radius: 0 8px 8px 0;
         }
+  `;
+
+  return (
+    <Flex
+      d='inline-flex'
+      align='center'
+      justify='space-evenly'
+      position='relative'
+      background={`linear-gradient(to bottom,
+                  ${colors[mainColor][100]} 0%,
+                  ${colors[mainColor][100]} 50%,
+                  ${colors[mainColor][200]} 50%,
+                  ${colors[mainColor][200]} 100%)`}
+      borderRadius='7px'
+      h='40px'
+      shadow='sm'
+      css={css`
+        ${borderStyle}
+        ${subType && subSkillStyle}
       `}
       {...props}
     >
       {[...children].map((s, i) => (
-        <Box
-          key={i}
-          as='span'
-          zIndex='2'
-          color={colors[mainColor][700]}
-          textShadow={`0px 1px 1px ${colors[mainColor][700]}`}
-          fontSize='lg'
-        >
-          {s}
-        </Box>
+        <Letter key={i}>{s}</Letter>
       ))}
     </Flex>
   );
