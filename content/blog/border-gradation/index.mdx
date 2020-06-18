@@ -1,0 +1,39 @@
+---
+title: borderをグラデーションにしたい
+date: '2020-06-18T15:00:00Z'
+description: ''
+featured: false
+cover: ./cover.jpeg
+tags:
+  - CSS
+---
+
+import ExternalLink from '../../../src/components/widgetComponents/ExternalLink';
+
+## backgroundにグラデーションをかける方法
+
+以下のような背景が白のボックスと背景がグラデーションのボックスを重ねることで枠線を表現します。
+
+https://codepen.io/it_fitness_jp/pen/RwroedE
+
+ラッパーにグラデーションをかけて中の要素は白色にすると以下のようになり、
+
+https://codepen.io/it_fitness_jp/pen/vYLyVov
+
+ラッパーのためにHTMLの構造を変えたくなく、z-indexを使っていいなら疑似要素を使うと以下のようになります。
+
+https://codepen.io/it_fitness_jp/pen/BajQqOe
+
+## border-imageを使った方法
+
+<ExternalLink href='https://developer.mozilla.org/ja/docs/Web/CSS/border-image'>border-image</ExternalLink>を使うともっと簡単にできます！
+
+https://codepen.io/it_fitness_jp/pen/RwroqWO
+
+`border-image`は、`border-image-source`,`border-image-slice`,`border-image-width`,`border-image-outset`,`border-image-repeat`の一括指定プロパティで、  
+今回は`border-image-source`と`border-image-slice`を指定しています。
+
+例えば当サイトのトップページでは、  
+スクロールに合わせてナビゲーションにグラデーションの下線が引かれ、これには`border-image`を使っています。
+
+![top header](./top-header.gif)
