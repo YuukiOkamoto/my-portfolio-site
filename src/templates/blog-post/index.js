@@ -15,6 +15,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
   const mdx = data.mdx;
   const url = `${data.site.siteMetadata.siteUrl}${mdx.fields.slug}`;
   const title = mdx.frontmatter.title;
+  const headings = data.mdx.tableOfContents.items;
 
   return (
     <Layout location={location} position='relative'>
@@ -51,12 +52,14 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           <PrevNextArticles prev={prev} next={next} mt='10' />
         </Box>
         <Box as='aside' gridArea='aside' position='relative'>
-          <TOC
-            headings={data.mdx.tableOfContents.items}
-            position='sticky'
-            top='12'
-            d={['none', 'none', 'block', 'block']}
-          />
+          {headings && (
+            <TOC
+              headings={headings}
+              position='sticky'
+              top='12'
+              d={['none', 'none', 'block', 'block']}
+            />
+          )}
         </Box>
       </Grid>
       <TOCDrawer
