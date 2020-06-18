@@ -47,7 +47,7 @@ const StatusContent = ({ isEngineer, abilities, skills }) => {
             />
           ))}
         </Stack>
-        <SimpleGrid columns={[2, 3, 4]} gap='2px' h='max-content' flex='1'>
+        <SimpleGrid columns={[2, 3, 4]}  h='max-content' flex='1'>
           {skills.map(skill => (
             <Skill
               key={skill.name}

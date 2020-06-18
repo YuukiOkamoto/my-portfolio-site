@@ -9,10 +9,44 @@ const typeColors = {
   special: 'yellow',
 };
 
-const Skill = ({ mainType, subType, children, ...props }) => {
+const Skill = ({
+  mainType,
+  subType,
+  h = '45px',
+  border = '1px',
+  borderRadius = '8px',
+  children,
+  ...props
+}) => {
   const { colors } = useTheme();
   const mainColor = typeColors[mainType];
   const subColor = typeColors[subType];
+
+  const generateBgColor = color =>
+    `
+      linear-gradient(to bottom,
+        ${colors[color][100]} 0%,
+        ${colors[color][100]} 50%,
+        ${colors[color][200]} 50%,
+        ${colors[color][200]} 100%)
+    `;
+
+  const subSkillStyle =
+    subType &&
+    css`
+      &::after {
+        content: '';
+        position: absolute;
+        width: 50%;
+        height: ${h};
+        right: -${border};
+        border: ${border} solid ${colors[subColor][400]};
+        border-left: none;
+        background: ${generateBgColor(subColor)};
+        z-index: 1;
+        border-radius: 0 ${borderRadius} ${borderRadius} 0;
+      }
+    `;
 
   const Letter = props => (
     <Box
@@ -25,64 +59,19 @@ const Skill = ({ mainType, subType, children, ...props }) => {
     />
   );
 
-  const borderStyle = `
-    &::before {
-          content: '';
-          position: absolute;
-          top: -1px;
-          bottom: -1px;
-          left: -1px;
-          right: -1px;
-          background: linear-gradient(
-            to right,
-            ${colors[mainColor][400]} 0%,
-            ${colors[mainColor][400]} 50%,
-            ${colors[subColor ? subColor : mainColor][400]} 50%,
-            ${colors[subColor ? subColor : mainColor][400]} 100%
-          );
-          z-index: -1;
-          border-radius: 8px;
-        }
-  `;
-
-  const subSkillStyle = `
-    &::after {
-          content: '';
-          position: absolute;
-          top: 0;
-          width: 50%;
-          height: 40px;
-          left: 50%;
-          background: linear-gradient(
-            to bottom,
-            ${colors[subColor ? subColor : mainColor][100]} 0%,
-            ${colors[subColor ? subColor : mainColor][100]} 50%,
-            ${colors[subColor ? subColor : mainColor][200]} 50%,
-            ${colors[subColor ? subColor : mainColor][200]} 100%
-          );
-          z-index: 1;
-          border-radius: 0 8px 8px 0;
-        }
-  `;
-
   return (
     <Flex
       d='inline-flex'
       align='center'
       justify='space-evenly'
       position='relative'
-      background={`linear-gradient(to bottom,
-                  ${colors[mainColor][100]} 0%,
-                  ${colors[mainColor][100]} 50%,
-                  ${colors[mainColor][200]} 50%,
-                  ${colors[mainColor][200]} 100%)`}
-      borderRadius='7px'
-      h='40px'
+      background={generateBgColor(mainColor)}
+      borderRadius={borderRadius}
+      h={h}
       shadow='sm'
-      css={css`
-        ${borderStyle}
-        ${subType && subSkillStyle}
-      `}
+      border={border}
+      borderColor={colors[mainColor][400]}
+      css={subSkillStyle}
       {...props}
     >
       {[...children].map((s, i) => (
