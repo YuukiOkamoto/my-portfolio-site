@@ -1,12 +1,14 @@
 import React from 'react';
-import { Link as ReactScrollLink } from 'react-scroll';
+import { Link } from 'react-scroll';
 import { useTheme } from '@chakra-ui/core';
 
 const ScrollLink = props => {
   const { colors, space } = useTheme();
 
   return (
-    <ReactScrollLink
+    <Link
+      activeClass='active'
+      spy={true}
       smooth={true}
       duration={800}
       offset={-20}
@@ -15,8 +17,11 @@ const ScrollLink = props => {
         paddingLeft: space[2],
         cursor: 'pointer',
         transition: 'all 0.15s ease-out',
-        '&:hover': {
-          color: colors.orange[300],
+        '&:hover, &.active': {
+          borderBottom: '1px solid',
+          borderImageSlice: 1,
+          borderImageSource: `linear-gradient(to right, ${colors.orange[200]}, ${colors.orange[400]})`,
+          opacity: 0.8,
         },
       }}
       {...props}
