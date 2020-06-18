@@ -8,13 +8,16 @@ import Layout from '../components/layout';
 import SEO from '../components/SEO';
 import LatestPosts from '../components/LatestPosts';
 
+import useSiteMetadata from '../hooks/use-site-config'
+
 const BlogIndex = ({ data: { featured, latest }, location }) => {
+  const { blogDescription } = useSiteMetadata();
   const featuredPost = featured.edges[0].node;
   const latestPosts = latest.edges;
 
   return (
     <Layout location={location}>
-      <SEO />
+      <SEO description={blogDescription}/>
       <Hero post={featuredPost} />
       <Container>
         <LatestPosts posts={latestPosts} />
