@@ -47,7 +47,7 @@ const StatusContent = ({ isEngineer, abilities, skills }) => {
             />
           ))}
         </Stack>
-        <SimpleGrid columns={[2, 3, 4]}  h='max-content' flex='1'>
+        <SimpleGrid columns={[2, 3, 4]} h='max-content' flex='1'>
           {skills.map(skill => (
             <Skill
               key={skill.name}
@@ -127,12 +127,12 @@ const Status = () => {
   } = data.allGoogleSheet.nodes[0];
 
   return (
-    <Tabs fontFamily='pawapuro'>
+    <Tabs fontFamily='pawapuro' isFitted>
       <TabList>
-        <Tab>電脳能力</Tab>
-        <Tab>筋肉能力</Tab>
+        <Tab _focus={{ boxShadow: 'none' }}>電脳能力</Tab>
+        <Tab _focus={{ boxShadow: 'none' }}>筋肉能力</Tab>
       </TabList>
-      <TabPanels p={[0, 0, 8]}>
+      <TabPanels p={[0, 0, 8]} css={{ '&:focus': { outline: 'none' } }}>
         <TabPanel>
           <StatusContent
             isEngineer
