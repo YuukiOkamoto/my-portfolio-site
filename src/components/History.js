@@ -64,7 +64,7 @@ const EngineerHistory = () => {
         </p>
       </TimelineElement>
       <TimelineElement
-        date='2018.4 - 2020.7'
+        date='2018.4 - 2018.7'
         iconStyle={{ background: blue[400], color: 'white' }}
         icon={<RiComputerLine />}
       >
