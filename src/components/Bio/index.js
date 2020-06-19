@@ -12,10 +12,10 @@ import SnsAccountList from './SnsAccountList'
 const Bio = props => {
   const data = useStaticQuery(graphql`
     query BioQuery {
-      avatar: file(absolutePath: { regex: "/profile-pic.jpg/" }) {
+      avatar: file(relativePath: { eq: "profile-pic.jpg" }) {
         childImageSharp {
           fixed(width: 80, height: 80) {
-            ...GatsbyImageSharpFixed
+            ...GatsbyImageSharpFixed_withWebp_tracedSVG
           }
         }
       }
@@ -42,12 +42,6 @@ const Bio = props => {
         <Image
           fixed={data.avatar.childImageSharp.fixed}
           alt={author.name}
-          css={{
-            marginBottom: '0',
-            minHeight: '80px',
-            minWidth: '80px',
-            borderRadius: '100%',
-          }}
           imgStyle={{
             borderRadius: `50%`,
           }}

@@ -1,16 +1,27 @@
 import React from 'react';
-import { Link as GatsbyLink } from 'gatsby';
-import { Box, Flex, Heading, Image, Link, Stack } from '@chakra-ui/core';
+import { Link as GatsbyLink, useStaticQuery, graphql } from 'gatsby';
+import Image from 'gatsby-image';
+import { Box, Flex, Heading, Link, Stack } from '@chakra-ui/core';
 
 import Nav from './Nav';
 
 import Container from '../Container';
 import useSiteMetadata from '../../hooks/use-site-config';
 
-import siteIcon from '../../../content/assets/bodybuilding.png';
-
 const Header = ({ isHome }) => {
   const { title } = useSiteMetadata();
+
+  const { logo } = useStaticQuery(graphql`
+    query {
+      logo: file(relativePath: { eq: "logo.png" }) {
+        childImageSharp {
+          fixed(width: 32, height: 32) {
+            ...GatsbyImageSharpFixed_withWebp_tracedSVG
+          }
+        }
+      }
+    }
+  `);
 
   return (
     <Box
@@ -25,7 +36,10 @@ const Header = ({ isHome }) => {
         <Flex align='center' justify='space-between' wrap='warp'>
           <Link as={GatsbyLink} to={`/`} _hover={{ textDecoration: 'none' }}>
             <Stack isInline align='center' spacing='2' w='max-content'>
-              <Image size='8' src={siteIcon} />
+              <Image
+                fixed={logo.childImageSharp.fixed}
+                style={{ height: '32px', width: '32px' }}
+              />
               <Heading as={isHome ? 'h1' : 'h3'} fontSize={['md', 'xl', '2xl']}>
                 {title}
               </Heading>

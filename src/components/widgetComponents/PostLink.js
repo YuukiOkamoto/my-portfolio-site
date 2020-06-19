@@ -15,7 +15,7 @@ const PostLink = ({ to, align = 'center', ...props }) => {
               cover {
                 childImageSharp {
                   fluid {
-                    ...GatsbyImageSharpFluid
+                    ...GatsbyImageSharpFluid_withWebp_tracedSVG
                   }
                 }
               }
