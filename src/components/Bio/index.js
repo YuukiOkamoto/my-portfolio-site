@@ -12,10 +12,10 @@ import SnsAccountList from './SnsAccountList'
 const Bio = props => {
   const data = useStaticQuery(graphql`
     query BioQuery {
-      avatar: file(absolutePath: { regex: "/profile-pic.jpg/" }) {
+      avatar: file(relativePath: { eq: "profile-pic.jpg" }) {
         childImageSharp {
           fixed(width: 80, height: 80) {
-            ...GatsbyImageSharpFixed
+            ...GatsbyImageSharpFixed_withWebp_tracedSVG
           }
         }
       }
@@ -37,24 +37,18 @@ const Bio = props => {
 
   const { author, snsAccounts } = data.site.siteMetadata;
   return (
-    <Flex {...props}>
-      <Flex align='center'>
+    <Flex wrap='wrap' {...props}>
+      <Flex align='center' justify='center' w={['100%', 'auto']} mb={[4, 0]}>
         <Image
           fixed={data.avatar.childImageSharp.fixed}
           alt={author.name}
-          css={{
-            marginBottom: '0',
-            minHeight: '80px',
-            minWidth: '80px',
-            borderRadius: '100%',
-          }}
           imgStyle={{
             borderRadius: `50%`,
           }}
         />
       </Flex>
       <Box flex='1' ml='4'>
-        <Text fontSize='lg' fontWeight='bold'>
+        <Text fontSize='lg' fontWeight='bold' textAlign={['center', 'left']}>
           {author.name}
         </Text>
         <Text
@@ -63,7 +57,7 @@ const Bio = props => {
         >
           {author.summary}
         </Text>
-        <SnsAccountList snsAccounts={snsAccounts} />
+        <SnsAccountList snsAccounts={snsAccounts} justifyContent={['center', 'left']} />
       </Box>
     </Flex>
   );

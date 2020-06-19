@@ -11,17 +11,17 @@ import UniformNumber from './UniformNumber';
 const Header = ({ isEngineer }) => {
   const data = useStaticQuery(graphql`
     query {
-      engineerProfile: file(absolutePath: { regex: "/profile-pic.jpg/" }) {
+      engineerProfile: file(relativePath: { eq: "profile-pic.jpg" }) {
         childImageSharp {
-          fixed(width: 80, height: 80) {
-            ...GatsbyImageSharpFixed
+          fixed(width: 100, height: 100) {
+            ...GatsbyImageSharpFixed_withWebp_tracedSVG
           }
         }
       }
-      muscleProfile: file(absolutePath: { regex: "/profile-muscle-pic.jpeg/" }) {
+      muscleProfile: file(relativePath: { eq: "profile-muscle-pic.jpeg" }) {
         childImageSharp {
-          fixed(width: 80, height: 80) {
-            ...GatsbyImageSharpFixed
+          fixed(width: 100, height: 100) {
+            ...GatsbyImageSharpFixed_withWebp_tracedSVG
           }
         }
       }
@@ -36,7 +36,7 @@ const Header = ({ isEngineer }) => {
   `);
   const { author } = data.site.siteMetadata;
   const { engineerProfile, muscleProfile } = data;
-  const profile = isEngineer ? engineerProfile : muscleProfile
+  const profile = isEngineer ? engineerProfile : muscleProfile;
 
   return (
     <Stack isInline wrap='wrap' spacing='2' my='3' p='2'>
@@ -61,11 +61,6 @@ const Header = ({ isEngineer }) => {
         <Image
           fixed={profile.childImageSharp.fixed}
           alt={author.name}
-          css={{
-            marginBottom: '0',
-            minHeight: '100px',
-            minWidth: '100px',
-          }}
         />
         <Remarks
           isEngineer={isEngineer}
