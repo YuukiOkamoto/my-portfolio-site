@@ -51,6 +51,17 @@ const EngineerHistory = () => {
   return (
     <Timeline>
       <TimelineElement
+        date='2019.11 - 現在'
+        iconStyle={{ background: blue[400], color: 'white' }}
+        icon={<RiComputerLine />}
+      >
+        <Box>株式会社スタートアップテクノロジーRUNTEQ事業部</Box>
+        <Box fontSize='xs'>プログラミングスクール運営</Box>
+        <p>
+          プログラミングスクール<ExternalLink href='https://runteq.jp/'>RUNTEQ</ExternalLink>の講師や教材の作成。
+        </p>
+      </TimelineElement>
+      <TimelineElement
         date='2018.12 - 2020.6'
         iconStyle={{ background: blue[400], color: 'white' }}
         icon={<RiComputerLine />}
