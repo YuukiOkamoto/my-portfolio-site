@@ -88,7 +88,12 @@ module.exports = {
       },
     },
     'gatsby-remark-reading-time',
-    `gatsby-transformer-sharp`,
+    {
+      resolve: `gatsby-transformer-sharp`,
+      options: {
+        checkSupportedExtensions: false,
+      },
+    },
     {
       resolve: 'gatsby-plugin-chakra-ui',
       options: {
