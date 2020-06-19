@@ -3,8 +3,8 @@ import { Icon, Link, PseudoBox, Stack } from '@chakra-ui/core';
 
 import { FaTwitter, FaGithub } from 'react-icons/fa';
 
-const SnsAccountList = ({ snsAccounts }) => (
-  <Stack isInline align='center' spacing='2'>
+const SnsAccountList = ({ snsAccounts, ...props }) => (
+  <Stack isInline align='center' spacing='2' {...props}>
     <Link href={`https://twitter.com/${snsAccounts.twitter}`} isExternal>
       <PseudoBox
         as={FaTwitter}
