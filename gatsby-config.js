@@ -107,26 +107,6 @@ module.exports = {
     `gatsby-plugin-sharp`,
     `gatsby-plugin-emotion`,
     {
-      resolve: `gatsby-plugin-prefetch-google-fonts`,
-      options: {
-        fonts: [
-          {
-            family: `Roboto`,
-            variants: [`400`, '600', `700`],
-          },
-          {
-            family: `Noto+Sans+JP`,
-            variants: [`400`, '600', `700`],
-          },
-          {
-            family: `M PLUS Rounded 1c`,
-            variants: [`400`, '600', `700`],
-            subsets: [`japanese`],
-          },
-        ],
-      },
-    },
-    {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         trackingId: `UA-166346716-1`,

@@ -1,6 +1,7 @@
 import { theme } from '@chakra-ui/core';
-import customIcons from "./iconPaths"
+import customIcons from './iconPaths';
 import customColors from './customColors';
+import { yuGothic } from './fonts';
 
 const customTheme = {
   ...theme,
@@ -14,11 +15,9 @@ const customTheme = {
   },
   fonts: {
     ...theme.fonts,
-    heading:
-      'Roboto, 游ゴシック体, YuGothic, 游ゴシック Medium, Yu Gothic Medium, 游ゴシック, Yu Gothic, Noto Sans JP',
-    body:
-      'Roboto, 游ゴシック体, YuGothic, 游ゴシック Medium, Yu Gothic Medium, 游ゴシック, Yu Gothic, Noto Sans JP',
-    pawapuro: '"M PLUS Rounded 1c"',
+    heading: `-apple-system, BlinkMacSystemFont, ${yuGothic}, Segoe UI, Helvetica Neue,  メイリオ, meiryo, sans-serif`,
+    body: `-apple-system, BlinkMacSystemFont, ${yuGothic}, Segoe UI, Helvetica Neue,  メイリオ, meiryo, sans-serif`,
+    pawapuro: `Hiragino Maru Gothic ProN, Libian SC, -apple-system, BlinkMacSystemFont, ${yuGothic}, Segoe UI, Helvetica Neue,  メイリオ, meiryo, sans-serif`,
   },
   lineHeights: {
     shorter: 1.1,

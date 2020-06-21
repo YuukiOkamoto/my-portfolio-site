@@ -21,7 +21,7 @@ const StoryModal = ({ isOpen, onClose, story, ...props }) => (
       <Modal onClose={onClose} isOpen={true} scrollBehavior='inside' size='xl'>
         <ModalOverlay opacity={styles.opacity} />
         <ModalContent {...styles}>
-          <ModalHeader>Story</ModalHeader>
+          <ModalHeader fontFamily='pawapuro' fontSize='2xl'>Story</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <MDXProvider components={MDXComponents}>
