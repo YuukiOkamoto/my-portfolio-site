@@ -6,8 +6,8 @@ import List from './List';
 import InlineCode from '../../MDXComponents/InlineCode';
 
 const MDXComponents = {
-  h2: props => <Heading as='h2' size='lg' mt='6' mb='4' {...props} />,
-  h3: props => <Heading as='h3' size='md' mt='4' mb='3' {...props} />,
+  h2: props => <Heading as='h2' fontSize='xl' mt='8' mb='4' {...props} />,
+  h3: props => <Heading as='h3' fontSize='md' mt='6' mb='3' {...props} />,
   inlineCode: InlineCode,
   p: props => <Text my='2' fontSize={['sm', 'md']} {...props} />,
   ul: props => <List styleType='disc' {...props} />,
