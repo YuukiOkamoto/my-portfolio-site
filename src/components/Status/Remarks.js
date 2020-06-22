@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Flex, Stack } from '@chakra-ui/core';
 
-const Label = ({ children, ...props }) => (
+const Label = props => (
   <Flex
     align='center'
     justify='center'
@@ -12,12 +12,10 @@ const Label = ({ children, ...props }) => (
     h='100%'
     w='80px'
     {...props}
-  >
-    {children}
-  </Flex>
+  />
 );
 
-const Remark = ({ children, ...props }) => (
+const Remark = props => (
   <Flex
     align='center'
     p='2'
@@ -28,9 +26,7 @@ const Remark = ({ children, ...props }) => (
     fontWeight='bold'
     h='45px'
     {...props}
-  >
-    {children}
-  </Flex>
+  />
 );
 
 const Remarks = ({ isEngineer, ...props }) => (

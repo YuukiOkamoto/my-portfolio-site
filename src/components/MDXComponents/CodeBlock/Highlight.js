@@ -30,7 +30,7 @@ const calculateLinesToHighlight = meta => {
   }
 };
 
-const Line = ({ shouldHighlight, children, ...props }) => {
+const Line = ({ shouldHighlight, ...props }) => {
   const highlightProps = shouldHighlight && {
     d: 'block',
     bg: 'gray.700',
@@ -38,11 +38,7 @@ const Line = ({ shouldHighlight, children, ...props }) => {
     borderLeftColor: 'purple.200',
     px: '3',
   };
-  return (
-    <Box d='table-cell' px='5' {...props} {...highlightProps}>
-      {children}
-    </Box>
-  );
+  return <Box d='table-cell' px='5' {...props} {...highlightProps} />;
 };
 
 const Word = ({ focusedWord, setFocusedWord, content, tokenProps }) => {

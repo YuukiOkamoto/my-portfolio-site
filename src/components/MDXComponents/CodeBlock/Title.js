@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box } from '@chakra-ui/core';
 
-const Title = ({ children, ...props }) => (
+const Title = props => (
   <Box
     fontFamily='Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace'
     fontSize='sm'
@@ -11,9 +11,7 @@ const Title = ({ children, ...props }) => (
     bg='#444444'
     overflowX='auto'
     {...props}
-  >
-    {children}
-  </Box>
+  />
 );
 
 export default Title;

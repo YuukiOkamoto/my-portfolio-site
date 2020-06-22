@@ -372,7 +372,7 @@ const calculateLinesToHighlight = meta => {
   }
 };
 
-const Line = ({ shouldHighlight, children, ...props }) => {
+const Line = ({ shouldHighlight, ...props }) => {
   const highlightProps = shouldHighlight && {
     d: 'block',
     bg: 'gray.700',
@@ -380,11 +380,7 @@ const Line = ({ shouldHighlight, children, ...props }) => {
     borderLeftColor: 'purple.200',
     px: '3',
   };
-  return (
-    <Box d='table-cell' px='5' {...props} {...highlightProps}>
-      {children}
-    </Box>
-  );
+  return <Box d='table-cell' px='5' {...props} {...highlightProps} />;
 };
 
 const Word = ({ focusedWord, setFocusedWord, content, tokenProps }) => {
@@ -603,7 +599,7 @@ export { LiveError, LivePreview, LiveProvider };
 import React from 'react';
 import { Box } from '@chakra-ui/core';
 
-const Title = ({ children, ...props }) => (
+const Title = props => (
   <Box
     fontFamily='Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace'
     fontSize='sm'
@@ -613,9 +609,7 @@ const Title = ({ children, ...props }) => (
     bg='#444444'
     overflowX='auto'
     {...props}
-  >
-    {children}
-  </Box>
+  />
 );
 
 export default Title;

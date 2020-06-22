@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTheme, Flex } from '@chakra-ui/core';
 
-const AuthorName = ({ children, ...props }) => {
+const AuthorName = props => {
   const { colors } = useTheme();
   return (
     <Flex
@@ -22,9 +22,7 @@ const AuthorName = ({ children, ...props }) => {
       h='40px'
       shadow='sm'
       {...props}
-    >
-      {children}
-    </Flex>
+    />
   );
 };
 

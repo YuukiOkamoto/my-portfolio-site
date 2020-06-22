@@ -8,22 +8,20 @@ import Status from '../components/Status';
 import Container from '../components/Container';
 import PostCard from '../components/PostCard';
 import Layout from '../components/layout';
-import { EngineerHistory, MuscleHistory, DevelopmentHistory } from '../components/History';
+import {
+  EngineerHistory,
+  MuscleHistory,
+  DevelopmentHistory,
+} from '../components/History';
 import SEO from '../components/SEO';
 
-const Section = ({ children, ...props }) => (
-  <Box as='section' py='12' {...props}>
-    {children}
-  </Box>
+const Section = props => <Box as='section' py='12' {...props} />;
+
+const SectionTitle = props => (
+  <Text as='h2' fontSize='4xl' textAlign='center' mb='8' {...props} />
 );
 
-const SectionTitle = ({ children, ...props }) => (
-  <Text as='h2' fontSize='4xl' textAlign='center' mb='8' {...props}>
-    {children}
-  </Text>
-);
-
-const ButtonLink = ({ children, icon, ...props }) => (
+const ButtonLink = ({ icon, ...props }) => (
   <Button
     as={Link}
     rightIcon={icon}
@@ -36,9 +34,7 @@ const ButtonLink = ({ children, icon, ...props }) => (
       },
     }}
     {...props}
-  >
-    {children}
-  </Button>
+  />
 );
 
 const Top = ({ data: { allPosts }, location }) => {

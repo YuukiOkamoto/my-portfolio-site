@@ -30,9 +30,7 @@ const Heading = props => {
         }
       `}
       {...props}
-    >
-      {props.children}
-    </ChakraHeading>
+    />
   );
 };
 

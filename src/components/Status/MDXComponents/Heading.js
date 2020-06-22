@@ -11,9 +11,7 @@ const Heading = props => (
       }
     `}
     {...props}
-  >
-    {props.children}
-  </ChakraHeading>
+  />
 );
 
 export default Heading;
