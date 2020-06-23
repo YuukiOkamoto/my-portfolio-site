@@ -18,10 +18,12 @@ import Link from './Link';
 
 import useSiteMetadata from '../../hooks/use-site-config';
 
-const ListLink = props => (
-  <ListItem>
-    <ListIcon icon='arm' />
-    <Link {...props} p='0'></Link>
+const ListLink = ({ to, children, ...props }) => (
+  <ListItem {...props}>
+    <Link to={to} p='0'>
+      <ListIcon icon='arm' />
+      {children}
+    </Link>
   </ListItem>
 );
 
