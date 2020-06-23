@@ -8,7 +8,13 @@ const Link = props => {
   return (
     <ChakraLink
       as={GatsbyLink}
-      _hover={{ color: colors.orange[300] }}
+      d='block'
+      transition='opacity, color 0.15s ease-out'
+      _hover={{
+        borderBottom: '1px solid',
+        borderImage: `linear-gradient(to right, ${colors.orange[200]}, ${colors.orange[400]}) 1 / 0 0 1px / 0.2em`,
+        opacity: 0.8,
+      }}
       px='2'
       {...props}
     />

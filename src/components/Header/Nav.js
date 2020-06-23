@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  useTheme,
   Box,
   Flex,
   List,
@@ -18,14 +19,17 @@ import Link from './Link';
 
 import useSiteMetadata from '../../hooks/use-site-config';
 
-const ListLink = ({ to, children, ...props }) => (
-  <ListItem {...props}>
-    <Link to={to} p='0'>
-      <ListIcon icon='arm' />
-      {children}
-    </Link>
-  </ListItem>
-);
+const ListLink = ({ to, children, ...props }) => {
+  const { colors } = useTheme();
+  return (
+    <ListItem {...props}>
+      <Link to={to} p='0' _hover={{ color: colors.orange[300] }}>
+        <ListIcon icon='arm' />
+        {children}
+      </Link>
+    </ListItem>
+  );
+};
 
 const Nav = ({ isHome, ...props }) => {
   const { snsAccounts } = useSiteMetadata();
