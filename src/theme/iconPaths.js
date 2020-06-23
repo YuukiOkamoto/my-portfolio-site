@@ -37,5 +37,17 @@ const iconPaths = {
     ),
     viewBox: '0 0 515 515',
   },
+  menu: {
+    path: (
+      <>
+        <line x1='8' y1='6' x2='21' y2='6' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'></line>
+        <line x1='8' y1='12' x2='21' y2='12' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'></line>
+        <line x1='8' y1='18' x2='21' y2='18' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'></line>
+        <line x1='3' y1='6' x2='3' y2='6' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'></line>
+        <line x1='3' y1='12' x2='3' y2='12' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'></line>
+        <line x1='3' y1='18' x2='3' y2='18' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'></line>
+      </>
+    ),
+  },
 };
 export default iconPaths;
