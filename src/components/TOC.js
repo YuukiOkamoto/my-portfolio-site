@@ -26,7 +26,7 @@ const HeadingList = ({ headings, itemMy = '4', onDrawerClose, ...props }) => (
           <Link
             to={heading.url.replace('#', '')}
             smooth={true}
-            offset={-10}
+            offset={-50}
             duration={800}
             onClick={onDrawerClose && onDrawerClose}
             css={css`
