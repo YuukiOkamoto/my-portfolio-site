@@ -69,6 +69,8 @@ const NavLink = ({ to, onDrawerClose, ...props }) => {
           offset={-20}
           onClick={onDrawerClose}
           css={{
+            transition: 'color 0.15s ease-out',
+            cursor: 'pointer',
             '&:hover': { color: colors.orange[300] },
           }}
           {...props}
