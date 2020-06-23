@@ -19,7 +19,7 @@ import { FiChevronUp, FiChevronDown } from 'react-icons/fi';
 import { css } from '@emotion/core';
 
 const HeadingList = ({ headings, itemMy = '4', onDrawerClose, ...props }) => (
-  <List mt='3' fontSize='sm' {...props}>
+  <List mt='3' fontSize={['lg', 'lg', 'sm', 'sm']} {...props}>
     {headings.map(heading => (
       <React.Fragment key={heading.title}>
         <ListItem my={itemMy}>
@@ -48,7 +48,7 @@ const HeadingList = ({ headings, itemMy = '4', onDrawerClose, ...props }) => (
             onDrawerClose={onDrawerClose}
             ml='3'
             mt='0'
-            fontSize='xs'
+            fontSize={['sm', 'sm', 'xs', 'xs']}
           />
         )}
       </React.Fragment>
@@ -119,7 +119,7 @@ const TOCDrawer = ({ headings, ...props }) => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>目次</DrawerHeader>
+          <DrawerHeader fontSize='2xl'>目次</DrawerHeader>
           <DrawerBody pb='24' overflowY='auto'>
             <HeadingList headings={headings} onDrawerClose={onClose} />
           </DrawerBody>
