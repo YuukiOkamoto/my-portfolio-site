@@ -1,0 +1,238 @@
+---
+title: Gatsbyで画像を取り扱う
+date: '2020-06-22T22:00:00Z'
+description: ''
+featured: false
+cover: ./cover.jpeg
+tags:
+  - Gatsby
+---
+
+import Collapse from '../../../src/components/widgetComponents/Collapse';
+import ExternalLink from '../../../src/components/widgetComponents/ExternalLink';
+import ArrowDescription from '../../../src/components/widgetComponents/ArrowDescription';
+
+Gatsby での基本的な画像の取り扱いについてメモ！
+
+## 必要なプラグイン
+
+<ArrowDescription>
+  <ExternalLink href='https://www.gatsbyjs.org/packages/gatsby-image/'>gatsby-image</ExternalLink>
+  <>
+    GatsbyのGraphQLクエリとシームレスに動作するように特別に設計されたReactコンポーネント。 <br/>
+    サイトの画像読み込みを簡単かつ完全に最適化する。
+
+  </>
+</ArrowDescription>
+
+<ArrowDescription>
+  <ExternalLink href='https://www.gatsbyjs.org/packages/gatsby-plugin-sharp/'>
+    gatsby-plugin-sharp
+  </ExternalLink>
+  <>画像処理ライブラリSharpの機能を提供する。</>
+</ArrowDescription>
+
+<ArrowDescription>
+  <ExternalLink href='https://www.gatsbyjs.org/packages/gatsby-transformer-sharp/'>
+    gatsby-transformer-sharp
+  </ExternalLink>
+  <>
+    画像処理ライブラリSharpでサポートされている画像タイプからImageSharpノードを作成する。
+  </>
+</ArrowDescription>
+
+<ArrowDescription>
+  <ExternalLink href='https://www.gatsbyjs.org/packages/gatsby-source-filesystem/'>
+    gatsby-source-filesystem
+  </ExternalLink>
+  <>ローカルファイルからFileノードを作成する。</>
+</ArrowDescription>
+
+## GraphQL で取得する
+
+ファイル名は`profile-pic.jpg`であり fluid(伸縮)し最大幅は 400px, 対応ブラウザでは WebP 画像で表示して最適化する場合、このような GraphQL クエリを作成する。
+
+```graphql title=GraphQLクエリ
+query {
+  file(relativePath: { eq: "profile-pic.jpg" }) {
+    childImageSharp {
+      fluid(maxWidth: 400) {
+        base64
+        aspectRatio
+        src
+        srcSet
+        srcWebp
+        srcSetWebp
+        sizes
+      }
+    }
+  }
+}
+```
+
+<Collapse>
+
+<>出力結果を見る</>
+
+```json title=GraphQL出力結果
+{
+  "data": {
+    "file": {
+      "childImageSharp": {
+        "fluid": {
+          "base64": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAUABQDASIAAhEBAxEB/8QAGAABAAMBAAAAAAAAAAAAAAAAAAIDBAX/xAAWAQEBAQAAAAAAAAAAAAAAAAABAgD/2gAMAwEAAhADEAAAAetCeAdrCxfxiiwS/wD/xAAcEAACAgIDAAAAAAAAAAAAAAABAgADERIEEyL/2gAIAQEAAQUCJAD+AMsGlr7q3K1lpPXaTmpQV//EABURAQEAAAAAAAAAAAAAAAAAABBB/9oACAEDAQE/ASn/xAAYEQACAwAAAAAAAAAAAAAAAAAAARARMf/aAAgBAgEBPwEoWR//xAAbEAADAAIDAAAAAAAAAAAAAAAAAREQMQISUf/aAAgBAQAGPwKMpfTVOrnFk3hY/8QAGxABAAMAAwEAAAAAAAAAAAAAAQARMSFRgUH/2gAIAQEAAT8h9URFuveYynBcWOHyLsnFgsJxNIJpLx2S9vc//9oADAMBAAIAAwAAABCj0D//xAAYEQADAQEAAAAAAAAAAAAAAAAAAREQMf/aAAgBAwEBPxBRdKPH/8QAGBEAAgMAAAAAAAAAAAAAAAAAATEAEBH/2gAIAQIBAT8QwlXy5//EAB0QAQEBAAICAwAAAAAAAAAAAAERACExQWFRcYH/2gAIAQEAAT8Q9Sgc6KQvBCL+YV4DsZFEAr0q+O9YxLboHUcFKQTgvrnKpH5NUGoW+c/FpHH0b//Z",
+          "aspectRatio": 1,
+          "src": "/static/0c1679c2f769226599c1b61833c382b9/2244e/profile-pic.jpg",
+          "srcSet": "/static/0c1679c2f769226599c1b61833c382b9/86e11/profile-pic.jpg 100w,\n/static/0c1679c2f769226599c1b61833c382b9/f836f/profile-pic.jpg 200w,\n/static/0c1679c2f769226599c1b61833c382b9/2244e/profile-pic.jpg 400w",
+          "srcWebp": "/static/0c1679c2f769226599c1b61833c382b9/1f5c5/profile-pic.webp",
+          "srcSetWebp": "/static/0c1679c2f769226599c1b61833c382b9/d1f52/profile-pic.webp 100w,\n/static/0c1679c2f769226599c1b61833c382b9/61e93/profile-pic.webp 200w,\n/static/0c1679c2f769226599c1b61833c382b9/1f5c5/profile-pic.webp 400w",
+          "sizes": "(max-width: 400px) 100vw, 400px"
+        }
+      }
+    }
+  }
+}
+```
+
+</Collapse>
+
+## fragments を使う
+
+先程は以下のフィールドを指定したが、毎回指定するのは大変でミスもありそうだ。共通化したい。。
+
+- base64
+- aspectRatio
+- src
+- srcSet
+- srcWebp
+- srcSetWebp
+- sizes
+
+そこで<ExternalLink href='https://www.gatsbyjs.org/packages/gatsby-image/?=#fragments'>fragments</ExternalLink>というものがあり簡略化して書ける！
+
+```graphql title=GraphQLクエリ
+query {
+  file(relativePath: { eq: "profile-pic.jpg" }) {
+    childImageSharp {
+      fluid(maxWidth: 400) {
+        ...GatsbyImageSharpFluid_withWebp
+      }
+    }
+  }
+}
+```
+
+<Collapse>
+
+<>出力結果を見る</>
+
+```json title=GraphQL出力結果
+{
+  "data": {
+    "file": {
+      "childImageSharp": {
+        "fluid": {
+          "base64": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAUABQDASIAAhEBAxEB/8QAGAABAAMBAAAAAAAAAAAAAAAAAAIDBAX/xAAWAQEBAQAAAAAAAAAAAAAAAAABAgD/2gAMAwEAAhADEAAAAetCeAdrCxfxiiwS/wD/xAAcEAACAgIDAAAAAAAAAAAAAAABAgADERIEEyL/2gAIAQEAAQUCJAD+AMsGlr7q3K1lpPXaTmpQV//EABURAQEAAAAAAAAAAAAAAAAAABBB/9oACAEDAQE/ASn/xAAYEQACAwAAAAAAAAAAAAAAAAAAARARMf/aAAgBAgEBPwEoWR//xAAbEAADAAIDAAAAAAAAAAAAAAAAAREQMQISUf/aAAgBAQAGPwKMpfTVOrnFk3hY/8QAGxABAAMAAwEAAAAAAAAAAAAAAQARMSFRgUH/2gAIAQEAAT8h9URFuveYynBcWOHyLsnFgsJxNIJpLx2S9vc//9oADAMBAAIAAwAAABCj0D//xAAYEQADAQEAAAAAAAAAAAAAAAAAAREQMf/aAAgBAwEBPxBRdKPH/8QAGBEAAgMAAAAAAAAAAAAAAAAAATEAEBH/2gAIAQIBAT8QwlXy5//EAB0QAQEBAAICAwAAAAAAAAAAAAERACExQWFRcYH/2gAIAQEAAT8Q9Sgc6KQvBCL+YV4DsZFEAr0q+O9YxLboHUcFKQTgvrnKpH5NUGoW+c/FpHH0b//Z",
+          "aspectRatio": 1,
+          "src": "/static/0c1679c2f769226599c1b61833c382b9/2244e/profile-pic.jpg",
+          "srcSet": "/static/0c1679c2f769226599c1b61833c382b9/86e11/profile-pic.jpg 100w,\n/static/0c1679c2f769226599c1b61833c382b9/f836f/profile-pic.jpg 200w,\n/static/0c1679c2f769226599c1b61833c382b9/2244e/profile-pic.jpg 400w",
+          "srcWebp": "/static/0c1679c2f769226599c1b61833c382b9/1f5c5/profile-pic.webp",
+          "srcSetWebp": "/static/0c1679c2f769226599c1b61833c382b9/d1f52/profile-pic.webp 100w,\n/static/0c1679c2f769226599c1b61833c382b9/61e93/profile-pic.webp 200w,\n/static/0c1679c2f769226599c1b61833c382b9/1f5c5/profile-pic.webp 400w",
+          "sizes": "(max-width: 400px) 100vw, 400px"
+        }
+      }
+    }
+  }
+}
+```
+
+</Collapse>
+
+gatsby-image の fragments は<ExternalLink href='https://github.com/gatsbyjs/gatsby/blob/master/packages/gatsby-transformer-sharp/src/fragments.js'>gatsby-transformer-sharp/src/fragments.js</ExternalLink>で確認ができます！  
+このように fragments はプラグインで定義されていたり、自分で定義することも可能です。
+
+## gatsby-image で画像を表示する
+
+たとえば`src/pages/index.js`で表示する例を見てみましょう。
+
+```jsx title=src/pages/index.js
+import React from 'react';
+import { graphql } from 'gatsby';
+import Image from 'gatsby-image';
+
+export default ({ data }) => <Image fluid={data.file.childImageSharp.fluid} />;
+
+export const query = graphql`
+  query {
+    file(relativePath: { eq: "profile-pic.jpg" }) {
+      childImageSharp {
+        fluid(maxWidth: 400) {
+          ...GatsbyImageSharpFluid_withWebp
+        }
+      }
+    }
+  }
+`;
+```
+
+まず以下の部分で、GraphQL クエリを`export`しています。  
+変数名`query`はなんでも構いません。
+
+```jsx
+export const query = graphql`
+  query {
+    file(relativePath: { eq: "profile-pic.jpg" }) {
+      childImageSharp {
+        fluid(maxWidth: 400) {
+          ...GatsbyImageSharpFluid_withWebp
+        }
+      }
+    }
+  }
+`;
+```
+
+`export`したクエリの結果は props で受け取ることができます。  
+クエリの出力結果は以下で`data`というプロパティに値が入っているので分割代入で受け取っています。
+
+```json title=GraphQL出力結果
+{
+  "data": {
+    "file": {
+      "childImageSharp": {
+        "fluid": {
+          "base64": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAUABQDASIAAhEBAxEB/8QAGAABAAMBAAAAAAAAAAAAAAAAAAIDBAX/xAAWAQEBAQAAAAAAAAAAAAAAAAABAgD/2gAMAwEAAhADEAAAAetCeAdrCxfxiiwS/wD/xAAcEAACAgIDAAAAAAAAAAAAAAABAgADERIEEyL/2gAIAQEAAQUCJAD+AMsGlr7q3K1lpPXaTmpQV//EABURAQEAAAAAAAAAAAAAAAAAABBB/9oACAEDAQE/ASn/xAAYEQACAwAAAAAAAAAAAAAAAAAAARARMf/aAAgBAgEBPwEoWR//xAAbEAADAAIDAAAAAAAAAAAAAAAAAREQMQISUf/aAAgBAQAGPwKMpfTVOrnFk3hY/8QAGxABAAMAAwEAAAAAAAAAAAAAAQARMSFRgUH/2gAIAQEAAT8h9URFuveYynBcWOHyLsnFgsJxNIJpLx2S9vc//9oADAMBAAIAAwAAABCj0D//xAAYEQADAQEAAAAAAAAAAAAAAAAAAREQMf/aAAgBAwEBPxBRdKPH/8QAGBEAAgMAAAAAAAAAAAAAAAAAATEAEBH/2gAIAQIBAT8QwlXy5//EAB0QAQEBAAICAwAAAAAAAAAAAAERACExQWFRcYH/2gAIAQEAAT8Q9Sgc6KQvBCL+YV4DsZFEAr0q+O9YxLboHUcFKQTgvrnKpH5NUGoW+c/FpHH0b//Z",
+          "aspectRatio": 1,
+          "src": "/static/0c1679c2f769226599c1b61833c382b9/2244e/profile-pic.jpg",
+          "srcSet": "/static/0c1679c2f769226599c1b61833c382b9/86e11/profile-pic.jpg 100w,\n/static/0c1679c2f769226599c1b61833c382b9/f836f/profile-pic.jpg 200w,\n/static/0c1679c2f769226599c1b61833c382b9/2244e/profile-pic.jpg 400w",
+          "srcWebp": "/static/0c1679c2f769226599c1b61833c382b9/1f5c5/profile-pic.webp",
+          "srcSetWebp": "/static/0c1679c2f769226599c1b61833c382b9/d1f52/profile-pic.webp 100w,\n/static/0c1679c2f769226599c1b61833c382b9/61e93/profile-pic.webp 200w,\n/static/0c1679c2f769226599c1b61833c382b9/1f5c5/profile-pic.webp 400w",
+          "sizes": "(max-width: 400px) 100vw, 400px"
+        }
+      }
+    }
+  }
+}
+```
+
+そのなかの`fluid`。つまりこのようなオブジェクトを
+
+```json title=fluid
+{
+  "base64": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAUABQDASIAAhEBAxEB/8QAGAABAAMBAAAAAAAAAAAAAAAAAAIDBAX/xAAWAQEBAQAAAAAAAAAAAAAAAAABAgD/2gAMAwEAAhADEAAAAetCeAdrCxfxiiwS/wD/xAAcEAACAgIDAAAAAAAAAAAAAAABAgADERIEEyL/2gAIAQEAAQUCJAD+AMsGlr7q3K1lpPXaTmpQV//EABURAQEAAAAAAAAAAAAAAAAAABBB/9oACAEDAQE/ASn/xAAYEQACAwAAAAAAAAAAAAAAAAAAARARMf/aAAgBAgEBPwEoWR//xAAbEAADAAIDAAAAAAAAAAAAAAAAAREQMQISUf/aAAgBAQAGPwKMpfTVOrnFk3hY/8QAGxABAAMAAwEAAAAAAAAAAAAAAQARMSFRgUH/2gAIAQEAAT8h9URFuveYynBcWOHyLsnFgsJxNIJpLx2S9vc//9oADAMBAAIAAwAAABCj0D//xAAYEQADAQEAAAAAAAAAAAAAAAAAAREQMf/aAAgBAwEBPxBRdKPH/8QAGBEAAgMAAAAAAAAAAAAAAAAAATEAEBH/2gAIAQIBAT8QwlXy5//EAB0QAQEBAAICAwAAAAAAAAAAAAERACExQWFRcYH/2gAIAQEAAT8Q9Sgc6KQvBCL+YV4DsZFEAr0q+O9YxLboHUcFKQTgvrnKpH5NUGoW+c/FpHH0b//Z",
+  "aspectRatio": 1,
+  "src": "/static/0c1679c2f769226599c1b61833c382b9/2244e/profile-pic.jpg",
+  "srcSet": "/static/0c1679c2f769226599c1b61833c382b9/86e11/profile-pic.jpg 100w,\n/static/0c1679c2f769226599c1b61833c382b9/f836f/profile-pic.jpg 200w,\n/static/0c1679c2f769226599c1b61833c382b9/2244e/profile-pic.jpg 400w",
+  "srcWebp": "/static/0c1679c2f769226599c1b61833c382b9/1f5c5/profile-pic.webp",
+  "srcSetWebp": "/static/0c1679c2f769226599c1b61833c382b9/d1f52/profile-pic.webp 100w,\n/static/0c1679c2f769226599c1b61833c382b9/61e93/profile-pic.webp 200w,\n/static/0c1679c2f769226599c1b61833c382b9/1f5c5/profile-pic.webp 400w",
+  "sizes": "(max-width: 400px) 100vw, 400px"
+}
+```
+
+`gatsby-image`から`import`したコンポーネントに渡すことで最適化した画像を表示します。
+
+```jsx
+import Image from 'gatsby-image';
+
+export default ({ data }) => <Image fluid={data.file.childImageSharp.fluid} />;
+```
