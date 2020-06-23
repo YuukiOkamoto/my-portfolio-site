@@ -16,11 +16,10 @@ const ScrollLink = props => {
         paddingRight: space[2],
         paddingLeft: space[2],
         cursor: 'pointer',
-        transition: 'all 0.15s ease-out',
+        transition: 'opacity 0.15s ease-out',
         '&:hover, &.active': {
           borderBottom: '1px solid',
-          borderImageSlice: 1,
-          borderImageSource: `linear-gradient(to right, ${colors.orange[200]}, ${colors.orange[400]})`,
+          borderImage: `linear-gradient(to right, ${colors.orange[200]}, ${colors.orange[400]}) 1 / 0 0 1px / 0.2em`,
           opacity: 0.8,
         },
       }}

@@ -4,6 +4,7 @@ import Image from 'gatsby-image';
 import { Box, Flex, Heading, Link, Stack } from '@chakra-ui/core';
 
 import Nav from './Nav';
+import NavDrawer from './NavDrawer';
 
 import Container from '../Container';
 import useSiteMetadata from '../../hooks/use-site-config';
@@ -48,6 +49,7 @@ const Header = ({ isHome }) => {
           <Nav isHome={isHome} />
         </Flex>
       </Container>
+      <NavDrawer />
     </Box>
   );
 };
