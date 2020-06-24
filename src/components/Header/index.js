@@ -49,7 +49,7 @@ const Header = ({ isHome }) => {
           <Nav isHome={isHome} />
         </Flex>
       </Container>
-      <NavDrawer />
+      <NavDrawer d={['inline-block', 'inline-block', 'none', 'none']} />
     </Box>
   );
 };

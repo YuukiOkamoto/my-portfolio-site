@@ -87,7 +87,7 @@ const NavLink = ({ to, onDrawerClose, ...props }) => {
   );
 };
 
-const NavDrawer = () => {
+const NavDrawer = props => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const navData = {
     navItems: [
@@ -122,7 +122,7 @@ const NavDrawer = () => {
 
   return (
     <>
-      <NavDrawerButton onOpen={onOpen} />
+      <NavDrawerButton onOpen={onOpen} {...props} />
       <Drawer placement='left' onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         <DrawerContent>
