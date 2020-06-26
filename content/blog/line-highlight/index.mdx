@@ -1,0 +1,589 @@
+---
+title: コードブロックの指定行をハイライトさせる
+date: '2020-06-26T16:00:00Z'
+description: ''
+featured: false
+cover: ./cover.jpeg
+tags:
+  - 技術ブログ
+  - React
+---
+
+import CodeBlock from '../../../src//components/MDXComponents/CodeBlock';
+import Callout from '../../../src/components/widgetComponents/Callout';
+import Collapse from '../../../src/components/widgetComponents/Collapse';
+import ExternalLink from '../../../src/components/widgetComponents/ExternalLink';
+import PostLink from '../../../src/components/widgetComponents/PostLink';
+
+## つくったもの
+
+技術ブログを書いているときに、サンプルコードの指定行をハイライトしたいことがありました。  
+サンプルコードのどこを説明しているのか読みやすくしたいと思ったからです！
+
+たとえば`.mdx`ファイルで`line={1,4-6}`と行を指定すると、
+
+<CodeBlock className='language-mdx'>
+  {`
+副作用 (effect) フック により、関数コンポーネント内で副作用を実行することができるようになります。
+\`\`\`js line={1,4-6}
+import React, { useState, useEffect } from 'react'\;
+\  
+function Example() {
+  const [count, setCount] = useState(0);
+  \  
+  useEffect(() => {
+    document.title = \`You clicked \${count} times\`\;
+  })\;
+  \  
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  )\;
+}
+\`\`\`
+  `}
+</CodeBlock>
+
+コードブロック部分は 1 行目と 4~6 行目がハイライトされます。
+
+```js line={1,6-8}
+import React, { useState, useEffect } from 'react';
+
+function Example() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    document.title = `You clicked ${count} times`;
+  });
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>Click me</button>
+    </div>
+  );
+}
+```
+
+## 実装
+
+### ```で表示するコンポーネントを用意
+
+マークダウン記法の\`\`\`を使って表示される見た目を、MDXProvider を使って変えたいと思います。
+
+`{ code: <表示したいコンポーネント /> }`を  
+MDXProvider の state である components に渡すことで、  
+\`\`\`で表示される見た目を変えることが出来ます。
+
+```jsx title=MDXProvider例
+import { MDXProvider } from '@mdx-js/react';
+
+const CodeBlock = props => <pre style={{ background: 'gray' }} {...props} />;
+
+const components = {
+  code: CodeBlock,
+};
+
+export const wrapRootElement = ({ element }) => (
+  <MDXProvider components={components}>{element}</MDXProvider>
+);
+```
+
+MDXProvider について詳細は以下の記事を参照ください。
+
+<PostLink to='/blog/mdx-provider/' />
+
+自分の場合は、  
+`CodeBlock`コンポーネントの中で、`Highlight`という色付けされたコード部分を表示するコンポーネントを使っています。
+
+<Collapse>
+
+<>CodeBlockコンポーネントのコードを見る</>
+
+```jsx title=CodeBlockコンポーネント line={45,51}
+import React, { useState } from 'react';
+
+import EditableHighlight from './EditableHighlight';
+import Highlight from './Highlight';
+import { LiveError, LivePreview, LiveProvider } from './react-live';
+
+const CodeBlock = ({
+  className,
+  live,
+  isManual,
+  demo,
+  title,
+  line,
+  children,
+  ...props
+}) => {
+  const [code, setCode] = useState(children.trim());
+
+  const language = className && className.replace('language-', '');
+
+  if (language === 'jsx' && live) {
+    return (
+      <LiveProvider
+        language={language}
+        code={code}
+        isManual={isManual}
+        {...props}
+      >
+        <LivePreview />
+        <EditableHighlight code={code} setCode={setCode} title={title} />
+        <LiveError />
+      </LiveProvider>
+    );
+  }
+
+  if (demo) {
+    return (
+      <LiveProvider
+        language={language}
+        code={code}
+        isManual={isManual}
+        {...props}
+      >
+        <LivePreview />
+        <Highlight title={title} code={code} language={language} line={line} />
+      </LiveProvider>
+    );
+  }
+
+  return (
+    <Highlight title={title} code={code} language={language} line={line} />
+  );
+};
+
+export default CodeBlock;
+```
+
+<ExternalLink href='https://github.com/YuukiOkamoto/my-blog/blob/master/src/components/MDXComponents/CodeBlock/index.js'>
+  GitHub
+</ExternalLink>
+
+</Collapse>
+
+<Collapse>
+
+<>Highlightコンポーネントのコードを見る</>
+
+```jsx title=Highlightコンポーネント line={5,22-31,33-42,79,101}
+import React, { useState } from 'react';
+import PrismHighlight, { defaultProps } from 'prism-react-renderer';
+import { useTheme, Box } from '@chakra-ui/core';
+import theme from 'prism-react-renderer/themes/vsDark';
+import rangeParser from 'parse-numeric-range';
+
+import { generateAlphaColors } from '../../../theme/colors-utils';
+
+import CopyButton from './CopyButton';
+import Title from './Title';
+
+const highlightStyle = {
+  backgroundColor: '#2D2D2D',
+  fontFamily: 'Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace',
+  fontSize: [12, 14],
+  overflow: 'auto',
+  py: 5,
+  float: 'left',
+  minWidth: 'full',
+};
+
+const calculateLinesToHighlight = meta => {
+  const RE = /{([\d,-]+)}/;
+  if (RE.test(meta)) {
+    const strLineNumbers = RE.exec(meta)[1];
+    const lineNumbers = rangeParser(strLineNumbers);
+    return index => lineNumbers.includes(index + 1);
+  } else {
+    return () => false;
+  }
+};
+
+const Line = ({ shouldHighlight, ...props }) => {
+  const highlightProps = shouldHighlight && {
+    d: 'block',
+    bg: 'gray.700',
+    borderLeftWidth: '.5rem',
+    borderLeftColor: 'purple.200',
+    px: '3',
+  };
+  return <Box d='table-cell' px='5' {...props} {...highlightProps} />;
+};
+
+const Word = ({ focusedWord, setFocusedWord, content, tokenProps }) => {
+  const [delayHandler, setDelayHandler] = useState(null);
+  const { colors } = useTheme();
+
+  const orangeAlpha = generateAlphaColors(colors.orange[100]);
+
+  const handleMouseEnter = word => {
+    setDelayHandler(
+      setTimeout(() => {
+        setFocusedWord(word);
+      }, 500)
+    );
+  };
+
+  const handleMouseLeave = () => {
+    setFocusedWord('');
+    clearTimeout(delayHandler);
+  };
+
+  const shouldHighlighted = word => focusedWord === word && word.length > 1;
+
+  return (
+    <Box
+      as='span'
+      bg={shouldHighlighted(content) && orangeAlpha[400]}
+      onMouseEnter={() => handleMouseEnter(content)}
+      onMouseLeave={handleMouseLeave}
+      {...tokenProps}
+    />
+  );
+};
+
+const Highlight = ({ title, code, language, line }) => {
+  const [focusedWord, setFocusedWord] = useState('');
+
+  const shouldHighlightLine = calculateLinesToHighlight(line);
+
+  return (
+    <Box my='8' mx={['-24px', '-24px', '0']} rounded='md'>
+      {title && <Title>{title}</Title>}
+      <Box position='relative'>
+        <PrismHighlight
+          {...defaultProps}
+          theme={theme}
+          code={code}
+          language={language}
+        >
+          {({ className, style, tokens, getLineProps, getTokenProps }) => (
+            <Box overflowX='auto'>
+              <Box
+                as='pre'
+                className={className}
+                {...highlightStyle}
+                style={{ ...style }}
+              >
+                {tokens.map((line, i) => (
+                  <div key={i} {...getLineProps({ line, key: i })}>
+                    <Line shouldHighlight={shouldHighlightLine(i)}>
+                      {line.map((token, key) => (
+                        <Word
+                          key={key}
+                          focusedWord={focusedWord}
+                          setFocusedWord={setFocusedWord}
+                          content={token.content.trim()}
+                          tokenProps={getTokenProps({ token, key })}
+                        />
+                      ))}
+                    </Line>
+                  </div>
+                ))}
+              </Box>
+            </Box>
+          )}
+        </PrismHighlight>
+        <CopyButton code={code} />
+      </Box>
+    </Box>
+  );
+};
+
+export default Highlight;
+```
+
+<ExternalLink href='https://github.com/YuukiOkamoto/my-blog/blob/master/src/components/MDXComponents/CodeBlock/Highlight.js'>
+  GitHub
+</ExternalLink>
+
+</Collapse>
+
+この`Highlight`コンポーネントで指定した行をハイライトしています。
+
+### 指定した行を受け取る
+
+MDXProvider の components の code に指定した`CodeBlock`コンポーネントでは、  
+MDX 内で`line={1,3-5}`のように指定した`{1,3-5}`という文字列を`line`props で受け取れます。
+
+<CodeBlock className='language-mdx' title='mdx'>
+  {`
+\`\`\`js line={1,3-5}
+console.log('macho')\;
+console.log('macho!')\;
+console.log('macho!!')\;
+console.log('macho!!!')\;
+console.log('macho!!!!')\;
+console.log('macho!!!!!')\;
+\`\`\`
+  `}
+</CodeBlock>
+
+そして、`Highlight`コンポーネントに渡しています。
+
+```jsx
+<Highlight title={title} code={code} language={language} line={line} />
+```
+
+<Collapse>
+
+<>もう一度、CodeBlockコンポーネントのコードを見る</>
+
+```jsx title=CodeBlockコンポーネント line={45,51}
+import React, { useState } from 'react';
+
+import EditableHighlight from './EditableHighlight';
+import Highlight from './Highlight';
+import { LiveError, LivePreview, LiveProvider } from './react-live';
+
+const CodeBlock = ({
+  className,
+  live,
+  isManual,
+  demo,
+  title,
+  line,
+  children,
+  ...props
+}) => {
+  const [code, setCode] = useState(children.trim());
+
+  const language = className && className.replace('language-', '');
+
+  if (language === 'jsx' && live) {
+    return (
+      <LiveProvider
+        language={language}
+        code={code}
+        isManual={isManual}
+        {...props}
+      >
+        <LivePreview />
+        <EditableHighlight code={code} setCode={setCode} title={title} />
+        <LiveError />
+      </LiveProvider>
+    );
+  }
+
+  if (demo) {
+    return (
+      <LiveProvider
+        language={language}
+        code={code}
+        isManual={isManual}
+        {...props}
+      >
+        <LivePreview />
+        <Highlight title={title} code={code} language={language} line={line} />
+      </LiveProvider>
+    );
+  }
+
+  return (
+    <Highlight title={title} code={code} language={language} line={line} />
+  );
+};
+
+export default CodeBlock;
+```
+
+<ExternalLink href='https://github.com/YuukiOkamoto/my-blog/blob/master/src/components/MDXComponents/CodeBlock/index.js'>
+  GitHub
+</ExternalLink>
+
+</Collapse>
+
+### 受け取った行から、ハイライトすべきか判別する
+
+受け取った行の`{1,3-5}`のような文字列を受け取る、  
+`calculateLinesToHighlight`という高階関数を用意します。
+
+```js title=calculateLinesToHighlight関数
+const calculateLinesToHighlight = meta => {
+  const RE = /{([\d,-]+)}/;
+  if (RE.test(meta)) {
+    const strLineNumbers = RE.exec(meta)[1];
+    const lineNumbers = rangeParser(strLineNumbers);
+    return index => lineNumbers.includes(index + 1);
+  } else {
+    return () => false;
+  }
+};
+```
+
+この公開関数が返す関数は、  
+行番号を渡せばそれが指定行に含まれているかどうか真偽値で返すものです。
+
+```js title=行番号を私指定行に含まれているかどうか真偽値で返す関数を作成
+const shouldHighlightLine = calculateLinesToHighlight(line);
+```
+
+それを、受け取ったコードを行ごとにループで回している箇所で使い、その行をハイライトすべきか判定しています。
+
+```jsx
+
+{tokens.map((line, i) => (
+  <div key={i} {...getLineProps({ line, key: i })}>
+    <Line shouldHighlight={shouldHighlightLine(i)}>
+      ...
+```
+
+### ハイライトすべき行の場合、styleを加える
+
+あとは、`Line`コンポーネントの`shouldHighlight`がtrueの場合にstyleを加えるだけです！
+
+```jsx title=Lineコンポーネント
+const Line = ({ shouldHighlight, ...props }) => {
+  const highlightProps = shouldHighlight && {
+    d: 'block',
+    bg: 'gray.700',
+    borderLeftWidth: '.5rem',
+    borderLeftColor: 'purple.200',
+    px: '3',
+  };
+  return <Box d='table-cell' px='5' {...props} {...highlightProps} />;
+};
+```
+
+<Collapse>
+
+<>もう一度、Highlightコンポーネントのコードを見る</>
+
+```jsx title=Highlightコンポーネント line={22-31,33-42,79,101}
+import React, { useState } from 'react';
+import PrismHighlight, { defaultProps } from 'prism-react-renderer';
+import { useTheme, Box } from '@chakra-ui/core';
+import theme from 'prism-react-renderer/themes/vsDark';
+import rangeParser from 'parse-numeric-range';
+
+import { generateAlphaColors } from '../../../theme/colors-utils';
+
+import CopyButton from './CopyButton';
+import Title from './Title';
+
+const highlightStyle = {
+  backgroundColor: '#2D2D2D',
+  fontFamily: 'Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace',
+  fontSize: [12, 14],
+  overflow: 'auto',
+  py: 5,
+  float: 'left',
+  minWidth: 'full',
+};
+
+const calculateLinesToHighlight = meta => {
+  const RE = /{([\d,-]+)}/;
+  if (RE.test(meta)) {
+    const strLineNumbers = RE.exec(meta)[1];
+    const lineNumbers = rangeParser(strLineNumbers);
+    return index => lineNumbers.includes(index + 1);
+  } else {
+    return () => false;
+  }
+};
+
+const Line = ({ shouldHighlight, ...props }) => {
+  const highlightProps = shouldHighlight && {
+    d: 'block',
+    bg: 'gray.700',
+    borderLeftWidth: '.5rem',
+    borderLeftColor: 'purple.200',
+    px: '3',
+  };
+  return <Box d='table-cell' px='5' {...props} {...highlightProps} />;
+};
+
+const Word = ({ focusedWord, setFocusedWord, content, tokenProps }) => {
+  const [delayHandler, setDelayHandler] = useState(null);
+  const { colors } = useTheme();
+
+  const orangeAlpha = generateAlphaColors(colors.orange[100]);
+
+  const handleMouseEnter = word => {
+    setDelayHandler(
+      setTimeout(() => {
+        setFocusedWord(word);
+      }, 500)
+    );
+  };
+
+  const handleMouseLeave = () => {
+    setFocusedWord('');
+    clearTimeout(delayHandler);
+  };
+
+  const shouldHighlighted = word => focusedWord === word && word.length > 1;
+
+  return (
+    <Box
+      as='span'
+      bg={shouldHighlighted(content) && orangeAlpha[400]}
+      onMouseEnter={() => handleMouseEnter(content)}
+      onMouseLeave={handleMouseLeave}
+      {...tokenProps}
+    />
+  );
+};
+
+const Highlight = ({ title, code, language, line }) => {
+  const [focusedWord, setFocusedWord] = useState('');
+
+  const shouldHighlightLine = calculateLinesToHighlight(line);
+
+  return (
+    <Box my='8' mx={['-24px', '-24px', '0']} rounded='md'>
+      {title && <Title>{title}</Title>}
+      <Box position='relative'>
+        <PrismHighlight
+          {...defaultProps}
+          theme={theme}
+          code={code}
+          language={language}
+        >
+          {({ className, style, tokens, getLineProps, getTokenProps }) => (
+            <Box overflowX='auto'>
+              <Box
+                as='pre'
+                className={className}
+                {...highlightStyle}
+                style={{ ...style }}
+              >
+                {tokens.map((line, i) => (
+                  <div key={i} {...getLineProps({ line, key: i })}>
+                    <Line shouldHighlight={shouldHighlightLine(i)}>
+                      {line.map((token, key) => (
+                        <Word
+                          key={key}
+                          focusedWord={focusedWord}
+                          setFocusedWord={setFocusedWord}
+                          content={token.content.trim()}
+                          tokenProps={getTokenProps({ token, key })}
+                        />
+                      ))}
+                    </Line>
+                  </div>
+                ))}
+              </Box>
+            </Box>
+          )}
+        </PrismHighlight>
+        <CopyButton code={code} />
+      </Box>
+    </Box>
+  );
+};
+
+export default Highlight;
+```
+
+<ExternalLink href='https://github.com/YuukiOkamoto/my-blog/blob/master/src/components/MDXComponents/CodeBlock/Highlight.js'>GitHub</ExternalLink>
+
+</Collapse>
+
+<Callout emoji='🥰'>以上です！シンプルに少しずつ改善していくのは楽しいので、ぜひ皆さんも自作技術ブログライフを！</Callout>
