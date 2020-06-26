@@ -10,22 +10,8 @@ import PrevNextArticles from '../../components/PrevNextArticles';
 import SnsShare from '../../components/SnsShare';
 import { TOC, TOCDrawer } from '../../components/TOC';
 
-const BlogPostTemplate = ({ data, pageContext, location }) => {
-  const { previous: prev, next } = pageContext;
-  const mdx = data.mdx;
-  const url = `${data.site.siteMetadata.siteUrl}${mdx.fields.slug}`;
-  const title = mdx.frontmatter.title;
-  const headings = data.mdx.tableOfContents.items;
-
-  return (
-    <Layout location={location} position='relative'>
-      <SEO
-        title={title}
-        description={mdx.frontmatter.description || mdx.excerpt}
-        cover={mdx.frontmatter.cover?.publicURL}
-        isArticle
-      />
-      <Grid
+const BlogGrid = props => (
+        <Grid
         mx='auto'
         px='6'
         py='16'
@@ -43,7 +29,26 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           '"article aside"',
           '"article aside"',
         ]}
-      >
+    {...props}
+      />
+)
+
+const BlogPostTemplate = ({ data, pageContext, location }) => {
+  const { previous: prev, next } = pageContext;
+  const mdx = data.mdx;
+  const url = `${data.site.siteMetadata.siteUrl}${mdx.fields.slug}`;
+  const title = mdx.frontmatter.title;
+  const headings = data.mdx.tableOfContents.items;
+
+  return (
+    <Layout location={location} position='relative'>
+      <SEO
+        title={title}
+        description={mdx.frontmatter.description || mdx.excerpt}
+        cover={mdx.frontmatter.cover?.publicURL}
+        isArticle
+      />
+      <BlogGrid>
         <Box as='article' gridArea='article'>
           <ContentArticle post={mdx} />
           <SnsShare url={url} title={title} mt='4' />
@@ -61,7 +66,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
             />
           )}
         </Box>
-      </Grid>
+      </BlogGrid>
       <TOCDrawer
         headings={data.mdx.tableOfContents.items}
         d={['inline-block', 'inline-block', 'none', 'none']}
