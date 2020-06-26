@@ -28,7 +28,6 @@
     "gatsby-plugin-mdx": "^1.1.10",
     "gatsby-plugin-offline": "^3.1.4",
     "gatsby-plugin-pinterest": "^3.0.0",
-    "gatsby-plugin-prefetch-google-fonts": "^1.4.3",
     "gatsby-plugin-react-helmet": "^3.2.4",
     "gatsby-plugin-sharp": "^2.5.6",
     "gatsby-plugin-twitter": "^2.2.4",
