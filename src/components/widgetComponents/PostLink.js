@@ -41,7 +41,7 @@ const PostLink = ({ to, align = 'center', ...props }) => {
     <Flex justify={align}>
       <Link to={mdx.fields.slug}>
         <Box
-          maxW='sm'
+          w='sm'
           p='2'
           borderWidth='1px'
           rounded='lg'
