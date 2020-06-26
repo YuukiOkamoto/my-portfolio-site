@@ -24,7 +24,7 @@ hover したらコードブロック内の同じ単語がハイライトされ�
   あれ？この変数ってどこで定義されてるんだ？
 </Callout>
 
-ってことがよくあるけど、ハイライトされるとコードが置いやすくなって便利かなと思って作りました！  
+ってことがよくあり、ハイライトされるとコードが追いやすくなって便利かなと思って作りました！  
 Qiita からヒントを得て！（パクリ w）
 
 ## 実装
@@ -111,14 +111,14 @@ export default () => {
 
 ### ホバーした文字と同じ文字の背景に色を付ける
 
-stateの`focusedWord`と同じ文字であり、1文字より大きいものの背景に色をつけます。  
-また、CSSと同じような記述ができることから、このサンプルコードでは<ExternalLink href='https://emotion.sh/docs/css-prop'>emotion</ExternalLink>というCSS-in-JSのライブラリのcss propを使っています。
+state の`focusedWord`と同じ文字であり、1 文字より大きいものの背景に色をつけます。  
+また、CSS と同じような記述ができることから、このサンプルコードでは<ExternalLink href='https://emotion.sh/docs/css-prop'>emotion</ExternalLink>という CSS-in-JS のライブラリの css prop を使っています。
 
 ```jsx line={1,4,18,30-32}
 /** @jsx jsx */
-import React, { useState } from "react";
-import Highlight, { defaultProps } from "prism-react-renderer";
-import { css, jsx } from "@emotion/core";
+import React, { useState } from 'react';
+import Highlight, { defaultProps } from 'prism-react-renderer';
+import { css, jsx } from '@emotion/core';
 
 const exampleCode = `
 (function someDemo() {
@@ -130,12 +130,12 @@ return () => <App />;
 `.trim();
 
 export default () => {
-  const [focusedWord, setFocusedWord] = useState("");
+  const [focusedWord, setFocusedWord] = useState('');
 
   const shouldHighlighted = word => focusedWord === word && word.length > 1;
 
   return (
-    <Highlight {...defaultProps} code={exampleCode} language="jsx">
+    <Highlight {...defaultProps} code={exampleCode} language='jsx'>
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <pre className={className} style={style}>
           {tokens.map((line, i) => (
@@ -143,10 +143,13 @@ export default () => {
               {line.map((token, key) => (
                 <span
                   onMouseEnter={() => setFocusedWord(token.content.trim())}
-                  onMouseLeave={() => setFocusedWord("")}
-                  css={shouldHighlighted(token.content.trim()) && css`
-                    background-color: rgba(254,235,200,0.24);
-                  `}
+                  onMouseLeave={() => setFocusedWord('')}
+                  css={
+                    shouldHighlighted(token.content.trim()) &&
+                    css`
+                      background-color: rgba(254, 235, 200, 0.24);
+                    `
+                  }
                   {...getTokenProps({ token, key })}
                 />
               ))}
@@ -159,15 +162,15 @@ export default () => {
 };
 ```
 
-### Wordコンポーネントに分ける
+### Word コンポーネントに分ける
 
-少しコードが増えてきたので1単語をレンダリングするコンポーネントを作りたいと思います！
+少しコードが増えてきたので 1 単語をレンダリングするコンポーネントを作りたいと思います！
 
 ```jsx line={15-31,43-49}
 /** @jsx jsx */
-import React, { useState } from "react";
-import Highlight, { defaultProps } from "prism-react-renderer";
-import { css, jsx } from "@emotion/core";
+import React, { useState } from 'react';
+import Highlight, { defaultProps } from 'prism-react-renderer';
+import { css, jsx } from '@emotion/core';
 
 const exampleCode = `
 (function someDemo() {
@@ -184,7 +187,7 @@ const Word = ({ focusedWord, setFocusedWord, content, tokenProps }) => {
   return (
     <span
       onMouseEnter={() => setFocusedWord(content)}
-      onMouseLeave={() => setFocusedWord("")}
+      onMouseLeave={() => setFocusedWord('')}
       css={
         shouldHighlighted(content) &&
         css`
@@ -197,10 +200,10 @@ const Word = ({ focusedWord, setFocusedWord, content, tokenProps }) => {
 };
 
 export default () => {
-  const [focusedWord, setFocusedWord] = useState("");
+  const [focusedWord, setFocusedWord] = useState('');
 
   return (
-    <Highlight {...defaultProps} code={exampleCode} language="jsx">
+    <Highlight {...defaultProps} code={exampleCode} language='jsx'>
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <pre className={className} style={style}>
           {tokens.map((line, i) => (
@@ -223,7 +226,6 @@ export default () => {
 };
 ```
 
-
 ### 時間差で背景色をつける
 
 ホバーしてすぐ背景色がついてしまうと、たまたまマウスが文字の上を通っただけでも目まぐるしく色が変わってしまいます。
@@ -234,9 +236,9 @@ export default () => {
 
 ```jsx line={18-24,26-29,35-36}
 /** @jsx jsx */
-import React, { useState } from "react";
-import Highlight, { defaultProps } from "prism-react-renderer";
-import { css, jsx } from "@emotion/core";
+import React, { useState } from 'react';
+import Highlight, { defaultProps } from 'prism-react-renderer';
+import { css, jsx } from '@emotion/core';
 
 const exampleCode = `
 (function someDemo() {
@@ -259,7 +261,7 @@ const Word = ({ focusedWord, setFocusedWord, content, tokenProps }) => {
   };
 
   const handleMouseLeave = () => {
-    setFocusedWord("");
+    setFocusedWord('');
     clearTimeout(delayHandler);
   };
 
@@ -281,10 +283,10 @@ const Word = ({ focusedWord, setFocusedWord, content, tokenProps }) => {
 };
 
 export default () => {
-  const [focusedWord, setFocusedWord] = useState("");
+  const [focusedWord, setFocusedWord] = useState('');
 
   return (
-    <Highlight {...defaultProps} code={exampleCode} language="jsx">
+    <Highlight {...defaultProps} code={exampleCode} language='jsx'>
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <pre className={className} style={style}>
           {tokens.map((line, i) => (
@@ -307,8 +309,10 @@ export default () => {
 };
 ```
 
-これで無事、0.5秒ホバーし続けたときだけ背景色が変わるように出来ました！
+これで無事、0.5 秒ホバーし続けたときだけ背景色が変わるように出来ました！
 
 ![set timeout](./set-timeout.gif)
 
-<Callout bg='pink.50' emoji='🎉'>難しくない実装ですが利便性が上がったのでステキ！</Callout>
+<Callout bg='pink.50' emoji='🎉'>
+  難しくない実装ですが利便性が上がったのでステキ！
+</Callout>
