@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { FC, ComponentProps } from 'react';
 import { Box } from '@chakra-ui/core';
 
-const Table = props => (
+const Table: FC<ComponentProps<typeof Box>> = props => (
   <Box
     as='table'
     d='block'
@@ -14,7 +14,7 @@ const Table = props => (
   />
 );
 
-const THead = props => (
+const THead: FC<ComponentProps<typeof Box>> = props => (
   <Box
     as='th'
     bg='blackAlpha.100'
@@ -26,7 +26,7 @@ const THead = props => (
   />
 );
 
-const TData = props => (
+const TData: FC<ComponentProps<typeof Box>> = props => (
   <Box
     as='td'
     p='2'

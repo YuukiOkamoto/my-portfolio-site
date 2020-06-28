@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { FC, ComponentProps } from 'react';
 import { css } from '@emotion/core';
 import { Box } from '@chakra-ui/core';
 
 import theme from '../../theme';
 
-const Quote = props => (
+const Quote: FC<ComponentProps<typeof Box>> = props => (
   <Box
     as='blockquote'
     boxSizing='content-box'
-    opacity='.7'
+    opacity={0.7}
     my={6}
     py={3}
     pl={8}
