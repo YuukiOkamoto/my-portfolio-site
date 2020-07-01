@@ -1,7 +1,7 @@
 const muscleList = [
   {
     name: '大腿四頭筋',
-    alphabet: [...'daitaisitoukin'],
+    alphabet: [...'daitaisitoukinn'],
   },
   {
     name: '大腿直筋',
