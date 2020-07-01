@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Box, Text } from '@chakra-ui/core';
 
 import clearedMessageList from './clearedMessageList';
@@ -10,9 +10,10 @@ const choose_at_random = arrayData => {
   return arrayData[arrayIndex];
 };
 
-const TypingGame = props => {
+const TypingGame = ({ isOpen, ...props }) => {
   const [message, setMessage] = useState('');
   const [muscle, setMuscle] = useState(choose_at_random(muscleList));
+  const inputRef = useRef(null);
 
   const setAllCorrectedMessage = () => {
     setMessage(`${choose_at_random(clearedMessageList)}(^∀^)ᕗ`);
@@ -23,14 +24,22 @@ const TypingGame = props => {
     setMuscle(choose_at_random(muscleList));
   };
 
+  useEffect(() => {
+    const node = inputRef.current;
+    if (node) {
+      node.focus();
+    }
+  }, [isOpen]);
+
   return (
-    <Box {...props}>
+    <Box d={isOpen ? 'block' : 'none'} {...props}>
       {message === '' ? (
         <>
           <Box fontSize='2xl' textAlign='center'>
             {muscle.name}
           </Box>
           <Input
+            inputRef={inputRef}
             muscle={muscle}
             setAllCorrectedMessage={setAllCorrectedMessage}
             shuffleMuscle={shuffleMuscle}

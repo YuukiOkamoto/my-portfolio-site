@@ -1,5 +1,5 @@
-import React from 'react';
-import { Heading, Text } from '@chakra-ui/core';
+import React, { useEffect, useRef } from 'react';
+import { useDisclosure, Box, Button, Heading, Text } from '@chakra-ui/core';
 
 import Layout from '../components/layout';
 import SEO from '../components/SEO';
@@ -7,6 +7,15 @@ import Container from '../components/Container';
 import TypingGame from '../components/TypingGame';
 
 const NotFoundPage = ({ location }) => {
+  const { isOpen, onOpen } = useDisclosure();
+  const btnRef = useRef(null);
+
+  useEffect(() => {
+    const node = btnRef.current;
+    if (node) {
+      node.focus();
+    }
+  }, []);
 
   return (
     <Layout location={location}>
@@ -24,7 +33,18 @@ const NotFoundPage = ({ location }) => {
           <br />
           ご堪能ください(^∀^)ᕗ
         </Text>
-        <TypingGame mt='16' />
+        <Box textAlign='center'>
+          <Button
+            ref={btnRef}
+            d={isOpen && 'none'}
+            variantColor='orange'
+            variant='outline'
+            onClick={onOpen}
+          >
+            スタート(^∀^)ᕗ
+          </Button>
+        </Box>
+        <TypingGame mt='16' isOpen={isOpen} />
       </Container>
     </Layout>
   );

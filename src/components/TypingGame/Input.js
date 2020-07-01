@@ -1,17 +1,16 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Stack, Input as ChakraInput } from '@chakra-ui/core';
 
-const Input = ({ muscle, setAllCorrectedMessage, shuffleMuscle }) => {
+const Input = ({ inputRef, muscle, setAllCorrectedMessage, shuffleMuscle }) => {
   const [isInvalid, setIsInvalid] = useState(false);
   const [answerCharCount, setAnswerCharCount] = useState(0);
-  const inputRef = useRef(null);
 
   useEffect(() => {
     const node = inputRef.current;
     if (node) {
       node.focus();
     }
-  }, []);
+  }, [inputRef]);
 
   const handleChange = event => {
     const answerChar = event.target.value;
