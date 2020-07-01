@@ -53,7 +53,7 @@ const muscleList = [
   },
   {
     name: '小胸筋',
-    alphabet: [...'shoukyoukin'],
+    alphabet: [...'shoukyoukinn'],
   },
   {
     name: '三角筋',
