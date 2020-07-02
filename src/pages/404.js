@@ -22,7 +22,7 @@ const NotFoundPage = ({ location }) => {
       <SEO title='404: Not Found' />
       <Container>
         <Heading as='h1' my='10'>
-          お探しのページはありません
+          お探しの筋肉はありません
         </Heading>
         <Text my='6' fontSize='xl' lineHeight='2'>
           一時的にアクセスできない状態か、移動もしくは削除された可能性があります。
