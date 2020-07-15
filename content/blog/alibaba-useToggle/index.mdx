@@ -1,0 +1,355 @@
+---
+title: アリババのカスタムフックコードリーディング~useToggle編~
+date: '2020-07-15T17:00:00Z'
+description: ''
+featured: false
+cover: ./cover.jpeg
+tags:
+  - React
+  - Hooks
+---
+
+import Callout from '../../../src/components/widgetComponents/Callout';
+import ExternalLink from '../../../src/components/widgetComponents/ExternalLink';
+
+## アリババのカスタムフックをコードリーディング
+
+React の理解を深めるために、アリババのカスタムフックのコードを読んでいこうと思います！
+
+カスタムフックとは`use`から始まりほかのフックを呼び出せる関数です。  
+自分独自のフックを作成することで、コンポーネントから React のロジックを抽出して再利用可能な関数を作ることが可能です！
+
+OSS として多くのカスタムフックが公開されているなかでアリババを選んだ理由は、  
+わかりやすいドキュメントが用意されていること、有名企業であること、GitHub の Star 数が多いことがあります。
+
+- <ExternalLink href='https://ahooks.js.org/'>ドキュメント</ExternalLink>{' '}
+- <ExternalLink href='https://github.com/alibaba/hooks/'>GitHub</ExternalLink>
+
+## useToggle フック
+
+`useHover`は element が hover 中かそうでないかを判定します。
+
+引数としてターゲットとなるエレメント、ホバー時・ホバーが外れたときの処理を受け取り、  
+hover 中かどうかの真偽値を返します。
+
+### API
+
+```js
+const [state, { toggle, setLeft, setRight }] = useToggle(
+  defaultValue?: boolean,
+);
+const [state, { toggle, setLeft, setRight }] = useToggle(
+  defaultValue: any = false,
+  reverseValue?: any,
+);
+```
+
+### 引数
+
+| Property     | Description                  | Type                                     | Default |
+| ------------ | ---------------------------- | ---------------------------------------- | ------- |
+| defaultValue | デフォルト値を設定           | number \| string \| boolean \| undefined | false   |
+| reverseValue | デフォルト値ではない値を設定 | number \| string \| boolean \| undefined | -       |
+
+### 戻り値
+
+| Property | Description                  | Type   |
+| -------- | ---------------------------- | ------ |
+| state    | state の値                   | -      |
+| actions  | state の値を更新する関数たち | object |
+
+### 戻り値の関数たち
+
+| Property | Description                                  | Type                  |
+| -------- | -------------------------------------------- | --------------------- |
+| toggle   | state の値を置き換える                       | (state?: any) => void |
+| setLeft  | state の値をデフォルトにセットする           | () => void            |
+| setRight | state の値をデフォルトではない方にセットする | () => void            |
+
+### Usage
+
+```jsx demo
+function Demo() {
+  const [state, { toggle, setLeft, setRight }] = useToggle('Hello', 'World');
+
+  return (
+    <div>
+      <p>Effects：{state}</p>
+      <Stack isInline spacing='2'>
+        <Button onClick={() => toggle()}>Toggle</Button>
+        <Button onClick={() => toggle('Hello')}>Toggle Hello</Button>
+        <Button onClick={() => toggle('World')}>Toggle World</Button>
+        <Button onClick={setLeft}>Set Hello</Button>
+        <Button onClick={setRight}>Set World</Button>
+      </Stack>
+    </div>
+  );
+}
+```
+
+<Callout emoji='🥰'>使い所多そう！使い回せるので便利！！</Callout>
+
+## Let's コードリーディング!!!!
+
+`useHover`がどんなカスタムフックか分かったので、どんな実装になっているかコードを読んでいきます！
+
+<Callout emoji='🙌'>
+  ここからが本命！実装を読めば自分でも良いカスタムフックを作れちゃうはず！
+</Callout>
+
+### 全体像
+
+```jsx title=hooks/blob/master/packages/hooks/src/useToggle/index.ts
+import { useState, useMemo } from 'react';
+
+type IState = string | number | boolean | undefined;
+
+export interface Actions<T = IState> {
+  setLeft: () => void;
+  setRight: () => void;
+  toggle: (value?: T) => void;
+}
+
+function useToggle<T = boolean | undefined>(): [boolean, Actions<T>];
+
+function useToggle<T = IState>(defaultValue: T): [T, Actions<T>];
+
+function useToggle<T = IState, U = IState>(
+  defaultValue: T,
+  reverseValue: U,
+): [T | U, Actions<T | U>];
+
+function useToggle<D extends IState = IState, R extends IState = IState>(
+  defaultValue: D = false as D,
+  reverseValue?: R,
+) {
+  const [state, setState] = useState<D | R>(defaultValue);
+  const reverseValueOrigin = useMemo(
+    () => (reverseValue === undefined ? !defaultValue : reverseValue) as D | R,
+    [reverseValue],
+  );
+
+  const actions = useMemo(() => {
+    // 切换返回值
+    const toggle = (value?: D | R) => {
+      // 强制返回状态值，适用于点击操作
+      if (value !== undefined) {
+        setState(value);
+        return;
+      }
+      setState((s) => (s === defaultValue ? reverseValueOrigin : defaultValue));
+    };
+    // 设置默认值
+    const setLeft = () => setState(defaultValue);
+    // 设置取反值
+    const setRight = () => setState(reverseValueOrigin);
+    return {
+      toggle,
+      setLeft,
+      setRight,
+    };
+  }, [setState]);
+
+  return [state, actions];
+}
+
+export default useToggle;
+```
+
+<ExternalLink href='https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useToggle/index.ts'>
+  GitHub
+</ExternalLink>
+
+### useToggle の戻り値
+
+まず、`useToggle`の戻り値を確認する。
+
+```js
+return [state, actions];
+```
+
+`state`と`actions`を配列で返している 👀
+
+#### useToggle の戻り値 state
+
+つぎは`state`を見てみる。
+
+```js
+const [state, setState] = (useState < D) | (R > defaultValue);
+```
+
+defaultValue を初期値で状態をもっているのか 👀
+
+#### useToggle の戻り値 actions
+
+つぎは`actions`を見てみる。
+
+```js
+const actions = useMemo(() => {
+  const toggle = (value?: D | R) => {
+    if (value !== undefined) {
+      setState(value);
+      return;
+    }
+    setState(s => (s === defaultValue ? reverseValueOrigin : defaultValue));
+  };
+  const setLeft = () => setState(defaultValue);
+  const setRight = () => setState(reverseValueOrigin);
+  return {
+    toggle,
+    setLeft,
+    setRight,
+  };
+}, [setState]);
+```
+
+メモ化されたオブジェクトを返していて、`setState`が変更されたときに再評価される 👀  
+オブジェクトの値はそれぞれ関数なのでそれらを見ていく。
+
+##### useToggle の戻り値 actions の 1 つ toggle 関数
+
+```js title=toggle
+const toggle = (value?: D | R) => {
+  if (value !== undefined) {
+    setState(value);
+    return;
+  }
+  setState(s => (s === defaultValue ? reverseValueOrigin : defaultValue));
+};
+```
+
+`toggle`は引数をうけとれば、それを`setState`にわたす 👀
+
+引数をうけとらなければ、  
+`state`が`defaultValue`なら`reverseValueOrigin`を、  
+`defaultValue`でなければ`defaultValue`を、
+`setState`にわたす 👀
+
+`reverseValueOrigin`というのは、
+
+```js title=reverseValueOrigin
+const reverseValueOrigin = useMemo(
+  () => (reverseValue === undefined ? !defaultValue : reverseValue) as D | R,
+  [reverseValue],
+);
+```
+
+メモ化された値で、`reverseValue`が変更されると再評価される 👀  
+（reverseValueはuseToggle()の第二引数）  
+`reverseValue`が  
+undefinedなら`!defaultValue`を返すし  
+undefinedでなければ`reverseValue`を返す 👀
+
+<br />
+
+つまりこんな感じかな？  
+`toggle()`で引数に渡した「Hello」と「World」をトグルする。  
+`toggle('Macho')`みたいに引数渡すとその値に`state`が変わる。
+
+```jsx demo title=useToggleに第二引数を渡した場合
+function Demo() {
+  const [state, { toggle, setLeft, setRight }] = useToggle('Hello', 'World');
+
+  return (
+    <div>
+      <p>Effects：{state}</p>
+      <Stack isInline spacing='2'>
+        <Button onClick={() => toggle()}>Toggle</Button>
+        <Button onClick={() => toggle('Macho')}>Toggle Macho</Button>
+        <Button onClick={() => toggle('Hello')}>Toggle Hello</Button>
+        <Button onClick={() => toggle('World')}>Toggle World</Button>
+      </Stack>
+    </div>
+  );
+}
+```
+
+```jsx demo title=useToggleに第二引数を渡さなかった場合
+function Demo() {
+  const [state, { toggle, setLeft, setRight }] = useToggle('Hello');
+
+  return (
+    <div>
+      <p>Effects：{state}</p>
+      <Stack isInline spacing='2'>
+        <Button onClick={() => toggle()}>Toggle</Button>
+        <Button onClick={() => toggle('Macho')}>Toggle Macho</Button>
+        <Button onClick={() => toggle('Hello')}>Toggle Hello</Button>
+        <Button onClick={() => toggle('World')}>Toggle World</Button>
+      </Stack>
+    </div>
+  );
+}
+```
+
+```jsx demo title=useToggleに引数を渡さなかった場合
+function Demo() {
+  const [state, { toggle, setLeft, setRight }] = useToggle();
+
+  return (
+    <div>
+      <p>Effects：{state ? 'World' : 'Hello'}</p>
+      <Stack isInline spacing='2'>
+        <Button onClick={() => toggle()}>Toggle</Button>
+        <Button onClick={() => toggle(true)}>Toggle Hello</Button>
+        <Button onClick={() => toggle(false)}>Toggle World</Button>
+      </Stack>
+    </div>
+  );
+}
+```
+
+##### useToggle の戻り値 actions の 1 つ setLeft 関数
+
+```js
+const setLeft = () => setState(defaultValue);
+```
+
+これは`defaultValue`を`setState`に渡す関数 👀
+
+```jsx demo
+function Demo() {
+  const [state, { toggle, setLeft, setRight }] = useToggle('Hello', 'World');
+
+  return (
+    <div>
+      <p>Effects：{state}</p>
+      <Stack isInline spacing='2'>
+        <Button onClick={() => toggle()}>Toggle</Button>
+        <Button onClick={setLeft}>Set Hello</Button>
+      </Stack>
+    </div>
+  );
+}
+```
+
+##### useToggle の戻り値 actions の 1 つ setRight 関数
+
+```js
+const setRight = () => setState(reverseValueOrigin);
+```
+
+これは先述の`reverseValueOrigin`を`setState`に渡す関数 👀
+
+```jsx demo
+function Demo() {
+  const [state, { toggle, setLeft, setRight }] = useToggle('Hello', 'World');
+
+  return (
+    <div>
+      <p>Effects：{state}</p>
+      <Stack isInline spacing='2'>
+        <Button onClick={() => toggle()}>Toggle</Button>
+        <Button onClick={setRight}>Set World</Button>
+      </Stack>
+    </div>
+  );
+}
+```
+
+## まとめ
+
+このフックスはいろんな用途に対応できるように汎用的に作られていて勉強になる！  
+ただはじめは汎用的でなくても、シンプルなロジックでも共通化するのは簡単そう！
+
+ほかのフックスも読んで学ぶ！！
