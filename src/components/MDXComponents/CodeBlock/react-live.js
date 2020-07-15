@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { mdx } from '@mdx-js/react';
 import {
   LiveProvider as ReactLiveProvider,
   LiveError as ReactLiveError,
   LivePreview as ReactLivePreview,
 } from 'react-live';
-import * as Chakra from '@chakra-ui/core';
+import * as Chakra from '@chakra-ui/core'
+import * as AHooks from 'ahooks'
 import theme from 'prism-react-renderer/themes/vsDark';
 
 import * as widgetComponents from '../../widgetComponents';
@@ -44,9 +45,11 @@ const LiveProvider = ({ language, code, isManual, ...props }) => (
     transformCode={code => `/** @jsx mdx */ ${code}`}
     scope={{
       ...Chakra,
+      ...AHooks,
       ...widgetComponents,
       mdx,
       useState,
+      useRef,
     }}
     noInline={isManual}
     {...props}
