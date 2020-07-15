@@ -67,11 +67,11 @@ const H4: FC<ComponentProps<typeof Heading>> = props => (
 );
 
 const H5: FC<ComponentProps<typeof Heading>> = props => (
-  <Heading as='h5' size='xs' mt='3' mb='2' {...props} />
+  <Heading as='h5' size='xs' mt='10' mb='2' {...props} />
 );
 
 const H6: FC<ComponentProps<typeof Heading>> = props => (
-  <Heading as='h6' size='xs' mt='1' mb='1' {...props} />
+  <Heading as='h6' size='xs' mt='8' mb='1' {...props} />
 );
 
 export { H2, H3, H4, H5, H6 };
