@@ -14,6 +14,7 @@
     "@mdx-js/mdx": "^1.5.9",
     "@mdx-js/react": "^1.5.9",
     "add": "^2.0.6",
+    "ahooks": "^2.1.0",
     "dayjs": "^1.8.28",
     "dotenv": "^8.2.0",
     "emotion-theming": "^10.0.27",
