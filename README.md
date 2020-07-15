@@ -2,7 +2,7 @@
 
 
 
-# This is the Tech Blog of Yuuki Okamoto
+# This is the Tech Blog and Potfolio Site of Yuuki Okamoto
 
 The tech stack it's built with includes:
 
