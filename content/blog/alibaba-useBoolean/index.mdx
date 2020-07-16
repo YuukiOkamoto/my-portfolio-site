@@ -1,0 +1,163 @@
+---
+title: アリババのカスタムフックコードリーディング~useBoolean編~
+date: '2020-07-16T17:00:00Z'
+description: ''
+featured: false
+cover: ./cover.jpeg
+tags:
+  - React
+  - Hooks
+---
+
+import Callout from '../../../src/components/widgetComponents/Callout';
+import ExternalLink from '../../../src/components/widgetComponents/ExternalLink';
+import PostLink from '../../../src/components/widgetComponents/PostLink';
+
+## アリババのカスタムフックをコードリーディング
+
+React の理解を深めるために、アリババのカスタムフックのコードを読んでいこうと思います！
+
+カスタムフックとは`use`から始まりほかのフックを呼び出せる関数です。  
+自分独自のフックを作成することで、コンポーネントから React のロジックを抽出して再利用可能な関数を作ることが可能です！
+
+OSS として多くのカスタムフックが公開されているなかでアリババを選んだ理由は、  
+わかりやすいドキュメントが用意されていること、有名企業であること、GitHub の Star 数が多いことがあります。
+
+- <ExternalLink href='https://ahooks.js.org/'>ドキュメント</ExternalLink>{' '}
+- <ExternalLink href='https://github.com/alibaba/hooks/'>GitHub</ExternalLink>
+
+## useBoolean フック
+
+**useBoolean**は、**true/false**の値を state 管理する hooks です。
+
+前回ご紹介した**useToggle**が管理してくれた値の型は`number | string | boolean`でしたが、  
+**useBoolean**は`boolean`のみで、より限定された hooks になります。
+
+<PostLink to='/blog/alibaba-useToggle/' />
+
+### API
+
+```javascript
+const [ state, { toggle, setTrue, setFalse }] = useBoolean(
+  defaultValue?: boolean,
+);
+```
+
+### 引数
+
+| Property     | Description                | Type                 | Default |
+| ------------ | -------------------------- | -------------------- | ------- |
+| defaultValue | デフォルト値を設定（任意） | boolean \| undefined | false   |
+
+### 戻り値
+
+| Property | Description                  | Type    |
+| -------- | ---------------------------- | ------- |
+| state    | state の値                   | boolean |
+| actions  | state の値を更新する関数たち | object  |
+
+### 戻り値の関数たち
+
+| Property | Description             | Type                  |
+| -------- | ----------------------- | --------------------- |
+| toggle   | state の値をトグルする  | (value?: any) => void |
+| setTrue  | state に true をセット  | () => void            |
+| setFalse | state に false をセット | () => void            |
+
+### Usage
+
+```jsx demo
+function Demo() {
+  const [state, { toggle, setTrue, setFalse }] = useBoolean(true);
+
+  return (
+    <div>
+      <p>Effects：{JSON.stringify(state)}</p>
+      <Stack isInline spacing='2'>
+        <Button onClick={() => toggle()}>Toggle</Button>
+        <Button onClick={setFalse}>Set false</Button>
+        <Button onClick={setTrue}>Set true</Button>
+      </Stack>
+    </div>
+  );
+}
+```
+
+<Callout emoji='👀'>ホントにいろんなところで使いそう！！</Callout>
+
+## Let's コードリーディング!!!!
+
+`useBoolean`がどんなカスタムフックか分かったので、どんな実装になっているかコードを読んでいきます！
+
+<Callout emoji='🙌'>
+  ここからが本命！実装を読めば自分でも良いカスタムフックを作れちゃうはず！
+</Callout>
+
+### 全体像
+
+```jsx title=hooks/blob/master/packages/hooks/src/useBoolean/index.ts
+import { useMemo } from 'react';
+import useToggle from '../useToggle';
+
+export interface Actions {
+  setTrue: () => void;
+  setFalse: () => void;
+  toggle: (value?: boolean | undefined) => void;
+}
+
+export default function useBoolean(defaultValue = false): [boolean, Actions] {
+  const [state, { toggle }] = useToggle(defaultValue);
+
+  const actions: Actions = useMemo(() => {
+    const setTrue = () => toggle(true);
+    const setFalse = () => toggle(false);
+    return { toggle, setTrue, setFalse };
+  }, [toggle]);
+
+  return [state, actions];
+}
+```
+
+<ExternalLink href='https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useBoolean/index.ts'>
+  GitHub
+</ExternalLink>
+
+### 考察
+
+わりとシンプルな実装で、  
+**state**と**actions**を配列で返している。
+
+```js
+return [state, actions];
+```
+
+**state**はboolean型で初期値は**defaultValue**  
+**toggle**関数によって状態が変わる。  
+(toggle関数の詳細は<ExternalLink href='/blog/alibaba-useToggle/'>usetoggleについてのブログ記事</ExternalLink>を参照)
+
+```js
+const [state, { toggle }] = useToggle(defaultValue);
+```
+
+**actions**は3つの関数が値のオブジェクトで、  
+それぞれ
+- stateの値をtrue⇔falseに切り替える関数
+- stateの値をtrueにする関数
+- stateの値をfalseにする関数
+
+という関数である。  
+ちなみに、メモ化されていて**toggle**に変更があると再評価される。
+
+```js
+const actions: Actions = useMemo(() => {
+  const setTrue = () => toggle(true);
+  const setFalse = () => toggle(false);
+  return { toggle, setTrue, setFalse };
+}, [toggle]);
+```
+
+## まとめ
+
+このフックスをもとに、ホバー中であるかとかクリックしたかどうかとかのフックスを作れそう！  
+
+ほかのフックスも引き続き読んで学ぶ！！
