@@ -33,7 +33,7 @@ const Remarks = ({ isEngineer, ...props }) => (
   <Stack spacing='2' {...props}>
     <Remark>
       <Label>所属</Label>
-      <Box ml='4'>{isEngineer ? '求職中' : 'サンプレイ'}</Box>
+      <Box ml='4'>{isEngineer ? 'おいしい健康' : 'サンプレイ'}</Box>
     </Remark>
     <Remark>
       <Label>{isEngineer ? '職種' : '身長/体重'}</Label>
