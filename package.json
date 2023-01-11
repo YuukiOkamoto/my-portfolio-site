@@ -42,7 +42,7 @@
     "gatsby-remark-smartypants": "^2.2.3",
     "gatsby-source-filesystem": "^2.2.4",
     "gatsby-source-google-spreadsheets": "^3.0.5",
-    "gatsby-transformer-remark": "^2.7.3",
+    "gatsby-transformer-remark": "^5.25.1",
     "gatsby-transformer-sharp": "^2.4.6",
     "gray-percentage": "^2.0.0",
     "parse-numeric-range": "^1.2.0",
